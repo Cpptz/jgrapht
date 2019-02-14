@@ -162,6 +162,24 @@ public class GraphWalkTest
         Assert.assertEquals(10.0, p2.getWeight(), 0.0000000001);
     }
 
+    @Test(expected = InvalidGraphWalkException.class)
+    public void testVerifyValidPath(){
+        Graph<Integer, DefaultEdge> g = new DirectedPseudograph<>(DefaultEdge.class);
+
+        g.addVertex(1);
+        g.addVertex(2);
+        g.addVertex(3);
+        g.addEdge(1, 2);
+        g.addEdge(2, 3);
+        g.addEdge(3, 1);
+
+        GraphWalk<Integer, DefaultEdge> gw1 =
+                new GraphWalk<Integer, DefaultEdge>(g, 0, 3, new ArrayList<Integer>(Arrays.asList( 1, 3, 2)), null,
+                        3);
+        // this will throw an exception because there is no edge from 1 to 3 or even from 3 to 2
+        gw1.verify();
+    }
+
     @Test
     public void testReversePathUndirected()
     {
