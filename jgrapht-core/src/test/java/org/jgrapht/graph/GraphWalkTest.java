@@ -321,4 +321,156 @@ public class GraphWalkTest
         Assert.assertEquals(gw1, gw3);
     }
 
+    @Test(expected = InvalidGraphWalkException.class)
+    public void testVerifyInvalidPath1(){
+        Graph<Integer, DefaultEdge> g = new DirectedPseudograph<>(DefaultEdge.class);
+
+        g.addVertex(1);
+        g.addVertex(2);
+        g.addVertex(3);
+        DefaultEdge e1 = g.addEdge(1, 2);
+        DefaultEdge e2 = g.addEdge(2, 3);
+        DefaultEdge e3 = g.addEdge(3, 1);
+
+        GraphWalk<Integer, DefaultEdge> gw1 =
+                new GraphWalk<Integer, DefaultEdge>(g, 1, 2,  Arrays.asList(e2, e1, e3),
+                        3);
+        // this will throw an exception because the edge e2 (2->3) doesn't leave from 1
+        gw1.verify();
+    }
+
+    @Test(expected = InvalidGraphWalkException.class)
+    public void testVerifyInvalidPath2(){
+        Graph<Integer, DefaultEdge> g = new DirectedPseudograph<>(DefaultEdge.class);
+
+        g.addVertex(1);
+        g.addVertex(2);
+        g.addVertex(3);
+        DefaultEdge e1 = g.addEdge(1, 2);
+        DefaultEdge e2 = g.addEdge(2, 3);
+        DefaultEdge e3 = g.addEdge(3, 1);
+        g.removeEdge(e3);
+
+        GraphWalk<Integer, DefaultEdge> gw1 =
+                new GraphWalk<Integer, DefaultEdge>(g, 1, 2,  Arrays.asList(e1,e2, e3),
+                        3);
+        // this will throw an exception because the edge e3 is not part of the graph
+        gw1.verify();
+    }
+
+    @Test(expected = InvalidGraphWalkException.class)
+    public void testVerifyInvalidPath3(){
+        Graph<Integer, DefaultEdge> g = new DirectedPseudograph<>(DefaultEdge.class);
+
+        g.addVertex(1);
+        g.addVertex(2);
+        g.addVertex(3);
+        DefaultEdge e1 = g.addEdge(1, 2);
+        DefaultEdge e2 = g.addEdge(2, 3);
+        DefaultEdge e3 = g.addEdge(3, 1);
+
+        GraphWalk<Integer, DefaultEdge> gw1 =
+                new GraphWalk<Integer, DefaultEdge>(g, 1, 2,  Arrays.asList(e1,e2, e3),
+                        3);
+        // this will throw an exception because the path defined by the edge ends in 1 and not in 2
+        gw1.verify();
+    }
+
+    @Test(expected = InvalidGraphWalkException.class)
+    public void testVerifyInvalidPath4(){
+        Graph<Integer, DefaultEdge> g = new DirectedPseudograph<>(DefaultEdge.class);
+
+        g.addVertex(1);
+        g.addVertex(2);
+        g.addVertex(3);
+        g.addVertex(4);
+        DefaultEdge e1 = g.addEdge(1, 4);
+        DefaultEdge e2 = g.addEdge(4, 2);
+        DefaultEdge e4 = g.addEdge(1, 3);
+        DefaultEdge e5 = g.addEdge(3, 2);
+
+
+        GraphWalk<Integer, DefaultEdge> gw1 =
+                new GraphWalk<Integer, DefaultEdge>(g, 1, 2, Arrays.asList(1,3,2), Arrays.asList(e1,e2),
+                        3);
+        // this will throw an exception because the path defined by the edge and the one defined by node
+        // are different
+        gw1.verify();
+    }
+
+    @Test(expected = InvalidGraphWalkException.class)
+    public void testVerifyInvalidPath5(){
+        Graph<Integer, DefaultEdge> g = new DefaultUndirectedGraph<>(DefaultEdge.class);
+
+        g.addVertex(1);
+        g.addVertex(2);
+        g.addVertex(3);
+        g.addVertex(4);
+        DefaultEdge e1 = g.addEdge(1, 4);
+        DefaultEdge e2 = g.addEdge(4, 2);
+        DefaultEdge e4 = g.addEdge(1, 3);
+        DefaultEdge e5 = g.addEdge(3, 2);
+
+
+        GraphWalk<Integer, DefaultEdge> gw1 =
+                new GraphWalk<Integer, DefaultEdge>(g, 1, 2, Arrays.asList(1,3,2), Arrays.asList(e1,e2),
+                        3);
+        // this will throw an exception because the path defined by the edge and the one defined by node
+        // do not form a feasible path
+        gw1.verify();
+    }
+
+    @Test(expected = InvalidGraphWalkException.class)
+    public void testVerifyInvalidPath6(){
+        Graph<Integer, DefaultEdge> g = new DirectedPseudograph<>(DefaultEdge.class);
+
+        g.addVertex(1);
+        g.addVertex(2);
+        g.addVertex(3);
+        g.addEdge(1, 2);
+        g.addEdge(2, 3);
+        g.addEdge(3, 1);
+
+        GraphWalk<Integer, DefaultEdge> gw1 =
+                new GraphWalk<Integer, DefaultEdge>(g, 2, 2, new ArrayList<Integer>(Arrays.asList( 1, 3, 2)), null,
+                        3);
+        // this will throw an exception because 2 is not the same as the first vertex in the list
+        gw1.verify();
+    }
+
+    @Test(expected = InvalidGraphWalkException.class)
+    public void testVerifyInvalidPath7(){
+        Graph<Integer, DefaultEdge> g = new DirectedPseudograph<>(DefaultEdge.class);
+
+        g.addVertex(1);
+        g.addVertex(2);
+        g.addVertex(3);
+        g.addEdge(1, 2);
+        g.addEdge(2, 3);
+        g.addEdge(3, 1);
+
+        GraphWalk<Integer, DefaultEdge> gw1 =
+                new GraphWalk<Integer, DefaultEdge>(g, 1, 3, new ArrayList<Integer>(Arrays.asList( 1, 3, 2)), null,
+                        3);
+        // this will throw an exception because 3 is not the same as the last vertex in the list
+        gw1.verify();
+    }
+    @Test(expected = InvalidGraphWalkException.class)
+    public void testVerifyInvalidPath8(){
+        Graph<Integer, DefaultEdge> g = new DirectedPseudograph<>(DefaultEdge.class);
+
+        g.addVertex(1);
+        g.addVertex(2);
+        g.addVertex(3);
+        g.addEdge(1, 2);
+        g.addEdge(2, 3);
+        g.addEdge(3, 1);
+
+        GraphWalk<Integer, DefaultEdge> gw1 =
+                new GraphWalk<Integer, DefaultEdge>(g, 1, 2, new ArrayList<Integer>(Arrays.asList( 1, 3, 5, 2)), null,
+                        3);
+        // this will throw an exception because 5 is not contained in the graph
+        gw1.verify();
+    }
+
 }
