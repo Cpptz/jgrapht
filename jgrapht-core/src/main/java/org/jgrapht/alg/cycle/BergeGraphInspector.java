@@ -65,6 +65,7 @@ public class BergeGraphInspector<V, E>
 
     private GraphPath<V, E> certificate = null;
     private boolean certify = false;
+    static boolean[] branchCovered = new boolean[19];
 
     /**
      * Lists the vertices which are covered by two paths
@@ -764,18 +765,35 @@ public class BergeGraphInspector<V, E>
     boolean hasConfigurationType2(Graph<V, E> g)
     {
         for (V v1 : g.vertexSet()) {
+            // branch
+            branchCovered[0] = true;
             for (V v2 : g.vertexSet()) {
-                if (v1 == v2 || !g.containsEdge(v1, v2))
+                // branch
+                branchCovered[1] = true;
+                if (v1 == v2 || !g.containsEdge(v1, v2)) {
+                    // branch
+                    branchCovered[2] = true;
                     continue;
+                }
 
                 for (V v3 : g.vertexSet()) {
-                    if (v3 == v2 || v1 == v3 || g.containsEdge(v1, v3) || !g.containsEdge(v2, v3))
+                    // branch
+                    branchCovered[3] = true;
+                    if (v3 == v2 || v1 == v3 || g.containsEdge(v1, v3) || !g.containsEdge(v2, v3)) {
+                        // branch
+                        branchCovered[4] = true;
                         continue;
+                    }
 
                     for (V v4 : g.vertexSet()) {
+                        // branch
+                        branchCovered[5] = true;
                         if (v4 == v1 || v4 == v2 || v4 == v3 || g.containsEdge(v4, v2)
-                            || g.containsEdge(v4, v1) || !g.containsEdge(v3, v4))
+                            || g.containsEdge(v4, v1) || !g.containsEdge(v3, v4)) {
+                            // branch
+                            branchCovered[6] = true;
                             continue;
+                        }
 
                         Set<V> temp = new HashSet<>();
                         temp.add(v1);
@@ -783,47 +801,74 @@ public class BergeGraphInspector<V, E>
                         temp.add(v4);
                         Set<V> Y = new HashSet<>();
                         for (V y : g.vertexSet()) {
+                            // branch
+                            branchCovered[7] = true;
                             if (isYXComplete(g, y, temp)) {
+                                // branch
+                                branchCovered[8] = true;
                                 Y.add(y);
                             }
                         }
                         List<Set<V>> anticomponentsOfY = findAllAnticomponentsOfY(g, Y);
                         for (Set<V> X : anticomponentsOfY) {
+                            // branch
+                            branchCovered[9] = true;
                             Set<V> v2v3 = new HashSet<>();
                             v2v3.addAll(g.vertexSet());
                             v2v3.remove(v2);
                             v2v3.remove(v3);
                             v2v3.removeAll(X);
-                            if (!v2v3.contains(v1) || !v2v3.contains(v4))
+                            if (!v2v3.contains(v1) || !v2v3.contains(v4)) {
+                                // branch
+                                branchCovered[10] = true;
                                 continue;
+                            }
 
                             GraphPath<V, E> Path =
                                 new DijkstraShortestPath<>(new AsSubgraph<>(g, v2v3))
                                     .getPath(v1, v4);
-                            if (Path == null)
+                            if (Path == null) {
+                                // branch
+                                branchCovered[11] = true;
                                 continue;
+                            }
                             List<V> P = Path.getVertexList();
-                            if (!P.contains(v1) || !P.contains(v4))
+                            if (!P.contains(v1) || !P.contains(v4)) {
+                                // branch
+                                branchCovered[12] = true;
                                 continue;
+                            }
 
                             boolean cont = true;
                             for (V p : P) {
+                                // branch
+                                branchCovered[13] = true;
                                 if (p != v1 && p != v4 && (g.containsEdge(p, v2)
                                     || g.containsEdge(p, v3) || isYXComplete(g, p, X)))
                                 {
+                                    // branch
+                                    branchCovered[14] = true;
                                     cont = false;
                                     break;
                                 }
                             }
                             if (cont) {
+                                // branch
+                                branchCovered[15] = true;
                                 if (certify) {
+                                    // branch
+                                    branchCovered[16] = true;
                                     List<E> edgeList = new LinkedList<>();
                                     if (Path.getLength() % 2 == 0) {
+                                        // branch
+                                        branchCovered[17] = true;
                                         edgeList.add(g.getEdge(v1, v2));
                                         edgeList.add(g.getEdge(v2, v3));
                                         edgeList.add(g.getEdge(v3, v4));
                                         edgeList.addAll(Path.getEdgeList());
                                     } else {
+                                        // branch
+                                        branchCovered[18] = true;
                                         edgeList.addAll(Path.getEdgeList());
                                         V x = X.iterator().next();
                                         edgeList.add(g.getEdge(v4, x));

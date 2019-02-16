@@ -56,6 +56,18 @@ public class BergeGraphInspectorTest
 
     private int repititionsPerTestCase = 1;
 
+    @AfterClass
+    public static void tearDownAll() {
+        int count = 0;
+        for (int i = 0; i < BergeGraphInspector.branchCovered.length; i++) {
+            if (BergeGraphInspector.branchCovered[i] == true) {
+                count ++;
+            }
+        }
+        System.out.println(count);
+        System.out.println(BergeGraphInspector.branchCovered.length);
+    }
+
     @Test
     public void checkPyramid()
     {
