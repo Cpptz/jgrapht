@@ -65,6 +65,7 @@ public class BergeGraphInspector<V, E>
 
     private GraphPath<V, E> certificate = null;
     private boolean certify = false;
+    static boolean[] branchCovered2 = new boolean[20];
 
     /**
      * Lists the vertices which are covered by two paths
@@ -914,52 +915,90 @@ public class BergeGraphInspector<V, E>
     boolean hasConfigurationType3(Graph<V, E> g)
     {
         for (V v1 : g.vertexSet()) {
+            //branch1
+            branchCovered2[0] = true;
             for (V v2 : g.vertexSet()) {
-                if (v1 == v2 || !g.containsEdge(v1, v2))
+                //branch2
+                branchCovered2[1] = true;
+                if (v1 == v2 || !g.containsEdge(v1, v2)) {
+                    //branch3
+                    branchCovered2[2] = true;
                     continue;
+                }
                 for (V v5 : g.vertexSet()) {
-                    if (v1 == v5 || v2 == v5 || g.containsEdge(v1, v5) || g.containsEdge(v2, v5))
+                    //branch4
+                    branchCovered2[3] = true;
+                    if (v1 == v5 || v2 == v5 || g.containsEdge(v1, v5) || g.containsEdge(v2, v5)) {
+                        //branch5
+                        branchCovered2[4] = true;
                         continue;
+                    }
                     Set<V> triple = new HashSet<>();
                     triple.add(v1);
                     triple.add(v2);
                     triple.add(v5);
                     Set<V> Y = new HashSet<>();
                     for (V y : g.vertexSet()) {
+                        //branch6
+                        branchCovered2[5] = true;
                         if (isYXComplete(g, y, triple)) {
+                            //branch7
+                            branchCovered2[6] = true;
                             Y.add(y);
                         }
                     }
                     List<Set<V>> anticomponents = findAllAnticomponentsOfY(g, Y);
                     for (Set<V> X : anticomponents) {
+                        //branch8
+                        branchCovered2[7] = true;
                         Set<V> FPrime = findMaximalConnectedSubset(g, X, v1, v2, v5);
                         Set<V> F = new HashSet<>();
                         F.addAll(FPrime);
                         for (V x : X) {
+                            //branch9
+                            branchCovered2[8] = true;
                             if (!g.containsEdge(x, v1) && !g.containsEdge(x, v2)
-                                && !g.containsEdge(x, v5) && hasANeighbour(g, FPrime, x))
+                                && !g.containsEdge(x, v5) && hasANeighbour(g, FPrime, x)) {
+                                //branch10
+                                branchCovered2[9] = true;
                                 F.add(x);
+                            }
                         }
 
                         for (V v4 : g.vertexSet()) {
+                            //branch11
+                            branchCovered2[10] = true;
                             if (v4 == v1 || v4 == v2 || v4 == v5 || g.containsEdge(v2, v4)
                                 || g.containsEdge(v5, v4) || !g.containsEdge(v1, v4)
                                 || !hasANeighbour(g, F, v4) || !hasANonneighbourInX(g, v4, X)
-                                || isYXComplete(g, v4, X))
+                                || isYXComplete(g, v4, X)) {
+                                //branch12
+                                branchCovered2[11] = true;
                                 continue;
+                            }
 
                             for (V v3 : g.vertexSet()) {
+                                //branch13
+                                branchCovered2[12] = true;
                                 if (v3 == v1 || v3 == v2 || v3 == v4 || v3 == v5
                                     || !g.containsEdge(v2, v3) || !g.containsEdge(v3, v4)
                                     || !g.containsEdge(v5, v3) || g.containsEdge(v1, v3)
-                                    || !hasANonneighbourInX(g, v3, X) || isYXComplete(g, v3, X))
+                                    || !hasANonneighbourInX(g, v3, X) || isYXComplete(g, v3, X)) {
+                                    //branch14
+                                    branchCovered2[13] = true;
                                     continue;
+                                }
                                 for (V v6 : F) {
+                                    //branch15
+                                    branchCovered2[14] = true;
                                     if (v6 == v1 || v6 == v2 || v6 == v3 || v6 == v4 || v6 == v5
                                         || !g.containsEdge(v4, v6) || g.containsEdge(v1, v6)
                                         || g.containsEdge(v2, v6)
-                                        || g.containsEdge(v5, v6) && !isYXComplete(g, v6, X))
+                                        || g.containsEdge(v5, v6) && !isYXComplete(g, v6, X)) {
+                                        //branch16
+                                        branchCovered2[15] = true;
                                         continue;
+                                    }
                                     Set<V> verticesForPv5v6 = new HashSet<>();
                                     verticesForPv5v6.addAll(FPrime);
                                     verticesForPv5v6.add(v5);
@@ -972,7 +1011,11 @@ public class BergeGraphInspector<V, E>
                                     if (new ConnectivityInspector<>(
                                         new AsSubgraph<>(g, verticesForPv5v6)).pathExists(v6, v5))
                                     {
+                                        //branch17
+                                        branchCovered2[16] = true;
                                         if (certify) {
+                                            //branch18
+                                            branchCovered2[17] = true;
                                             List<E> edgeList = new LinkedList<>();
                                             edgeList.add(g.getEdge(v1, v4));
                                             edgeList.add(g.getEdge(v4, v6));
@@ -980,10 +1023,14 @@ public class BergeGraphInspector<V, E>
                                                 new DijkstraShortestPath<>(g).getPath(v6, v5);
                                             edgeList.addAll(P.getEdgeList());
                                             if (P.getLength() % 2 == 1) {
+                                                //branch19
+                                                branchCovered2[18] = true;
                                                 V x = X.iterator().next();
                                                 edgeList.add(g.getEdge(v5, x));
                                                 edgeList.add(g.getEdge(x, v1));
                                             } else {
+                                                //branch20
+                                                branchCovered2[19] = true;
                                                 edgeList.add(g.getEdge(v5, v3));
                                                 edgeList.add(g.getEdge(v3, v4));
                                                 edgeList.add(g.getEdge(v4, v1));
