@@ -90,6 +90,22 @@ public class KleinbergSmallWorldGraphGenerator<V, E>
 
     /**
      * Constructor
+     *
+     * added to be able to test all branches of the generateGraph function
+     *
+     */
+
+     public KleinbergSmallWorldGraphGenerator(int n)
+    {
+        this.n = n;
+        this.p = 0;
+        this.q = 0;
+        this.r = 0;
+        this.rng = new Random();
+    }
+
+    /**
+     * Constructor
      * 
      * @param n generate set of lattice points in a $n \times n$ square
      * @param p lattice distance for which each node is connected to every other node in the lattice
