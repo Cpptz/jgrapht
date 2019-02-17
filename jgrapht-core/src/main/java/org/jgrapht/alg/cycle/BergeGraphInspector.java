@@ -66,6 +66,8 @@ public class BergeGraphInspector<V, E>
     private GraphPath<V, E> certificate = null;
     private boolean certify = false;
 
+    private boolean[] visited = new boolean[11];
+
     /**
      * Lists the vertices which are covered by two paths
      * 
@@ -422,17 +424,22 @@ public class BergeGraphInspector<V, E>
     {
         for (V v2 : g.vertexSet()) {
             for (V v3 : g.vertexSet()) {
-                if (v2 == v3 || !g.containsEdge(v2, v3))
-                    continue;
+                if (v2 == v3 || !g.containsEdge(v2, v3)) {
+                    visited[0] = true;
+                     continue;
+                }
                 for (V v5 : g.vertexSet()) {
-                    if (v2 == v5 || v3 == v5)
+                    if (v2 == v5 || v3 == v5) {
+                        visited[1] = true;
                         continue;
-
+                    }
                     Set<V> F = new HashSet<>();
                     for (V f : g.vertexSet()) {
                         if (f == v2 || f == v3 || f == v5 || g.containsEdge(f, v2)
-                            || g.containsEdge(f, v3) || g.containsEdge(f, v5))
+                            || g.containsEdge(f, v3) || g.containsEdge(f, v5)){
+                            visited[2] = true;
                             continue;
+                        }
                         F.add(f);
                     }
 
@@ -441,27 +448,37 @@ public class BergeGraphInspector<V, E>
                     Set<V> X1 = new HashSet<>();
                     for (V x1 : g.vertexSet()) {
                         if (x1 == v2 || x1 == v3 || x1 == v5 || !g.containsEdge(x1, v2)
-                            || !g.containsEdge(x1, v5) || g.containsEdge(x1, v3))
+                            || !g.containsEdge(x1, v5) || g.containsEdge(x1, v3)) {
+                            visited[3] = true;
                             continue;
+                        }
                         X1.add(x1);
                     }
                     Set<V> X2 = new HashSet<>();
                     for (V x2 : g.vertexSet()) {
                         if (x2 == v2 || x2 == v3 || x2 == v5 || g.containsEdge(x2, v2)
-                            || !g.containsEdge(x2, v5) || !g.containsEdge(x2, v3))
+                            || !g.containsEdge(x2, v5) || !g.containsEdge(x2, v3)) {
+                            visited[4] = true;
                             continue;
+                        }
                         X2.add(x2);
                     }
 
                     for (V v1 : X1) {
-                        if (g.containsEdge(v1, v3))
+                        if (g.containsEdge(v1, v3)) {
+                            visited[5] = true;
                             continue;
+                        }
                         for (V v4 : X2) {
-                            if (v1 == v4 || g.containsEdge(v1, v4) || g.containsEdge(v2, v4))
+                            if (v1 == v4 || g.containsEdge(v1, v4) || g.containsEdge(v2, v4)) {
+                                visited[6] = true;
                                 continue;
+                            }
                             for (Set<V> FPrime : componentsOfF) {
                                 if (hasANeighbour(g, FPrime, v1) && hasANeighbour(g, FPrime, v4)) {
+                                    visited[7] = true;
                                     if (certify) {
+                                        visited[8] = true;
                                         Set<V> validSet = new HashSet<>();
                                         validSet.addAll(FPrime);
                                         validSet.add(v1);
@@ -471,10 +488,12 @@ public class BergeGraphInspector<V, E>
                                         List<E> edgeList = new LinkedList<>();
                                         edgeList.addAll(p.getEdgeList());
                                         if (p.getLength() % 2 == 1) {
+                                            visited[9] = true;
                                             edgeList.add(g.getEdge(v4, v5));
                                             edgeList.add(g.getEdge(v5, v1));
 
                                         } else {
+                                            visited[10] = true;
                                             edgeList.add(g.getEdge(v4, v3));
                                             edgeList.add(g.getEdge(v3, v2));
                                             edgeList.add(g.getEdge(v2, v1));
@@ -485,6 +504,10 @@ public class BergeGraphInspector<V, E>
                                             edgeList.stream().mapToDouble(g::getEdgeWeight).sum();
                                         certificate = new GraphWalk<>(g, v1, v1, edgeList, weight);
                                     }
+                                    for(boolean b: visited){
+                                        System.out.print(b + " ");
+                                    }
+                                    System.out.println();
                                     return true;
                                 }
                             }
@@ -493,7 +516,10 @@ public class BergeGraphInspector<V, E>
                 }
             }
         }
-
+        for(boolean b: visited){
+            System.out.print(b + " ");
+        }
+        System.out.println();
         return false;
     }
 
