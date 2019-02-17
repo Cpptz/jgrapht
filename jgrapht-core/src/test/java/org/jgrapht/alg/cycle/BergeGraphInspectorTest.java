@@ -36,7 +36,7 @@ public class BergeGraphInspectorTest
     private void reset()
     {
         stimulus = new SimpleGraph<>(
-            SupplierUtil.createIntegerSupplier(), SupplierUtil.createIntegerSupplier(), false);
+                SupplierUtil.createIntegerSupplier(), SupplierUtil.createIntegerSupplier(), false);
     }
 
     private boolean verifyCertificate(GraphPath<Integer, Integer> certificate)
@@ -47,8 +47,8 @@ public class BergeGraphInspectorTest
         set.addAll(certificate.getVertexList());
         Graph<Integer, Integer> subg = new AsSubgraph<>(certificate.getGraph(), set);
         return subg.vertexSet().size() == subg.edgeSet().size()
-            && subg.edgeSet().size() == subg.vertexSet().size() && subg.vertexSet().size() % 2 == 1
-            && subg.vertexSet().stream().allMatch(t -> subg.edgesOf(t).size() == 2);
+                && subg.edgeSet().size() == subg.vertexSet().size() && subg.vertexSet().size() % 2 == 1
+                && subg.vertexSet().stream().allMatch(t -> subg.edgesOf(t).size() == 2);
 
     }
 
@@ -131,6 +131,58 @@ public class BergeGraphInspectorTest
         assertFalse(dut.containsPyramid(stimulus));
 
     }
+
+
+    @Test
+    public void myCheckJewel()
+    {
+        reset();
+
+        stimulus.addVertex(1);
+        stimulus.addVertex(2);
+        stimulus.addVertex(3);
+        stimulus.addVertex(4);
+        stimulus.addVertex(5);
+
+        stimulus.addEdge(1, 2);
+        stimulus.addEdge(2, 3);
+        stimulus.addEdge(3, 4);
+        stimulus.addEdge(4, 5);
+        stimulus.addEdge(5, 1);
+
+        /*
+         * non-edges: v1v3 v2v4 v1v4
+         */
+
+        stimulus.addVertex(6);
+        stimulus.addVertex(7);
+        stimulus.addVertex(8);
+        stimulus.addVertex(9);
+        stimulus.addVertex(10);
+        stimulus.addVertex(11);
+
+
+        stimulus.addEdge(1, 6);
+        stimulus.addEdge(6, 7);
+        stimulus.addEdge(7, 8);
+        stimulus.addEdge(8, 9);
+        stimulus.addEdge(9, 10);
+        stimulus.addEdge(10, 11);
+        stimulus.addEdge(11, 4);
+
+        stimulus.addEdge(11, 9);
+        stimulus.addEdge(9, 7);
+      //  stimulus.addEdge(7, 5);
+
+        assertTrue(dut.containsJewel(stimulus));
+        dut.isBerge(stimulus, true);
+        assertTrue(verifyCertificate(dut.getCertificate()));
+
+        stimulus.addEdge(1, 3);
+        assertFalse(dut.containsJewel(stimulus));
+
+    }
+
 
     @Test
     public void checkJewel()
@@ -266,9 +318,9 @@ public class BergeGraphInspectorTest
          * Non-edges: stimulus.addEdge(1,3); stimulus.addEdge(2,4); stimulus.addEdge(1,5);
          * stimulus.addEdge(2,5); stimulus.addEdge(1,6); stimulus.addEdge(2,6);
          * stimulus.addEdge(4,5);
-         * 
+         *
          * Optional edges: stimulus.addEdge(3,5); stimulus.addEdge(3,6);
-         * 
+         *
          * stimulus.addEdge(5,6); implies non-edge stimulus.addEdge(6,7);
          */
 
@@ -281,7 +333,7 @@ public class BergeGraphInspectorTest
         /*
          * Non-edges either: stimulus.addEdge(3,7); or stimulus.addEdge(4,7); !! Note: one is to
          * choose, otherwise it is a 5-Cycle !!
-         * 
+         *
          * Optional edges if non-edge stimulus.addEdge(5,6); stimulus.addEdge(6,7);
          */
 
@@ -296,12 +348,12 @@ public class BergeGraphInspectorTest
 
         /*
          * Non-edges: stimulus.addEdge(1,9); stimulus.addEdge(2,9); stimulus.addEdge(7,9);
-         * 
+         *
          * Optional edges: stimulus.addEdge(1,8); stimulus.addEdge(2,8); stimulus.addEdge(3,8);
          * stimulus.addEdge(4,8); stimulus.addEdge(6,8); stimulus.addEdge(7,8);
          * stimulus.addEdge(8,10); stimulus.addEdge(3,9); stimulus.addEdge(4,9);
          * stimulus.addEdge(5,9); stimulus.addEdge(6,9);
-         * 
+         *
          */
 
         assertTrue(dut.hasConfigurationType3(stimulus));
@@ -592,8 +644,8 @@ public class BergeGraphInspectorTest
     {
         reset();
         int numberOfVertices =
-            new Random().nextInt(maximalNumberOfVertices - minimalNumberOfVertices)
-                + minimalNumberOfVertices;
+                new Random().nextInt(maximalNumberOfVertices - minimalNumberOfVertices)
+                        + minimalNumberOfVertices;
         new EmptyGraphGenerator<Integer, Integer>(numberOfVertices).generateGraph(stimulus);
         assertTrue(dut.isBerge(stimulus, true));
         assertFalse(verifyCertificate(dut.getCertificate()));
@@ -607,14 +659,14 @@ public class BergeGraphInspectorTest
         reset();
         while (repititions-- > 0) {
             int n1 = new Random().nextInt(maximalNumberOfVertices - minimalNumberOfVertices) / 2
-                + minimalNumberOfVertices / 2, n2 = maximalNumberOfVertices - n1;
+                    + minimalNumberOfVertices / 2, n2 = maximalNumberOfVertices - n1;
 
             int maximalNumberOfEdges = n1 * n2;
             int numberOfEdges = new Random().nextInt(maximalNumberOfEdges);
 
             reset();
             new GnmRandomBipartiteGraphGenerator<Integer, Integer>(n1, n2, numberOfEdges)
-                .generateGraph(stimulus);
+                    .generateGraph(stimulus);
 
             assertTrue(dut.isBerge(stimulus));
         }
@@ -630,8 +682,8 @@ public class BergeGraphInspectorTest
         while (repititions-- > 0) {
 
             int numberOfVertices =
-                new Random().nextInt(maximalNumberOfVertices - minimalNumberOfVertices)
-                    + minimalNumberOfVertices;
+                    new Random().nextInt(maximalNumberOfVertices - minimalNumberOfVertices)
+                            + minimalNumberOfVertices;
             if (numberOfVertices % 2 == 0)
                 numberOfVertices += 1;
             assertTrue(maximalNumberOfVertices > minimalNumberOfVertices);
@@ -646,8 +698,8 @@ public class BergeGraphInspectorTest
         while (repititions-- > 0) {
 
             int numberOfVertices =
-                new Random().nextInt(maximalNumberOfVertices - minimalNumberOfVertices)
-                    + minimalNumberOfVertices;
+                    new Random().nextInt(maximalNumberOfVertices - minimalNumberOfVertices)
+                            + minimalNumberOfVertices;
             if (numberOfVertices % 2 == 1)
                 numberOfVertices += 1;
             assertTrue(maximalNumberOfVertices > minimalNumberOfVertices);
@@ -670,7 +722,7 @@ public class BergeGraphInspectorTest
             reset();
 
             new WindmillGraphsGenerator<Integer, Integer>(
-                WindmillGraphsGenerator.Mode.WINDMILL, m, numberOfVertices).generateGraph(stimulus);
+                    WindmillGraphsGenerator.Mode.WINDMILL, m, numberOfVertices).generateGraph(stimulus);
 
             assertTrue(dut.isBerge(stimulus));
         }
