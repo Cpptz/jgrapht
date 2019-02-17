@@ -66,6 +66,10 @@ public class BergeGraphInspectorTest
         }
         System.out.println(count);
         System.out.println(BergeGraphInspector.branchCovered.length);
+
+        for (int i = 0; i < BergeGraphInspector.branchCovered.length; i++) {
+            System.out.println(i +" : "+BergeGraphInspector.branchCovered[i]);
+        }
     }
 
     @Test
