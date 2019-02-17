@@ -30,9 +30,26 @@ import static org.junit.Assert.fail;
  */
 public class KleinbergSmallWorldGraphGeneratorTest
 {
+
+    @AfterClass
+    public static void tearDownAll() {
+        int count = 0;
+        for (int i = 0; i < KleinbergSmallWorldGraphGenerator.branchCovered.length; i++) {
+            if (KleinbergSmallWorldGraphGenerator.branchCovered[i] == true) {
+                count++;
+            }
+        }
+        System.out.println(count);
+        System.out.println(KleinbergSmallWorldGraphGenerator.branchCovered.length);
+        for (int i = 0; i < KleinbergSmallWorldGraphGenerator.branchCovered.length; i++) {
+            System.out.println("branch: " + i + " visited = " + KleinbergSmallWorldGraphGenerator.branchCovered[i]);
+        }
+    }
+
     @Test
     public void testBadParameters()
     {
+
         try {
             new KleinbergSmallWorldGraphGenerator<>(-1, 1, 1, 1);
             fail("Bad parameter");

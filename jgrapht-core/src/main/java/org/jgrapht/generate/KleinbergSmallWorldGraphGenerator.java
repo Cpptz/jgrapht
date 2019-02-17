@@ -130,6 +130,9 @@ public class KleinbergSmallWorldGraphGenerator<V, E>
      * @param target the target graph
      * @param resultMap not used by this generator, can be null
      */
+
+    static boolean[] branchCovered = new boolean[17];
+
     @Override
     public void generateGraph(Graph<V, E> target, Map<String, V> resultMap)
     {
@@ -137,8 +140,10 @@ public class KleinbergSmallWorldGraphGenerator<V, E>
          * Special cases
          */
         if (n == 0) {
+            branchCovered[0] = true;
             return;
         } else if (n == 1) {
+            branchCovered[1] = true;
             target.addVertex();
             return;
         }
@@ -154,6 +159,7 @@ public class KleinbergSmallWorldGraphGenerator<V, E>
          */
         List<V> nodes = new ArrayList<>(n * n);
         for (int i = 0; i < n * n; i++) {
+            branchCovered[2] = true;
             nodes.add(target.addVertex());
         }
 
@@ -161,18 +167,24 @@ public class KleinbergSmallWorldGraphGenerator<V, E>
          * Add local-contacts
          */
         for (int i = 0; i < n; i++) {
+            branchCovered[3] = true;
             for (int j = 0; j < n; j++) {
+                branchCovered[4] = true;
                 int vi = i * n + j;
                 V v = nodes.get(vi);
 
                 // lookup neighborhood
                 for (int di = -p; di <= p; di++) {
+                    branchCovered[5] = true;
                     for (int dj = -p; dj <= p; dj++) {
+                        branchCovered[6] = true;
                         int t = (i + di) * n + (j + dj);
                         if (t < 0 || t == vi || t >= n * n) {
+                            branchCovered[7] = true;
                             continue;
                         }
                         if (Math.abs(di) + Math.abs(dj) <= p && (isDirected || t > i * n + j)) {
+                            branchCovered[8] = true;
                             target.addEdge(v, nodes.get(t));
                         }
                     }
@@ -185,7 +197,9 @@ public class KleinbergSmallWorldGraphGenerator<V, E>
          */
         double[] p = new double[n * n];
         for (int i = 0; i < n; i++) {
+            branchCovered[9] = true;
             for (int j = 0; j < n; j++) {
+                branchCovered[10] = true;
                 V v = nodes.get(i * n + j);
 
                 /*
@@ -193,8 +207,11 @@ public class KleinbergSmallWorldGraphGenerator<V, E>
                  */
                 double sum = 0d;
                 for (int oi = 0; oi < n; oi++) {
+                    branchCovered[11] = true;
                     for (int oj = 0; oj < n; oj++) {
+                        branchCovered[12] = true;
                         if (oi != i || oj != j) {
+                            branchCovered[13] = true;
                             double weight = Math.pow(Math.abs(i - oi) + Math.abs(j - oj), -r);
                             p[oi * n + oj] = weight;
                             sum += weight;
@@ -203,6 +220,7 @@ public class KleinbergSmallWorldGraphGenerator<V, E>
                 }
                 p[i * n + j] = 0d;
                 for (int k = 0; k < n * n; k++) {
+                    branchCovered[14] = true;
                     p[k] /= sum;
                 }
 
@@ -211,8 +229,10 @@ public class KleinbergSmallWorldGraphGenerator<V, E>
                  */
                 AliasMethodSampler sampler = new AliasMethodSampler(p, rng);
                 for (int k = 0; k < q; k++) {
+                    branchCovered[15] = true;
                     V u = nodes.get(sampler.next());
                     if (!u.equals(v) && !target.containsEdge(v, u)) {
+                        branchCovered[16] = true;
                         target.addEdge(v, u);
                     }
                 }
