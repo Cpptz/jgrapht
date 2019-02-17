@@ -312,6 +312,74 @@ public class BergeGraphInspectorTest
     }
 
     @Test
+    public void testConfigurationType31()
+    {
+        reset();
+
+        stimulus.addVertex(1);
+        stimulus.addVertex(2);
+        stimulus.addVertex(3);
+        stimulus.addVertex(4);
+        stimulus.addVertex(5);
+        stimulus.addVertex(6);
+
+        stimulus.addEdge(1, 2);
+        stimulus.addEdge(3, 4);
+        stimulus.addEdge(1, 4);
+        stimulus.addEdge(2, 3);
+        stimulus.addEdge(3, 5);
+        stimulus.addEdge(4, 6);
+
+        /*
+         * Non-edges: stimulus.addEdge(1,3); stimulus.addEdge(2,4); stimulus.addEdge(1,5);
+         * stimulus.addEdge(2,5); stimulus.addEdge(1,6); stimulus.addEdge(2,6);
+         * stimulus.addEdge(4,5);
+         *
+         * Optional edges: stimulus.addEdge(3,5); stimulus.addEdge(3,6);
+         *
+         * stimulus.addEdge(5,6); implies non-edge stimulus.addEdge(6,7);
+         */
+
+        stimulus.addVertex(7);// x
+
+        stimulus.addEdge(1, 7);
+        stimulus.addEdge(2, 7);
+        stimulus.addEdge(5, 7);
+
+        /*
+         * Non-edges either: stimulus.addEdge(3,7); or stimulus.addEdge(4,7); !! Note: one is to
+         * choose, otherwise it is a 5-Cycle !!
+         *
+         * Optional edges if non-edge stimulus.addEdge(5,6); stimulus.addEdge(6,7);
+         */
+
+        stimulus.addVertex(8);// p1
+        stimulus.addVertex(9);// p2
+        stimulus.addVertex(10);// p3
+
+        stimulus.addEdge(5, 8);
+        stimulus.addEdge(8, 9);
+        stimulus.addEdge(9, 10);
+        stimulus.addEdge(10, 6);
+
+        /*
+         * Non-edges: stimulus.addEdge(1,9); stimulus.addEdge(2,9); stimulus.addEdge(7,9);
+         *
+         * Optional edges: stimulus.addEdge(1,8); stimulus.addEdge(2,8); stimulus.addEdge(3,8);
+         * stimulus.addEdge(4,8); stimulus.addEdge(6,8); stimulus.addEdge(7,8);
+         * stimulus.addEdge(8,10); stimulus.addEdge(3,9); stimulus.addEdge(4,9);
+         * stimulus.addEdge(5,9); stimulus.addEdge(6,9);
+         *
+         */
+        dut.setCertify(true);
+        assertTrue(dut.hasConfigurationType3(stimulus));
+
+        stimulus.addEdge(4, 7);
+        assertFalse(dut.hasConfigurationType3(stimulus));
+
+    }
+
+    @Test
     public void checkCleanOddHole()
     {
         reset();

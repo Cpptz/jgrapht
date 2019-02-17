@@ -1008,6 +1008,9 @@ public class BergeGraphInspector<V, E>
         }
         return false;
     }
+    public void setCertify(boolean x) {
+        certify = x;
+    }
 
     /**
      * If true, the graph is not Berge. Checks whether g contains a Pyramid, Jewel, configuration
