@@ -65,6 +65,7 @@ public class BergeGraphInspector<V, E>
 
     private GraphPath<V, E> certificate = null;
     private boolean certify = false;
+    private boolean[] visited = new boolean[7];
 
     /**
      * Lists the vertices which are covered by two paths
@@ -510,22 +511,31 @@ public class BergeGraphInspector<V, E>
          */
         for (V u : g.vertexSet()) {
             for (V v : g.vertexSet()) {
-                if (u == v || g.containsEdge(u, v))
+                if (u == v || g.containsEdge(u, v)) {
+                    visited[0] = true;
                     continue;
+                }
 
                 GraphPath<V, E> puv = new DijkstraShortestPath<>(g).getPath(u, v);
-                if (puv == null)
+                if (puv == null) {
+                    visited[1] = true;
                     continue;
-
+                }
                 for (V w : g.vertexSet()) {
-                    if (w == u || w == v || g.containsEdge(w, u) || g.containsEdge(w, v))
+                    if (w == u || w == v || g.containsEdge(w, u) || g.containsEdge(w, v)) {
+                        visited[2] = true;
                         continue;
+                    }
                     GraphPath<V, E> pvw = new DijkstraShortestPath<>(g).getPath(v, w);
-                    if (pvw == null)
+                    if (pvw == null) {
+                        visited[3] = true;
                         continue;
+                    }
                     GraphPath<V, E> pwu = new DijkstraShortestPath<>(g).getPath(w, u);
-                    if (pwu == null)
+                    if (pwu == null) {
+                        visited[4] = true;
                         continue;
+                    }
                     Set<V> set = new HashSet<>();
                     set.addAll(puv.getVertexList());
                     set.addAll(pvw.getVertexList());
@@ -535,10 +545,13 @@ public class BergeGraphInspector<V, E>
                     if (set.size() < 7 || subg.vertexSet().size() != set.size()
                         || subg.edgeSet().size() != subg.vertexSet().size()
                         || subg.vertexSet().size() % 2 == 0
-                        || subg.vertexSet().stream().anyMatch(t -> subg.degreeOf(t) != 2))
+                        || subg.vertexSet().stream().anyMatch(t -> subg.degreeOf(t) != 2)) {
+                        visited[5] = true;
                         continue;
+                    }
 
                     if (certify) {
+                        visited[6] = true;
                         List<E> edgeList = new LinkedList<>();
                         edgeList.addAll(puv.getEdgeList());
                         edgeList.addAll(pvw.getEdgeList());
@@ -547,12 +560,20 @@ public class BergeGraphInspector<V, E>
                         double weight = edgeList.stream().mapToDouble(g::getEdgeWeight).sum();
                         certificate = new GraphWalk<>(g, u, u, edgeList, weight);
                     }
+                    for(boolean b: visited){
+                        System.out.print(b + ", ");
+                    }
+                    System.out.println();
                     return true;
 
                 }
 
             }
         }
+        for(boolean b: visited){
+            System.out.print(b + ", ");
+        }
+        System.out.println();
         return false;
     }
 
