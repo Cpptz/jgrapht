@@ -312,6 +312,77 @@ public class BergeGraphInspectorTest
     }
 
     @Test
+    public void myCheckCleanShortestOddHole() {
+        reset();
+        // create circle with 5 vertices
+        stimulus.addVertex(1);
+        stimulus.addVertex(2);
+        stimulus.addVertex(3);
+        stimulus.addVertex(4);
+        stimulus.addVertex(5);
+
+        stimulus.addEdge(1, 2);
+        stimulus.addEdge(3, 2);
+        stimulus.addEdge(4, 3);
+        stimulus.addEdge(4, 5);
+        stimulus.addEdge(5, 1);
+
+        assertFalse(dut.containsCleanShortestOddHole(stimulus));
+
+        stimulus.removeEdge(5,1);
+        stimulus.addVertex(6);
+        stimulus.addVertex(7);
+
+        stimulus.addEdge(6, 5);
+        stimulus.addEdge(6, 7);
+        stimulus.addEdge(7, 1);
+
+        assertTrue(dut.containsCleanShortestOddHole(stimulus));
+
+        stimulus.addVertex(8);
+        stimulus.removeEdge(1, 7);
+        stimulus.addEdge(7, 8);
+        stimulus.addEdge(1, 8);
+
+        assertTrue(dut.isBerge(stimulus));
+        assertFalse(dut.containsCleanShortestOddHole(stimulus));
+
+        stimulus.addEdge(3, 7);
+        stimulus.addEdge(4, 7);
+        assertFalse(dut.containsCleanShortestOddHole(stimulus));
+
+    }
+
+  /*  @Test
+    public void checkCleanShortestOddHole()
+    {
+        reset();
+        stimulus.addVertex(1);
+        stimulus.addVertex(2);
+        stimulus.addVertex(3);
+        stimulus.addVertex(4);
+        stimulus.addVertex(5);
+        stimulus.addVertex(6);
+        stimulus.addVertex(7);
+
+        stimulus.addEdge(1, 2);
+        stimulus.addEdge(3, 2);
+        stimulus.addEdge(4, 3);
+        stimulus.addEdge(4, 5);
+        stimulus.addEdge(6, 5);
+        stimulus.addEdge(6, 7);
+        stimulus.addEdge(7, 1);
+
+        assertFalse(dut.isBerge(stimulus));
+        assertTrue(dut.containsCleanShortestOddHole(stimulus));
+
+        stimulus.addEdge(3, 7);
+        stimulus.addEdge(4, 7);
+        assertFalse(dut.containsCleanShortestOddHole(stimulus));
+
+    } */
+
+    @Test
     public void checkCleanOddHole()
     {
         reset();
