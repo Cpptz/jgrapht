@@ -351,6 +351,15 @@ public class BergeGraphInspectorTest
         stimulus.addEdge(4, 7);
         assertFalse(dut.containsCleanShortestOddHole(stimulus));
 
+        stimulus.removeEdge(1,2);
+        stimulus.removeEdge(2,3);
+        assertFalse(dut.containsCleanShortestOddHole(stimulus));
+
+        stimulus.removeEdge(4,5);
+        stimulus.removeEdge(5,6);
+        assertFalse(dut.containsCleanShortestOddHole(stimulus));
+
+
     }
 
   /*  @Test
