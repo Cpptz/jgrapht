@@ -190,10 +190,14 @@ public class PlantedPartitionGraphGenerator<V, E>
      * @throws IllegalArgumentException if self loops are requested but target does not allow them
      * @throws IllegalStateException if generateGraph() is called more than once
      */
+
+    static boolean[] branchCovered = new boolean[25];
+
     @Override
     public void generateGraph(Graph<V, E> target, Map<String, V> resultMap)
     {
         if (fired) {
+            branchCovered[0] = true;
             throw new IllegalStateException("generateGraph() can be only called once");
         }
         this.fired = true;
@@ -201,11 +205,13 @@ public class PlantedPartitionGraphGenerator<V, E>
         // instantiate community structure
         communities = new ArrayList<>(this.l);
         for (int i = 0; i < this.l; i++) {
+            branchCovered[1] = true;
             communities.add(new LinkedHashSet<>(this.k));
         }
 
         // empty graph case
         if (this.l == 0 || this.k == 0) {
+            branchCovered[2] = true;
             return;
         }
 
@@ -214,6 +220,7 @@ public class PlantedPartitionGraphGenerator<V, E>
         // integer to vertices
         List<V> vertices = new ArrayList<>(n);
         for (int i = 0; i < n; i++) {
+            branchCovered[3] = true;
             V vertex = target.addVertex();
             vertices.add(vertex);
 
@@ -224,33 +231,45 @@ public class PlantedPartitionGraphGenerator<V, E>
 
         // add self loops
         if (this.selfLoops) {
+            branchCovered[4] = true;
             if (target.getType().isAllowingSelfLoops()) {
+                branchCovered[5] = true;
                 for (V v : vertices) {
+                    branchCovered[6] = true;
                     if (this.rng.nextDouble() < this.p) {
+                        branchCovered[7] = true;
                         target.addEdge(v, v);
                     }
                 }
             } else {
+                branchCovered[8] = true;
                 throw new IllegalArgumentException("target graph must allow self-loops");
             }
         }
 
         // undirected edges
         if (target.getType().isUndirected()) {
+            branchCovered[9] = true;
             for (int i = 0; i < n; i++) {
+                branchCovered[10] = true;
                 int li = i / this.k; // group of node i
                 for (int j = i + 1; j < n; j++) {
+                    branchCovered[11] = true;
                     int lj = j / this.k; // group of node j
 
                     // edge within partition
                     if (li == lj) {
+                        branchCovered[12] = true;
                         if (this.rng.nextDouble() < this.p) {
+                            branchCovered[13] = true;
                             target.addEdge(vertices.get(i), vertices.get(j));
                         }
                     }
                     // edge between partitions
                     else {
+                        branchCovered[14] = true;
                         if (this.rng.nextDouble() < this.q) {
+                            branchCovered[15] = true;
                             target.addEdge(vertices.get(i), vertices.get(j));
                         }
                     }
@@ -259,26 +278,35 @@ public class PlantedPartitionGraphGenerator<V, E>
         }
         // directed edges
         else {
+            branchCovered[16] = true;
             for (int i = 0; i < n; i++) {
+                branchCovered[17] = true;
                 int li = i / this.k; // group of node i
                 for (int j = i + 1; j < n; j++) {
+                    branchCovered[18] = true;
                     int lj = j / this.k; // group of node j
 
                     // edge within partition
                     if (li == lj) {
+                        branchCovered[19] = true;
                         if (this.rng.nextDouble() < this.p) {
+                            branchCovered[20] = true;
                             target.addEdge(vertices.get(i), vertices.get(j));
                         }
                         if (this.rng.nextDouble() < this.p) {
+                            branchCovered[21] = true;
                             target.addEdge(vertices.get(j), vertices.get(i));
                         }
                     }
                     // edge between partitions
                     else {
+                        branchCovered[22] = true;
                         if (this.rng.nextDouble() < this.q) {
+                            branchCovered[23] = true;
                             target.addEdge(vertices.get(i), vertices.get(j));
                         }
                         if (this.rng.nextDouble() < this.q) {
+                            branchCovered[24] = true;
                             target.addEdge(vertices.get(j), vertices.get(i));
                         }
                     }

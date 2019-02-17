@@ -32,6 +32,22 @@ import static org.junit.Assert.*;
  */
 public class PlantedPartitionGraphGeneratorTest
 {
+
+    @AfterClass
+    public static void tearDownAll() {
+        int count = 0;
+        for (int i = 0; i < PlantedPartitionGraphGenerator.branchCovered.length; i++) {
+            if (PlantedPartitionGraphGenerator.branchCovered[i] == true) {
+                count++;
+            }
+        }
+        System.out.println(count);
+        System.out.println(PlantedPartitionGraphGenerator.branchCovered.length);
+        for (int i = 0; i < PlantedPartitionGraphGenerator.branchCovered.length; i++) {
+            System.out.println("branch: " + i + " visited = " + PlantedPartitionGraphGenerator.branchCovered[i]);
+        }
+    }
+
     private final long SEED = 5;
 
     /* bad inputs */
