@@ -62,7 +62,7 @@ import java.util.stream.*;
  */
 public class BergeGraphInspector<V, E>
 {
-
+    static boolean[] branchCovered = new boolean[33];
     private GraphPath<V, E> certificate = null;
     private boolean certify = false;
 
@@ -587,38 +587,56 @@ public class BergeGraphInspector<V, E>
     private boolean containsShortestOddHole(Graph<V, E> g, Set<V> X)
     {
         for (V y1 : g.vertexSet()) {
-            if (X.contains(y1))
+            branchCovered[0] = true;
+            if (X.contains(y1)) {
+                branchCovered[1] = true;
                 continue;
+            }
 
             for (V x1 : g.vertexSet()) {
-                if (x1 == y1)
+                branchCovered[2] = true;
+                if (x1 == y1) {
+                    branchCovered[3] = true;
                     continue;
+                }
                 GraphPath<V, E> rx1y1 = getPathAvoidingX(g, x1, y1, X);
                 for (V x3 : g.vertexSet()) {
-                    if (x3 == x1 || x3 == y1 || !g.containsEdge(x1, x3))
+                    branchCovered[4] = true;
+                    if (x3 == x1 || x3 == y1 || !g.containsEdge(x1, x3)) {
+                        branchCovered[5] = true;
                         continue;
+                    }
                     for (V x2 : g.vertexSet()) {
+                        branchCovered[6] = true;
                         if (x2 == x3 || x2 == x1 || x2 == y1 || g.containsEdge(x2, x1)
-                            || !g.containsEdge(x3, x2))
+                            || !g.containsEdge(x3, x2)) {
+                            branchCovered[7] = true;
                             continue;
+                        }
 
                         GraphPath<V, E> rx2y1 = getPathAvoidingX(g, x2, y1, X);
 
                         double n;
-                        if (rx1y1 == null || rx2y1 == null)
+                        if (rx1y1 == null || rx2y1 == null) {
+                            branchCovered[8] = true;
                             continue;
+                        }
 
                         V y2 = null;
                         for (V y2Candidate : rx2y1.getVertexList()) {
+                            branchCovered[9] = true;
                             if (g.containsEdge(y1, y2Candidate) && y2Candidate != x1
                                 && y2Candidate != x2 && y2Candidate != x3 && y2Candidate != y1)
                             {
+                                branchCovered[10] = true;
                                 y2 = y2Candidate;
                                 break;
                             }
                         }
-                        if (y2 == null)
+                        if (y2 == null) {
+                            branchCovered[11] = true;
                             continue;
+                        }
 
                         GraphPath<V, E> rx3y1 = getPathAvoidingX(g, x3, y1, X);
                         GraphPath<V, E> rx3y2 = getPathAvoidingX(g, x3, y2, X);
@@ -628,11 +646,15 @@ public class BergeGraphInspector<V, E>
                             && n == rx1y2.getLength() && rx3y1.getLength() >= n
                             && rx3y2.getLength() >= n)
                         {
+                            branchCovered[12] = true;
                             if (certify) {
+                                branchCovered[13] = true;
                                 List<E> edgeList = new LinkedList<>();
                                 edgeList.addAll(rx1y1.getEdgeList());
-                                for (int i = rx2y1.getLength() - 1; i >= 0; i--)
+                                for (int i = rx2y1.getLength() - 1; i >= 0; i--) {
+                                    branchCovered[14] = true;
                                     edgeList.add(rx2y1.getEdgeList().get(i));
+                                }
                                 edgeList.add(g.getEdge(x2, x3));
                                 edgeList.add(g.getEdge(x3, x1));
 
@@ -1285,6 +1307,10 @@ public class BergeGraphInspector<V, E>
     public GraphPath<V, E> getCertificate()
     {
         return certificate;
+    }
+
+    public void setCertify(boolean c){
+        certify = c;
     }
 
 }
