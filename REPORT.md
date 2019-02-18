@@ -41,17 +41,23 @@ is not easily possible: ten complex functions)?
 
 
 ### 1.
+<center>
+
 |  Method | CCN | 
 |---|---|
 |  [isEulerian()](./jgraph-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java) | 9 if +6 for + 1 OR -1 return point + 2 = 17|
 | [verify()](./jgraph-core/src/main/java/org/jgrapht/graph/GraphWalk.java)  | 18 if + 2 for + 1 while + 3 AND + 2 OR -1 return point +2 = 27 |
 |[buildGraph()](./jgraph-core/src/main/java/org/jgrapht/graph/builder/GraphTypeBuilder.java) | 16 if + 3 AND -1  +2 =20 |
+|[equals()](./jgrapht-core/src/main/java/org/jgrapht/alg/isomorphism/IsomorphicGraphMapping.java)|2 if + 1 OR + 2 AND= |  
+|[simpleCycleToGraphPath()](/.jgrapht-core/src/main/java/org/jgrapht/alg/cycle/Cycles.java)|8 if + 1 for + 1 while  =|
 |   |   |
 |   |   |
 |   |   |
 |   |   |
 |   |   |
 |   |   |
+
+</center>
 
 We have the same results when we calculated CCN by hand.
 
@@ -89,11 +95,21 @@ that each edges or vertices follow each other...
 
 ### Tools
 
-Document your experience in using a "new"/different coverage tool.
+<!--Document your experience in using a "new"/different coverage tool.
 
 How well was the tool documented? Was it possible/easy/difficult to
-integrate it with your build environment?
+integrate it with your build environment?-->
 
+To check the test coverage for the project we have used the ``cobertura`` maven plugin.
+The documentation is good and it easy to use.
+
+One could see the lines added in the ``pom.xml`` file using the following diff command:
+```bash
+git diff master..code_coverage pom.xml
+```
+
+
+But we have noticed that for some classes, the coverage is not reported correctly.
 ### DYI
 
 Show a patch that show the instrumented code in main (or the unit
@@ -107,20 +123,23 @@ git diff ...
 What kinds of constructs does your tool support, and how accurate is
 its output?
 
-These are the 10 functions we have 
+These are the 10 functions we have tested
+<center>
 
-|  Method | Branch number   | CCN | 
-|---|---|---|
-|  [isEulerian()](./jgraph-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java) | 2  | 9 if +6 for + 1 OR -1 return point + 2 = 17|
-| [verify()](./jgraph-core/src/main/java/org/jgrapht/graph/GraphWalk.java)  | 3  | 18 if + 2 for + 1 while + 3 AND + 2 OR -1 return point +2 = 27 |
-|[equals()](./jgrapht-core/src/main/java/org/jgrapht/alg/isomorphism/IsomorphicGraphMapping.java)|11|2 if + 1 OR + 2 AND
-|[simpleCycleToGraphPath()](/.jgrapht-core/src/main/java/org/jgrapht/alg/cycle/Cycles.java)|13|8 if + 1 for + 1 while
+|  Method | Branch number | 
+|---|---|
+|  [isEulerian()](./jgraph-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java) | 2  | 
+| [verify()](./jgraph-core/src/main/java/org/jgrapht/graph/GraphWalk.java)  | 3  | 
+|[equals()](./jgrapht-core/src/main/java/org/jgrapht/alg/isomorphism/IsomorphicGraphMapping.java)|11|
+|[simpleCycleToGraphPath()](/.jgrapht-core/src/main/java/org/jgrapht/alg/cycle/Cycles.java)|13|
 |   |   |
 |   |   |
 |   |   |
 |   |   |
 |   |   |
 |   |   |
+
+</center>
 
 To test the branch coverage we put a boolean array as a static attribute in the class under test and add this code in 
 the JUnit test file corresponding to the class under test.
@@ -158,6 +177,8 @@ Test cases added:
 
 git diff ...
 
+<center>
+
 
 |  Method | Branch number | Old coverage   |Number of new test cases | New coverage | 
 |---|---|---|---|---|
@@ -171,6 +192,8 @@ git diff ...
 |   |   |
 |   |   |
 |   |   |
+<center>
+
 
 To find the new test added, one can run the following diff command 
 ```bash
