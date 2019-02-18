@@ -29,7 +29,7 @@ import java.util.*;
  */
 public abstract class Cycles
 {
-
+    static boolean[] branchCovered = new boolean[17];
     /**
      * Transform a simple cycle from an edge set representation to a graph path. A simple cycle
      * contains vertices with degrees either zero or two. This method treats directed graphs as
@@ -48,8 +48,10 @@ public abstract class Cycles
         Objects.requireNonNull(cycle, "Cycle cannot be null");
 
         if (cycle.isEmpty()) {
+            branchCovered[0] = true;
             return null;
         }
+        else {branchCovered[1] = true;}
 
         // index
         Map<V, E> firstEdge = new HashMap<>();
@@ -58,11 +60,15 @@ public abstract class Cycles
             V s = graph.getEdgeSource(e);
 
             if (!firstEdge.containsKey(s)) {
+                branchCovered[2] = true;
                 firstEdge.put(s, e);
             } else {
+                branchCovered[3] = true;
                 if (!secondEdge.containsKey(s)) {
+                    branchCovered[4] = true;
                     secondEdge.put(s, e);
                 } else {
+                    branchCovered[5] = true;
                     throw new IllegalArgumentException("Not a simple cycle");
                 }
             }
@@ -70,11 +76,15 @@ public abstract class Cycles
             V t = graph.getEdgeTarget(e);
 
             if (!firstEdge.containsKey(t)) {
+                branchCovered[6] = true;
                 firstEdge.put(t, e);
             } else {
+                branchCovered[7] = true;
                 if (!secondEdge.containsKey(t)) {
+                    branchCovered[8] = true;
                     secondEdge.put(t, e);
                 } else {
+                    branchCovered[9] = true;
                     throw new IllegalArgumentException("Not a simple cycle");
                 }
             }
@@ -92,17 +102,25 @@ public abstract class Cycles
         while (!cur.equals(start)) {
             E fe = firstEdge.get(cur);
             if (fe == null) {
+                branchCovered[10] = true;
                 throw new IllegalArgumentException("Not a simple cycle");
             }
+            else {branchCovered[11] = true;}
+
             E se = secondEdge.get(cur);
             if (se == null) {
+                branchCovered[12] = true;
                 throw new IllegalArgumentException("Not a simple cycle");
             }
+            else {branchCovered[13] = true;}
             if (fe.equals(e)) {
+                branchCovered[14] = true;
                 e = se;
             } else if (se.equals(e)) {
+                branchCovered[15] = true;
                 e = fe;
             } else {
+                branchCovered[16] = true;
                 throw new IllegalArgumentException("Not a simple cycle");
             }
 
