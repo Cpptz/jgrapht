@@ -1,8 +1,8 @@
 # Report for assignment 3
 
-This is a template for your report. You are free to modify it as needed.
+<!--This is a template for your report. You are free to modify it as needed.
 It is not required to use markdown for your report either, but the report
-has to be delivered in a standard, cross-platform format.
+has to be delivered in a standard, cross-platform format.-->
 
 ## Project
 
@@ -16,10 +16,10 @@ JGraphT is a library to work with graphs which implements lots of graph algorith
 
 ## Onboarding experience
 
-Did it build as documented?
+<!--Did it build as documented?
     
 (See the assignment for details; if everything works out of the box,
-there is no need to write much here.)
+there is no need to write much here.)-->
 
 As this is a maven project, installing dependencies was easy.
 
@@ -60,15 +60,27 @@ As this a graph library with many algorithms, the functions can be both long and
 
 ### 3.
 #### [isEulerian()](./jgraph-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java)
-
+This function return true if the graph contains an eulerian cycle. 
+That is finding if it is possible to construct a cycle, i.e. a path starting and ending on the same vertex, which 
+visits each vertex exactly once. It also means, the graph should only have one connected componenent with edges.
 
 First, it checked that the graph contained vertices and node.
-Then if it is a directed, 
 
- 
- 
+Then if it is a undirected graph, it checks that all vertices have an even degree 
+and that there is only connected component with edges.
 
+Otherwise if it is a directed graph, it checks for all vertices that their in degree is equal to their out degree
+and that there is only connected component with edges.
 
+### [verify()](./jgraph-core/src/main/java/org/jgrapht/graph/GraphWalk.java)
+This function checks that the path of the ``GraphWalk`` is feasible w.r.t. the graph of the ``GraphWalk``.
+
+The path is described as a list of vertices, a list of edges or both.
+
+First it checks that either the path or both the list of vertices and the list of edges
+
+Then depending on the way the path is described, it will check that the vertices or edges are contained in the graph,
+that each edges or vertices follow each other...
 ### 4. 
 
 ### 5. 
@@ -135,110 +147,6 @@ For instance , for ``isEulerian()`` method, this would be:
 ``` bash
 git diff master..cov_2 jgrapht-core/src/main/
 ```
-and would yield the following
-```
-diff --git a/jgrapht-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java b/jgrapht-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java
-index 3b5ee5e22..9c6b8dfd3 100644
---- a/jgrapht-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java
-+++ b/jgrapht-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java
-@@ -69,6 +69,8 @@ public class HierholzerEulerianCycle<V, E>
-      */
-     protected V startVertex;
- 
-+    static boolean[] branchCovered = new boolean[22];
-+
-     /**
-      * Test whether a graph is Eulerian. An
-      * <a href="http://mathworld.wolfram.com/EulerianGraph.html">Eulerian graph</a> is a graph
-@@ -82,52 +84,83 @@ public class HierholzerEulerianCycle<V, E>
-         GraphTests.requireDirectedOrUndirected(graph);
- 
-         if (graph.vertexSet().isEmpty()) {
-+            branchCovered[0] = true;
-+
-             // null-graph return false
-             return false;
-         } else if (graph.edgeSet().isEmpty()) {
-+            branchCovered[1] = true;
-+
-             // empty-graph with vertices
-             return true;
-         } else if (graph.getType().isUndirected()) {
-+            branchCovered[2] = true;
-+
-             // check odd degrees
-             for (V v : graph.vertexSet()) {
-+                branchCovered[3] = true;
-                 if (graph.degreeOf(v) % 2 == 1) {
-+                    branchCovered[4] = true;
-                     return false;
-+                }else{
-+                    branchCovered[5] = true;
-                 }
-             }
-             // check that at most one connected component contains edges
-             boolean foundComponentWithEdges = false;
-             for (Set<V> component : new ConnectivityInspector<>(graph).connectedSets()) {
-+                branchCovered[6] = true;
-                 for (V v : component) {
-+                    branchCovered[7] = true;
-                     if (graph.degreeOf(v) > 0) {
-+                        branchCovered[8] = true;
-                         if (foundComponentWithEdges) {
-+                            branchCovered[9] = true;
-                             return false;
-+                        }else{
-+                            branchCovered[10] = true;
-                         }
-                         foundComponentWithEdges = true;
-                         break;
-+                    }else{
-+                        branchCovered[11] = true;
-                     }
-                 }
-             }
-             return true;
-         } else {
-+            branchCovered[12] = true;
-             // check same in and out degrees
-             for (V v : graph.vertexSet()) {
-+                branchCovered[13] = true;
-                 if (graph.inDegreeOf(v) != graph.outDegreeOf(v)) {
-+                    branchCovered[14] = true;
-                     return false;
-+                }else{
-+                    branchCovered[15] = true;
-                 }
-             }
-             // check that at most one strongly connected component contains
-             // edges
-             boolean foundComponentWithEdges = false;
-             for (Set<V> component : new KosarajuStrongConnectivityInspector<>(graph)
--                .stronglyConnectedSets())
-+                    .stronglyConnectedSets())
-             {
-+                branchCovered[16] = true;
-                 for (V v : component) {
-+                    branchCovered[17] = true;
-                     if (graph.inDegreeOf(v) > 0 || graph.outDegreeOf(v) > 0) {
-+                        branchCovered[18] = true;
-                         if (foundComponentWithEdges) {
-+                            branchCovered[19] = true;
-                             return false;
-+                        } else{
-+                            branchCovered[20] = true;
-                         }
-                         foundComponentWithEdges = true;
-                         break;
-+                    }else{
-+                        branchCovered[21] = true;
-                     }
-                 }
-             }
-@@ -135,6 +168,7 @@ public class HierholzerEulerianCycle<V, E>
-         }
-     }
-```
 
 ### Evaluation
 
@@ -266,7 +174,7 @@ git diff ...
 
 To find the new test added, one can run the following diff command 
 ```bash
-git diff master..iss_<Branch number> jgrapht-core/src/main/
+git diff master..iss_<Branch number> jgrapht-core/src/test/
 ```
 ## Refactoring
 
