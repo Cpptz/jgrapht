@@ -33,6 +33,28 @@ is not easily possible: ten complex functions)?
 4. Are exceptions taken into account in the given measurements?
 5. Is the documentation clear w.r.t. all the possible outcomes?
 
+
+1.
+|  Method | CCN | 
+|---|---|
+|  [isEulerian()](./jgraph-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java) | 9 if +6 for + 1 OR -1 return point + 2 = 17|
+| [verify()](./jgraph-core/src/main/java/org/jgrapht/graph/GraphWalk.java)  | 18 if + 2 for + 1 while + 3 AND + 2 OR -1 return point +2 = 27 |
+|[buildGraph()](./jgraph-core/src/main/java/org/jgrapht/graph/builder/GraphTypeBuilder.java) | 16 if + 3 AND -1  +2 =20 |
+|   |   |
+|   |   |
+|   |   |
+|   |   |
+|   |   |
+|   |   |
+
+2.
+
+3.
+
+4. 
+
+5. 
+
 ## Coverage
 
 ### Tools
@@ -210,10 +232,10 @@ Test cases added:
 
 git diff ...
 
+
 |  Method | Branch number | Old coverage   |Number of new test cases | New coverage | 
 |---|---|---|---|---|
-|  [isEulerian()](./jgraph-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java) | 2 | 21/22  | 1 | 
-22/22 |
+|  [isEulerian()](./jgraph-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java) | 2 | 21/22  | 1 | 22/22 |
 | [verify()](./jgraph-core/src/main/java/org/jgrapht/graph/GraphWalk.java)  | 3 | 20/34 | 9 | 31/34 |
 |   |   |
 |   |   |
@@ -226,7 +248,7 @@ git diff ...
 
 To find the new test added, one can run the following diff command 
 ```bash
-
+git diff master..iss_<Branch number> jgrapht-core/src/main/
 ```
 ## Refactoring
 
