@@ -6,11 +6,13 @@ has to be delivered in a standard, cross-platform format.
 
 ## Project
 
-Name:
+Name: JGraphT
 
-URL:
+URL: https://jgrapht.org/
 
-One or two sentences describing it
+Source : https://github.com/jgrapht/jgrapht
+
+JGraphT is a library to work with graphs which implements lots of graph algorithms.
 
 ## Onboarding experience
 
@@ -44,6 +46,19 @@ integrate it with your build environment?
 
 Show a patch that show the instrumented code in main (or the unit
 test setup), and the ten methods where branch coverage is measured.
+
+|  Method | Branch number   |
+|---|---|
+|  [isEulerian()](./jgraph-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java) | 2  |
+| [verify()](./jgraph-core/src/main/java/org/jgrapht/graph/GraphWalk.java)  | 3  |
+|   |   |
+|   |   |
+|   |   |
+|   |   |
+|   |   |
+|   |   |
+|   |   |
+|   |   |
 
 The patch is probably too long to be copied here, so please add
 the git command that is used to obtain the patch instead:
