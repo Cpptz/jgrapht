@@ -48,7 +48,7 @@ public class GraphTypeBuilderTest
         assertFalse(graph.getType().isAllowingSelfLoops());
         assertNotNull(graph.getEdgeSupplier());
         assertNull(graph.getVertexSupplier());
-        
+
         assertEquals(graph, new DirectedWeightedMultigraph<>(graph.getVertexSupplier(), graph.getEdgeSupplier()));
 
         //Targeting the last possible return value "SimpleGraph", building the graph with manually confirmed boolean
