@@ -47,8 +47,10 @@ public class IsomorphicGraphMappingTest
         System.out.println(IsomorphicGraphMapping.branchCovered.length);
     }
 
+    // checks if equals works
     @Test
-    public void checkEqualsString(){
+    public void checkEquals(){
+        // create 3 trees for the isomorphism inspector
         Graph<String, DefaultEdge> tree1 = new SimpleGraph<>(DefaultEdge.class);
         tree1.addVertex("1");
         tree1.addVertex("2");
@@ -64,55 +66,33 @@ public class IsomorphicGraphMappingTest
         tree3.addVertex("B");
         tree3.addEdge("A", "B");
 
+        // create inspector
         AHUUnrootedTreeIsomorphismInspector<String, DefaultEdge> isomorphism =
                 new AHUUnrootedTreeIsomorphismInspector<>(tree1, tree2);
 
+        // assert that isomorphism exists
         Assert.assertTrue(isomorphism.isomorphismExists());
         IsomorphicGraphMapping<String, DefaultEdge> mapping12 = isomorphism.getMapping();
 
+        // create new isomorphism inspector
         isomorphism = new AHUUnrootedTreeIsomorphismInspector<>(tree2, tree3);
 
+        // assert that isomorphism exists
         Assert.assertTrue(isomorphism.isomorphismExists());
         IsomorphicGraphMapping<String, DefaultEdge> mapping23 = isomorphism.getMapping();
 
+        // compose the isomorphism graph mapping
         IsomorphicGraphMapping<String, DefaultEdge> mapping13 = mapping12.compose(mapping23);
 
-        String word = "hej";
+        // create string for test
+        String word = "hello";
+        // the isomorphism graph mapping should not be equal the string object
         Assert.assertFalse(mapping13.equals(word));
-    }
 
-    @Test
-    public void checkEqualsItself(){
-        Graph<String, DefaultEdge> tree1 = new SimpleGraph<>(DefaultEdge.class);
-        tree1.addVertex("1");
-        tree1.addVertex("2");
-        tree1.addEdge("1", "2");
-
-        Graph<String, DefaultEdge> tree2 = new SimpleGraph<>(DefaultEdge.class);
-        tree2.addVertex("a");
-        tree2.addVertex("b");
-        tree2.addEdge("a", "b");
-
-        Graph<String, DefaultEdge> tree3 = new SimpleGraph<>(DefaultEdge.class);
-        tree3.addVertex("A");
-        tree3.addVertex("B");
-        tree3.addEdge("A", "B");
-
-        AHUUnrootedTreeIsomorphismInspector<String, DefaultEdge> isomorphism =
-                new AHUUnrootedTreeIsomorphismInspector<>(tree1, tree2);
-
-        Assert.assertTrue(isomorphism.isomorphismExists());
-        IsomorphicGraphMapping<String, DefaultEdge> mapping12 = isomorphism.getMapping();
-
-        isomorphism = new AHUUnrootedTreeIsomorphismInspector<>(tree2, tree3);
-
-        Assert.assertTrue(isomorphism.isomorphismExists());
-        IsomorphicGraphMapping<String, DefaultEdge> mapping23 = isomorphism.getMapping();
-
-        IsomorphicGraphMapping<String, DefaultEdge> mapping13 = mapping12.compose(mapping23);
-
+        // the isomorphism graph mapping should be equal itself
         Assert.assertTrue(mapping13.equals(mapping13));
     }
+
 
     @Test
     public void testIdentity()
