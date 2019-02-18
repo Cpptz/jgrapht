@@ -378,4 +378,18 @@ public class HeldKarpTSPTest
             assertHamiltonian(g, tour);
         }
     }
+    @AfterClass
+    public static void tearDownAll() {
+        int count = 0;
+        for (int i = 0; i < HeldKarpTSP.branchCovered.length; i++) {
+            if (HeldKarpTSP.branchCovered[i] == true) {
+                count++;
+            }
+        }
+        System.out.println(count);
+        System.out.println(HeldKarpTSP.branchCovered.length);
+        for (int i = 0; i < HeldKarpTSP.branchCovered.length; i++) {
+            System.out.println("branch: " + i + " visited = " + HeldKarpTSP.branchCovered[i]);
+        }
+    }
 }

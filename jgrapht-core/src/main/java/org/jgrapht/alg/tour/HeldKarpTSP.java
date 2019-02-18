@@ -54,6 +54,8 @@ public class HeldKarpTSP<V, E>
     implements
     HamiltonianCycleAlgorithm<V, E>
 {
+    static boolean[] branchCovered = new boolean[20];
+
 
     /**
      * Construct a new instance
@@ -99,31 +101,41 @@ public class HeldKarpTSP<V, E>
      * @throws IllegalArgumentException if the graph contains more than 31 vertices
      */
     @Override
-    public GraphPath<V, E> getTour(Graph<V, E> graph)
-    {
+    public GraphPath<V, E> getTour(Graph<V, E> graph) {
+        branchCovered[0] = true;
         final int n = graph.vertexSet().size(); // number of nodes
 
         if (n == 0) {
+            branchCovered[1] = true;
             throw new IllegalArgumentException("Graph contains no vertices");
+        } else {
+            branchCovered[2] = true;
         }
 
         if (n > 31) {
+            branchCovered[3] = true;
             throw new IllegalArgumentException(
-                "The internal representation of the dynamic programming state "
-                    + "space cannot represent graphs containing more than 31 vertices. "
-                    + "The runtime complexity of this implementation, O(2^|V| x |V|^2),  makes it unsuitable "
-                    + "for graphs with more than 31 vertices.");
+                    "The internal representation of the dynamic programming state "
+                            + "space cannot represent graphs containing more than 31 vertices. "
+                            + "The runtime complexity of this implementation, O(2^|V| x |V|^2),  makes it unsuitable "
+                            + "for graphs with more than 31 vertices.");
+        } else {
+            branchCovered[4] = true;
         }
 
         if (n == 1) {
+            branchCovered[5] = true;
             V startNode = graph.vertexSet().iterator().next();
             return new GraphWalk<>(
-                graph, startNode, startNode, Collections.singletonList(startNode), null, 0);
+                    graph, startNode, startNode, Collections.singletonList(startNode), null, 0);
+        } else {
+            branchCovered[6] = true;
         }
 
         // W[u, v] = the cost of the minimum weight between u and v
         double[][] W = new double[n][n];
         for (int i = 0; i < n; i++) {
+            branchCovered[7] = true;
             Arrays.fill(W[i], Double.MAX_VALUE);
         }
 
@@ -135,6 +147,7 @@ public class HeldKarpTSP<V, E>
         List<V> indexList = vertexToIntegerMapping.getIndexList();
 
         for (E e : graph.edgeSet()) {
+            branchCovered[8] = true;
             V source = graph.getEdgeSource(e);
             V target = graph.getEdgeTarget(e);
 
@@ -145,61 +158,77 @@ public class HeldKarpTSP<V, E>
             W[u][v] = Math.min(W[u][v], graph.getEdgeWeight(e));
 
             // If the graph is undirected we need to also consider the reverse edge
-            if (graph.getType().isUndirected())
+            if (graph.getType().isUndirected()) {
+                branchCovered[9] = true;
                 W[v][u] = Math.min(W[v][u], graph.getEdgeWeight(e));
+            } else {
+                branchCovered[10] = true;
+            }
         }
 
-        // C[prevNode, state] = the minimum cost of a tour that ends in prevNode and contains all
-        // nodes in the bitmask state
-        double[][] C = new double[n][1 << n];
-        for (int i = 0; i < n; i++) {
-            Arrays.fill(C[i], Double.MIN_VALUE);
-        }
+            // C[prevNode, state] = the minimum cost of a tour that ends in prevNode and contains all
+            // nodes in the bitmask state
+            double[][] C = new double[n][1 << n];
+            for (int i = 0; i < n; i++) {
+                branchCovered[11] = true;
+                Arrays.fill(C[i], Double.MIN_VALUE);
 
-        // start the tour from node 0 (because the tour is a cycle the start vertex does not matter)
-        double tourWeight = memo(0, 1, C, W);
-
-        // check if there is no tour
-        if (tourWeight == Double.MAX_VALUE)
-            return null;
-
-        /*
-         * Reconstruct the tour
-         */
-        List<V> vertexList = new ArrayList<>(n);
-        List<E> edgeList = new ArrayList<>(n);
-
-        int lastNode = 0;
-        int lastState = 1;
-
-        vertexList.add(indexList.get(lastNode));
-
-        for (int step = 1; step < n; step++) {
-            int nextNode = -1;
-            for (int node = 1; node < n; node++) {
-                if ((lastState & (1 << node)) == 0 && W[lastNode][node] != Double.MAX_VALUE
-                    && C[node][lastState ^ (1 << node)] != Double.MIN_VALUE
-                    && Double.compare(
-                        C[node][lastState ^ (1 << node)] + W[lastNode][node],
-                        C[lastNode][lastState]) == 0)
-                {
-                    nextNode = node;
-                    break;
-                }
             }
 
-            assert nextNode != -1;
-            vertexList.add(indexList.get(nextNode));
-            edgeList.add(graph.getEdge(indexList.get(lastNode), indexList.get(nextNode)));
-            lastState ^= 1 << nextNode;
-            lastNode = nextNode;
+            // start the tour from node 0 (because the tour is a cycle the start vertex does not matter)
+            double tourWeight = memo(0, 1, C, W);
+
+            // check if there is no tour
+            if (tourWeight == Double.MAX_VALUE) {
+                branchCovered[12] = true;
+                return null;
+
+            } else {
+                branchCovered[13] = true;
+            }
+
+            /*
+             * Reconstruct the tour
+             */
+            List<V> vertexList = new ArrayList<>(n);
+            List<E> edgeList = new ArrayList<>(n);
+
+            int lastNode = 0;
+            int lastState = 1;
+
+            vertexList.add(indexList.get(lastNode));
+
+            for (int step = 1; step < n; step++) {
+                branchCovered[14] = true;
+                int nextNode = -1;
+                for (int node = 1; node < n; node++) {
+                    branchCovered[15] = true;
+                    if ((lastState & (1 << node)) == 0 && W[lastNode][node] != Double.MAX_VALUE
+                            && C[node][lastState ^ (1 << node)] != Double.MIN_VALUE
+                            && Double.compare(
+                            C[node][lastState ^ (1 << node)] + W[lastNode][node],
+                            C[lastNode][lastState]) == 0) {
+                        branchCovered[16] = true;
+                        nextNode = node;
+                        break;
+                    } else {
+                        branchCovered[17] = true;
+                    }
+                }
+
+                assert nextNode != -1;
+                vertexList.add(indexList.get(nextNode));
+                edgeList.add(graph.getEdge(indexList.get(lastNode), indexList.get(nextNode)));
+                lastState ^= 1 << nextNode;
+                lastNode = nextNode;
+            }
+
+            // add start vertex
+            vertexList.add(indexList.get(0));
+            edgeList.add(graph.getEdge(indexList.get(lastNode), indexList.get(0)));
+
+            return new GraphWalk<>(
+                    graph, indexList.get(0), indexList.get(0), vertexList, edgeList, tourWeight);
         }
 
-        // add start vertex
-        vertexList.add(indexList.get(0));
-        edgeList.add(graph.getEdge(indexList.get(lastNode), indexList.get(0)));
-
-        return new GraphWalk<>(
-            graph, indexList.get(0), indexList.get(0), vertexList, edgeList, tourWeight);
-    }
 }
