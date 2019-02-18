@@ -101,4 +101,6 @@ public class GraphTypeBuilderTest
         assertEquals(graph.getEdgeSupplier(), graph1.getEdgeSupplier());
     }
 
+
+
 }

@@ -81,6 +81,9 @@ public final class GraphTypeBuilder<V, E>
     private Supplier<V> vertexSupplier;
     private Supplier<E> edgeSupplier;
 
+    static boolean[] branchCovered = new boolean[30];
+
+
     private GraphTypeBuilder(boolean directed, boolean undirected)
     {
         this.directed = directed;
@@ -292,58 +295,85 @@ public final class GraphTypeBuilder<V, E>
     public Graph<V, E> buildGraph()
     {
         if (directed && undirected) {
+            branchCovered[0] = true;
             throw new UnsupportedOperationException("Mixed graphs are not supported");
         } else if (directed) {
+            branchCovered[1] = true;
             if (allowingSelfLoops && allowingMultipleEdges) {
+                branchCovered[2] = true;
                 if (weighted) {
+                    branchCovered[3] = true;
                     return new DirectedWeightedPseudograph<>(vertexSupplier, edgeSupplier);
                 } else {
+                    branchCovered[4] = true;
                     return new DirectedPseudograph<>(vertexSupplier, edgeSupplier, false);
                 }
             } else if (allowingMultipleEdges) {
+                branchCovered[5] = true;
                 if (weighted) {
+                    branchCovered[6] = true;
                     return new DirectedWeightedMultigraph<>(vertexSupplier, edgeSupplier);
                 } else {
+                    branchCovered[7] = true;
                     return new DirectedMultigraph<>(vertexSupplier, edgeSupplier, false);
                 }
             } else if (allowingSelfLoops) {
+                branchCovered[8] = true;
                 if (weighted) {
+                    branchCovered[9] = true;
                     return new DefaultDirectedWeightedGraph<>(vertexSupplier, edgeSupplier);
                 } else {
+                    branchCovered[10] = true;
                     return new DefaultDirectedGraph<>(vertexSupplier, edgeSupplier, false);
                 }
 
             } else {
+                branchCovered[11] = true;
                 if (weighted) {
+                    branchCovered[12] = true;
                     return new SimpleDirectedWeightedGraph<>(vertexSupplier, edgeSupplier);
                 } else {
+                    branchCovered[13] = true;
                     return new SimpleDirectedGraph<>(vertexSupplier, edgeSupplier, false);
                 }
             }
         } else {
+            branchCovered[14] = true;
             if (allowingSelfLoops && allowingMultipleEdges) {
+                branchCovered[15] = true;
                 if (weighted) {
+                    branchCovered[16] = true;
                     return new WeightedPseudograph<>(vertexSupplier, edgeSupplier);
                 } else {
+                    branchCovered[17] = true;
                     return new Pseudograph<>(vertexSupplier, edgeSupplier, false);
                 }
             } else if (allowingMultipleEdges) {
+                branchCovered[18] = true;
                 if (weighted) {
+                    branchCovered[19] = true;
                     return new WeightedMultigraph<>(vertexSupplier, edgeSupplier);
                 } else {
+                    branchCovered[20] = true;
                     return new Multigraph<>(vertexSupplier, edgeSupplier, false);
                 }
             } else if (allowingSelfLoops) {
+                branchCovered[21] = true;
                 if (weighted) {
+                    branchCovered[22] = true;
                     return new DefaultUndirectedWeightedGraph<>(vertexSupplier, edgeSupplier);
                 } else {
+                    branchCovered[23] = true;
                     return new DefaultUndirectedGraph<>(vertexSupplier, edgeSupplier, false);
                 }
 
             } else {
+                branchCovered[24] = true;
                 if (weighted) {
+                    branchCovered[25] = true;
                     return new SimpleWeightedGraph<>(vertexSupplier, edgeSupplier);
                 } else {
+                    branchCovered[26] = true;
                     return new SimpleGraph<>(vertexSupplier, edgeSupplier, false);
                 }
             }
@@ -351,3 +381,5 @@ public final class GraphTypeBuilder<V, E>
     }
 
 }
+
+
