@@ -33,25 +33,34 @@ public class GraphTypeBuilderTest
 {
 
     @Test
-    public void testBuildGraph()
-    {
-        //We test graphs with alternating boolean values for variables in the function
+    public void testBuildGraph(){
+
+        //We build a graph that given the boolean variables should return a "DirectedWeightedMultigraph" and assert
+        //that the build is correct.
         Graph<Integer,
                 DefaultEdge> graph = GraphTypeBuilder
-                .<Integer, DefaultEdge> directed().weighted(false).allowingMultipleEdges(false)
-                .allowingSelfLoops(true).edgeClass(DefaultEdge.class).buildGraph();
+                .<Integer, DefaultEdge> directed().weighted(true).allowingMultipleEdges(true)
+                .allowingSelfLoops(false).edgeClass(DefaultEdge.class).buildGraph();
 
-        assertFalse(graph.getType().isAllowingMultipleEdges());
+        //Make sure the build works at all
+        assertTrue(graph.getType().isDirected());
+        assertTrue(graph.getType().isAllowingMultipleEdges());
+        assertFalse(graph.getType().isAllowingSelfLoops());
+        assertNotNull(graph.getEdgeSupplier());
+        assertNull(graph.getVertexSupplier());
+        
+        assertEquals(graph, new DirectedWeightedMultigraph<>(graph.getVertexSupplier(), graph.getEdgeSupplier()));
 
+        //Targeting the last possible return value "SimpleGraph", building the graph with manually confirmed boolean
+        //variables and asserting the return graph.
         Graph<Integer,
                 DefaultEdge> graph2 = GraphTypeBuilder
-                .<Integer, DefaultEdge> directed().weighted(false).allowingMultipleEdges(false)
+                .<Integer, DefaultEdge> undirected().weighted(false).allowingMultipleEdges(false)
                 .allowingSelfLoops(false).edgeClass(DefaultEdge.class).buildGraph();
-        Graph<Integer,
-                DefaultEdge> graph3 = GraphTypeBuilder
-                .<Integer, DefaultEdge> undirected().weighted(true).allowingMultipleEdges(false)
-                .allowingSelfLoops(false).edgeClass(DefaultEdge.class).buildGraph();
+
+        assertEquals(graph2, new SimpleGraph<>(graph2.getVertexSupplier(), graph2.getEdgeSupplier(), false));
     }
+
     @Test
     public void testGraphTypeBuilder()
     {
@@ -64,48 +73,6 @@ public class GraphTypeBuilderTest
         assertTrue(graph.getType().isAllowingSelfLoops());
         assertNotNull(graph.getEdgeSupplier());
         assertNull(graph.getVertexSupplier());
-
-        //We test graphs with alternating boolean values for variables in the function
-        // Testing when weighted == true, allowingSelfLoops == false, allowingMultipleEdges == true
-        Graph<Integer,
-                DefaultEdge> graph2 = GraphTypeBuilder
-                .<Integer, DefaultEdge> directed().weighted(true).allowingMultipleEdges(true)
-                .allowingSelfLoops(true).edgeClass(DefaultEdge.class).buildGraph();
-
-        assertTrue(graph2.getType().isAllowingMultipleEdges());
-        assertTrue(graph2.getType().isAllowingSelfLoops());
-
-
-
-
-        Graph<Integer,
-                DefaultEdge> graph3 = GraphTypeBuilder
-                .<Integer, DefaultEdge> directed().weighted(true).allowingMultipleEdges(true)
-                .allowingSelfLoops(false).edgeClass(DefaultEdge.class).buildGraph();
-
-        assertFalse(graph3.getType().isAllowingSelfLoops());
-
-        Graph<Integer,
-                DefaultEdge> graph4 = GraphTypeBuilder
-                .<Integer, DefaultEdge> directed().weighted(false).allowingMultipleEdges(true)
-                .allowingSelfLoops(false).edgeClass(DefaultEdge.class).buildGraph();
-
-        assertTrue(graph4.getType().isAllowingMultipleEdges());
-
-        Graph<Integer,
-                DefaultEdge> graph5 = GraphTypeBuilder
-                .<Integer, DefaultEdge> directed().weighted(true).allowingMultipleEdges(false)
-                .allowingSelfLoops(true).edgeClass(DefaultEdge.class).buildGraph();
-
-        assertTrue(graph5.getType().isAllowingSelfLoops());
-
-        Graph<Integer,
-                DefaultEdge> graph6 = GraphTypeBuilder
-                .<Integer, DefaultEdge> undirected().weighted(true).allowingMultipleEdges(false)
-                .allowingSelfLoops(false).edgeClass(DefaultEdge.class).buildGraph();
-        //assertTrue(graph2.getType().isDirected());
-
-
     }
 
     @Test
