@@ -33,6 +33,87 @@ import static org.jgrapht.alg.isomorphism.IsomorphismTestUtil.*;
 public class IsomorphicGraphMappingTest
 {
 
+
+    @AfterClass
+    public static void tearDownAll() {
+        int count = 0;
+        for (int i = 0; i < IsomorphicGraphMapping.branchCovered.length; i++) {
+            System.out.println(i + ": " + IsomorphicGraphMapping.branchCovered[i]);
+            if (IsomorphicGraphMapping.branchCovered[i] == true) {
+                count++;
+            }
+        }
+        System.out.println(count);
+        System.out.println(IsomorphicGraphMapping.branchCovered.length);
+    }
+
+    @Test
+    public void checkEqualsString(){
+        Graph<String, DefaultEdge> tree1 = new SimpleGraph<>(DefaultEdge.class);
+        tree1.addVertex("1");
+        tree1.addVertex("2");
+        tree1.addEdge("1", "2");
+
+        Graph<String, DefaultEdge> tree2 = new SimpleGraph<>(DefaultEdge.class);
+        tree2.addVertex("a");
+        tree2.addVertex("b");
+        tree2.addEdge("a", "b");
+
+        Graph<String, DefaultEdge> tree3 = new SimpleGraph<>(DefaultEdge.class);
+        tree3.addVertex("A");
+        tree3.addVertex("B");
+        tree3.addEdge("A", "B");
+
+        AHUUnrootedTreeIsomorphismInspector<String, DefaultEdge> isomorphism =
+                new AHUUnrootedTreeIsomorphismInspector<>(tree1, tree2);
+
+        Assert.assertTrue(isomorphism.isomorphismExists());
+        IsomorphicGraphMapping<String, DefaultEdge> mapping12 = isomorphism.getMapping();
+
+        isomorphism = new AHUUnrootedTreeIsomorphismInspector<>(tree2, tree3);
+
+        Assert.assertTrue(isomorphism.isomorphismExists());
+        IsomorphicGraphMapping<String, DefaultEdge> mapping23 = isomorphism.getMapping();
+
+        IsomorphicGraphMapping<String, DefaultEdge> mapping13 = mapping12.compose(mapping23);
+
+        String word = "hej";
+        Assert.assertFalse(mapping13.equals(word));
+    }
+
+    @Test
+    public void checkEqualsItself(){
+        Graph<String, DefaultEdge> tree1 = new SimpleGraph<>(DefaultEdge.class);
+        tree1.addVertex("1");
+        tree1.addVertex("2");
+        tree1.addEdge("1", "2");
+
+        Graph<String, DefaultEdge> tree2 = new SimpleGraph<>(DefaultEdge.class);
+        tree2.addVertex("a");
+        tree2.addVertex("b");
+        tree2.addEdge("a", "b");
+
+        Graph<String, DefaultEdge> tree3 = new SimpleGraph<>(DefaultEdge.class);
+        tree3.addVertex("A");
+        tree3.addVertex("B");
+        tree3.addEdge("A", "B");
+
+        AHUUnrootedTreeIsomorphismInspector<String, DefaultEdge> isomorphism =
+                new AHUUnrootedTreeIsomorphismInspector<>(tree1, tree2);
+
+        Assert.assertTrue(isomorphism.isomorphismExists());
+        IsomorphicGraphMapping<String, DefaultEdge> mapping12 = isomorphism.getMapping();
+
+        isomorphism = new AHUUnrootedTreeIsomorphismInspector<>(tree2, tree3);
+
+        Assert.assertTrue(isomorphism.isomorphismExists());
+        IsomorphicGraphMapping<String, DefaultEdge> mapping23 = isomorphism.getMapping();
+
+        IsomorphicGraphMapping<String, DefaultEdge> mapping13 = mapping12.compose(mapping23);
+
+        Assert.assertTrue(mapping13.equals(mapping13));
+    }
+
     @Test
     public void testIdentity()
     {
@@ -48,13 +129,13 @@ public class IsomorphicGraphMappingTest
         tree1.addEdge("C", "E");
 
         IsomorphicGraphMapping<String, DefaultEdge> identity =
-            IsomorphicGraphMapping.identity(tree1);
+                IsomorphicGraphMapping.identity(tree1);
 
         Graph<String, DefaultEdge> tree2 = generateMappedGraph(tree1, identity.getForwardMapping());
 
         AHURootedTreeIsomorphismInspector<String, DefaultEdge> isomorphism =
-            new AHURootedTreeIsomorphismInspector<>(
-                tree1, "A", tree2, identity.getVertexCorrespondence("A", true));
+                new AHURootedTreeIsomorphismInspector<>(
+                        tree1, "A", tree2, identity.getVertexCorrespondence("A", true));
 
         Assert.assertTrue(isomorphism.isomorphismExists());
         Assert.assertTrue(areIsomorphic(tree1, tree2, identity));
@@ -79,7 +160,7 @@ public class IsomorphicGraphMappingTest
         tree3.addEdge("A", "B");
 
         AHUUnrootedTreeIsomorphismInspector<String, DefaultEdge> isomorphism =
-            new AHUUnrootedTreeIsomorphismInspector<>(tree1, tree2);
+                new AHUUnrootedTreeIsomorphismInspector<>(tree1, tree2);
 
         Assert.assertTrue(isomorphism.isomorphismExists());
         IsomorphicGraphMapping<String, DefaultEdge> mapping12 = isomorphism.getMapping();
@@ -108,7 +189,7 @@ public class IsomorphicGraphMappingTest
             Graph<Integer, DefaultEdge> tree3 = generateIsomorphicGraph(tree2, random).getFirst();
 
             AHUUnrootedTreeIsomorphismInspector<Integer, DefaultEdge> isomorphism =
-                new AHUUnrootedTreeIsomorphismInspector<>(tree1, tree2);
+                    new AHUUnrootedTreeIsomorphismInspector<>(tree1, tree2);
 
             IsomorphicGraphMapping<Integer, DefaultEdge> mapping12 = isomorphism.getMapping();
 
