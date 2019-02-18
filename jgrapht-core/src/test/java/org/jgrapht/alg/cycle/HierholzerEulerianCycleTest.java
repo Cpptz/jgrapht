@@ -119,6 +119,8 @@ public class HierholzerEulerianCycleTest
         g.addEdge(4, 5);
         g.addEdge(5, 6);
         g.addEdge(6, 4);
+        // check that the method return false when there is multiple connected
+        // components with eulerian cycle
         Assert.assertFalse(new HierholzerEulerianCycle<Integer, DefaultEdge>().isEulerian(g));
     }
 
