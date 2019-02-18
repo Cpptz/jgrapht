@@ -220,48 +220,6 @@ public class BergeGraphInspectorTest
 
     }
 
-//    @Test
-//    public void checkConfigurationType1()
-//    {
-//        reset();
-//
-//        stimulus.addVertex(1);
-//        stimulus.addVertex(2);
-//        stimulus.addVertex(3);
-//        stimulus.addVertex(4);
-//        stimulus.addVertex(5);// p1
-//        stimulus.addVertex(6);// x
-//        stimulus.addVertex(7);// p2=P*
-//        stimulus.addVertex(8);// p3
-//
-//        stimulus.addEdge(1, 2);
-//        stimulus.addEdge(2, 3);
-//        stimulus.addEdge(3, 4);
-//
-//        //stimulus.addEdge(1, 6);
-//        //stimulus.addEdge(2, 6);
-//        stimulus.addEdge(4, 5);
-//
-//        stimulus.addEdge(5, 1);
-//        //stimulus.addEdge(5, 7);
-//        //stimulus.addEdge(7, 8);
-//        //stimulus.addEdge(4, 8);
-//
-//        //dut.setCertify(true);
-//        assertTrue(dut.hasConfigurationType1(stimulus));
-//
-//        stimulus.addEdge(3, 6);
-//        //assertTrue(dut.hasConfigurationType2(stimulus));
-//
-//        stimulus.addEdge(7, 6);
-//
-//        //assertFalse(dut.hasConfigurationType2(stimulus));
-//
-//        stimulus.removeEdge(3, 6);
-//        stimulus.removeEdge(4, 8);
-//        //assertFalse(dut.hasConfigurationType2(stimulus));
-//    }
-
     @Test
     public void checkConfigurationType2()
     {
