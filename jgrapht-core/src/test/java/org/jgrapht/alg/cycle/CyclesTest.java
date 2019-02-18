@@ -47,10 +47,14 @@ public class CyclesTest
         System.out.println(Cycles.branchCovered.length);
     }
 
+    // checks if an empty cycle makes simpleCycleToGraphPath return null
     @Test
     public void checkNullCycle() {
+        // create graph
         Graph<Integer, DefaultEdge> graph = new SimpleGraph<>(DefaultEdge.class);
+        // create empty cycle
         List<DefaultEdge> cycle = new ArrayList<>();
+        // assert that simpleCycleToGraphPath returns null when input cycle is empty
         Assert.assertEquals(Cycles.simpleCycleToGraphPath(graph, cycle), null);
     }
 
