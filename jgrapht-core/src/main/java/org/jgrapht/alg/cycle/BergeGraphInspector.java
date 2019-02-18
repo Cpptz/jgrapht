@@ -591,51 +591,65 @@ public class BergeGraphInspector<V, E>
             if (X.contains(y1)) {
                 branchCovered[1] = true;
                 continue;
+            } else {
+                branchCovered[2] = true;
             }
 
             for (V x1 : g.vertexSet()) {
-                branchCovered[2] = true;
+                branchCovered[3] = true;
                 if (x1 == y1) {
-                    branchCovered[3] = true;
+                    branchCovered[4] = true;
                     continue;
+                } else {
+                    branchCovered[5] = true;
                 }
                 GraphPath<V, E> rx1y1 = getPathAvoidingX(g, x1, y1, X);
                 for (V x3 : g.vertexSet()) {
-                    branchCovered[4] = true;
+                    branchCovered[6] = true;
                     if (x3 == x1 || x3 == y1 || !g.containsEdge(x1, x3)) {
-                        branchCovered[5] = true;
+                        branchCovered[7] = true;
                         continue;
+                    } else {
+                        branchCovered[8] = true;
                     }
                     for (V x2 : g.vertexSet()) {
-                        branchCovered[6] = true;
+                        branchCovered[9] = true;
                         if (x2 == x3 || x2 == x1 || x2 == y1 || g.containsEdge(x2, x1)
                             || !g.containsEdge(x3, x2)) {
-                            branchCovered[7] = true;
+                            branchCovered[10] = true;
                             continue;
+                        } else {
+                            branchCovered[11] = true;
                         }
 
                         GraphPath<V, E> rx2y1 = getPathAvoidingX(g, x2, y1, X);
 
                         double n;
                         if (rx1y1 == null || rx2y1 == null) {
-                            branchCovered[8] = true;
+                            branchCovered[12] = true;
                             continue;
+                        } else {
+                            branchCovered[13] = true;
                         }
 
                         V y2 = null;
                         for (V y2Candidate : rx2y1.getVertexList()) {
-                            branchCovered[9] = true;
+                            branchCovered[14] = true;
                             if (g.containsEdge(y1, y2Candidate) && y2Candidate != x1
                                 && y2Candidate != x2 && y2Candidate != x3 && y2Candidate != y1)
                             {
-                                branchCovered[10] = true;
+                                branchCovered[15] = true;
                                 y2 = y2Candidate;
                                 break;
+                            } else {
+                                branchCovered[16] = true;
                             }
                         }
                         if (y2 == null) {
-                            branchCovered[11] = true;
+                            branchCovered[17] = true;
                             continue;
+                        } else {
+                            branchCovered[18] = true;
                         }
 
                         GraphPath<V, E> rx3y1 = getPathAvoidingX(g, x3, y1, X);
@@ -646,13 +660,13 @@ public class BergeGraphInspector<V, E>
                             && n == rx1y2.getLength() && rx3y1.getLength() >= n
                             && rx3y2.getLength() >= n)
                         {
-                            branchCovered[12] = true;
+                            branchCovered[19] = true;
                             if (certify) {
-                                branchCovered[13] = true;
+                                branchCovered[20] = true;
                                 List<E> edgeList = new LinkedList<>();
                                 edgeList.addAll(rx1y1.getEdgeList());
                                 for (int i = rx2y1.getLength() - 1; i >= 0; i--) {
-                                    branchCovered[14] = true;
+                                    branchCovered[21] = true;
                                     edgeList.add(rx2y1.getEdgeList().get(i));
                                 }
                                 edgeList.add(g.getEdge(x2, x3));
@@ -661,8 +675,12 @@ public class BergeGraphInspector<V, E>
                                 double weight =
                                     edgeList.stream().mapToDouble(g::getEdgeWeight).sum();
                                 certificate = new GraphWalk<>(g, x1, x1, edgeList, weight);
+                            } else {
+                                branchCovered[22] = true;
                             }
                             return true;
+                        } else {
+                            branchCovered[23] = true;
                         }
                     }
                 }
