@@ -101,6 +101,20 @@ public class GraphTypeBuilderTest
         assertEquals(graph.getEdgeSupplier(), graph1.getEdgeSupplier());
     }
 
+    @AfterClass
+    public static void tearDownAll() {
+        int count = 0;
+        for (int i = 0; i < GraphTypeBuilder.branchCovered.length; i++) {
+            if (GraphTypeBuilder.branchCovered[i] == true) {
+                count++;
+            }
+        }
+        System.out.println(count);
+        System.out.println(GraphTypeBuilder.branchCovered.length);
 
+        for (int i = 0; i < GraphTypeBuilder.branchCovered.length; i++) {
+            System.out.println("branch: " + i + " visited = " + GraphTypeBuilder.branchCovered[i]);
+        }
+    }
 
 }
