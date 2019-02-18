@@ -21,6 +21,12 @@ Did it build as documented?
 (See the assignment for details; if everything works out of the box,
 there is no need to write much here.)
 
+As this is a maven project, installing dependencies was easy.
+
+The [documentation for the developpers](https://github.com/jgrapht/jgrapht/wiki#developer-pages) is really well written.
+
+The build and the tests concluded without errors on our systems.
+
 
 ## Complexity
 
@@ -34,7 +40,7 @@ is not easily possible: ten complex functions)?
 5. Is the documentation clear w.r.t. all the possible outcomes?
 
 
-1.
+### 1.
 |  Method | CCN | 
 |---|---|
 |  [isEulerian()](./jgraph-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java) | 9 if +6 for + 1 OR -1 return point + 2 = 17|
@@ -47,13 +53,25 @@ is not easily possible: ten complex functions)?
 |   |   |
 |   |   |
 
-2.
+We have the same results when we calculated CCN by hand.
 
-3.
+### 2.
+As this a graph library with many algorithms, the functions can be both long and really complex.
 
-4. 
+### 3.
+#### [isEulerian()](./jgraph-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java)
 
-5. 
+
+First, it checked that the graph contained vertices and node.
+Then if it is a directed, 
+
+ 
+ 
+
+
+### 4. 
+
+### 5. 
 
 ## Coverage
 
