@@ -81,7 +81,7 @@ public final class GraphTypeBuilder<V, E>
     private Supplier<V> vertexSupplier;
     private Supplier<E> edgeSupplier;
 
-    static boolean[] branchCovered = new boolean[30];
+    static boolean[] branchCovered = new boolean[27];
 
 
     private GraphTypeBuilder(boolean directed, boolean undirected)
