@@ -378,4 +378,21 @@ public class HeldKarpTSPTest
             assertHamiltonian(g, tour);
         }
     }
+    @Test(expected = IllegalArgumentException.class)
+    public void checkGetTour(){
+        Graph<Integer, DefaultWeightedEdge> g = new SimpleWeightedGraph<>(DefaultWeightedEdge.class);
+        for (int i = 0; i < 34; i++) {
+            g.addVertex(i);
+        }
+        for (int i = 0; i < 34; i++) {
+            for (int j = i + 1; j < 34; j++) {
+                g.addEdge(i, j);
+                g.setEdgeWeight(g.getEdge(i, j), 1);
+            }
+        }
+        new HeldKarpTSP<Integer, DefaultWeightedEdge>().getTour(g);
+
+
+
+    }
 }
