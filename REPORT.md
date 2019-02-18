@@ -83,8 +83,8 @@ These are the 10 functions we have
 |---|---|---|
 |  [isEulerian()](./jgraph-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java) | 2  | 9 if +6 for + 1 OR -1 return point + 2 = 17|
 | [verify()](./jgraph-core/src/main/java/org/jgrapht/graph/GraphWalk.java)  | 3  | 18 if + 2 for + 1 while + 3 AND + 2 OR -1 return point +2 = 27 |
-|   |   |
-|   |   |
+|[equals()](./jgrapht-core/src/main/java/org/jgrapht/alg/isomorphism/IsomorphicGraphMapping.java)| |2 if + 1 OR + 2 AND
+|[simpleCycleToGraphPath()](/.jgrapht-core/src/main/java/org/jgrapht/alg/cycle/Cycles.java)| |8 if + 1 for + 1 while
 |   |   |
 |   |   |
 |   |   |
