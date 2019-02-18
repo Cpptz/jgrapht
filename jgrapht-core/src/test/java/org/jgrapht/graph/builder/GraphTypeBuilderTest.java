@@ -35,6 +35,7 @@ public class GraphTypeBuilderTest
     @Test
     public void testBuildGraph()
     {
+        //We test graphs with alternating boolean values for variables in the function
         Graph<Integer,
                 DefaultEdge> graph = GraphTypeBuilder
                 .<Integer, DefaultEdge> directed().weighted(false).allowingMultipleEdges(false)
