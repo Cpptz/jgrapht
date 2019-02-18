@@ -44,6 +44,10 @@ public class IsomorphicGraphMapping<V, E>
     private final Graph<V, E> graph1;
     private final Graph<V, E> graph2;
 
+    static boolean[] branchCovered = new boolean[4];
+
+
+
     /**
      * Construct a new isomorphic graph mapping
      * 
@@ -204,10 +208,18 @@ public class IsomorphicGraphMapping<V, E>
     @Override
     public boolean equals(Object o)
     {
-        if (this == o)
+        if (this == o) {
+            branchCovered[0] = true;
             return true;
-        if (o == null || getClass() != o.getClass())
+        }
+        else {branchCovered[1] = true;}
+
+        if (o == null || getClass() != o.getClass()) {
+            branchCovered[2] = true;
             return false;
+        }
+        else {branchCovered[3] = true;}
+
         IsomorphicGraphMapping<?, ?> that = (IsomorphicGraphMapping<?, ?>) o;
         return Objects.equals(forwardMapping, that.forwardMapping)
             && Objects.equals(backwardMapping, that.backwardMapping) && graph1 == that.graph1
@@ -278,10 +290,10 @@ public class IsomorphicGraphMapping<V, E>
             V u = graph2.getEdgeSource(e);
             V v = graph2.getEdgeTarget(e);
 
-            if (!graph1.containsEdge(u, v))
+            if (!graph1.containsEdge(u, v)) {
                 return false;
+            }
         }
-
         return true;
     }
 
