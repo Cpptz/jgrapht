@@ -45,11 +45,11 @@ is not easily possible: ten complex functions)?
 
 |  Method | CCN | 
 |---|---|
-|  [isEulerian()](./jgraph-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java) | 9 if +6 for + 1 OR -1 return point + 2 = 17|
-| [verify()](./jgraph-core/src/main/java/org/jgrapht/graph/GraphWalk.java)  | 18 if + 2 for + 1 while + 3 AND + 2 OR -1 return point +2 = 27 |
-|[buildGraph()](./jgraph-core/src/main/java/org/jgrapht/graph/builder/GraphTypeBuilder.java) | 16 if + 3 AND -1  +2 =20 |
-|[equals()](./jgrapht-core/src/main/java/org/jgrapht/alg/isomorphism/IsomorphicGraphMapping.java)|2 if + 1 OR + 2 AND= |  
-|[simpleCycleToGraphPath()](/.jgrapht-core/src/main/java/org/jgrapht/alg/cycle/Cycles.java)|8 if + 1 for + 1 while  =|
+|  [isEulerian](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java) | 9 if +6 for + 1 OR -1 return point + 2 = 17|
+| [verify](./jgrapht-core/src/main/java/org/jgrapht/graph/GraphWalk.java)  | 18 if + 2 for + 1 while + 3 AND + 2 OR -1 return point +2 = 27 |
+|[buildGraph](./jgraph-core/src/main/java/org/jgrapht/graph/builder/GraphTypeBuilder.java) | 16 if + 3 AND -1  +2 =20 |
+|[equals](./jgrapht-core/src/main/java/org/jgrapht/alg/isomorphism/IsomorphicGraphMapping.java)|2 if + 1 OR + 2 AND= |  
+|[simpleCycleToGraphPath](/.jgrapht-core/src/main/java/org/jgrapht/alg/cycle/Cycles.java)|8 if + 1 for + 1 while  =|
 |   |   |
 |   |   |
 |   |   |
@@ -123,15 +123,17 @@ git diff ...
 What kinds of constructs does your tool support, and how accurate is
 its output?
 
+
+
 These are the 10 functions we have tested
 <center>
 
 |  Method | Branch number | 
 |---|---|
-|  [isEulerian()](./jgraph-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java) | 2  | 
-| [verify()](./jgraph-core/src/main/java/org/jgrapht/graph/GraphWalk.java)  | 3  | 
-|[equals()](./jgrapht-core/src/main/java/org/jgrapht/alg/isomorphism/IsomorphicGraphMapping.java)|11|
-|[simpleCycleToGraphPath()](/.jgrapht-core/src/main/java/org/jgrapht/alg/cycle/Cycles.java)|13|
+|  [isEulerian](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java) | 2  | 
+| [verify](./jgrapht-core/src/main/java/org/jgrapht/graph/GraphWalk.java)  | 3  | 
+| [equals](./jgrapht-core/src/main/java/org/jgrapht/alg/isomorphism/IsomorphicGraphMapping.java)|11|
+| [simpleCycleToGraphPath](/.jgrapht-core/src/main/java/org/jgrapht/alg/cycle/Cycles.java)|13|
 |   |   |
 |   |   |
 |   |   |
