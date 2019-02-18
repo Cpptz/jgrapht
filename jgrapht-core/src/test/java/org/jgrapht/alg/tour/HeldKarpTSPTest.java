@@ -378,6 +378,7 @@ public class HeldKarpTSPTest
             assertHamiltonian(g, tour);
         }
     }
+    // We test the IllegalArgumentException by representing a graph with more than 31 vertices.
     @Test(expected = IllegalArgumentException.class)
     public void checkGetTour(){
         Graph<Integer, DefaultWeightedEdge> g = new SimpleWeightedGraph<>(DefaultWeightedEdge.class);
