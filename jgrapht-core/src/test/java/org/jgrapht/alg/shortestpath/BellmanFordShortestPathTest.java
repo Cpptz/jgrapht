@@ -37,20 +37,7 @@ public class BellmanFordShortestPathTest
         ShortestPathTestCase
 {
     // ~ Methods ----------------------------------------------------------------
-
-
-    @AfterClass
-    public static void tearDownAll() {
-        int count = 0;
-        for (int i = 0; i < BellmanFordShortestPath.branchCovered.length; i++) {
-            if (BellmanFordShortestPath.branchCovered[i] == true) {
-                count++;
-            }
-        }
-        System.out.println(count);
-        System.out.println(BellmanFordShortestPath.branchCovered.length);
-    }
-
+    
 
     @Test (expected = IllegalArgumentException.class)
     public void testIllegalSource() {
