@@ -84,7 +84,7 @@ and that there is only connected component with edges.
 ### [verify()](./jgraph-core/src/main/java/org/jgrapht/graph/GraphWalk.java)
 This function checks that the path of the ``GraphWalk`` is feasible w.r.t. the graph of the ``GraphWalk``.
 
-The path is described as a list of vertices, a list of edges or both.
+The path is described as a list of vertices, a list of edges or both, with optionnaly a start and an end vertex.
 
 First it checks that either the path or both the list of vertices and the list of edges
 
