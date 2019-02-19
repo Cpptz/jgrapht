@@ -37,6 +37,20 @@ public class BellmanFordShortestPathTest
 {
     // ~ Methods ----------------------------------------------------------------
 
+    @AfterClass
+    public static void tearDownAll() {
+        int count = 0;
+        for (int i = 0; i < BellmanFordShortestPath.branchCovered.length; i++) {
+            System.out.println(i + ": " + BellmanFordShortestPath.branchCovered[i]);
+            if (BellmanFordShortestPath.branchCovered[i] == true) {
+                count++;
+            }
+        }
+        System.out.println(count);
+        System.out.println(BellmanFordShortestPath.branchCovered.length);
+    }
+
+
     @Test
     public void testUndirected()
     {
