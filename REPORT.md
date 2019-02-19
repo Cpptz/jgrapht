@@ -297,8 +297,8 @@ git diff master..refrac_2
 ```
 ### [buildGraph](./jgrapht-core/src/main/java/org/jgrapht/graph/builder/GraphTypeBuilder.java)
 The function uses nesting if-else statements that could be refactored. The function uses the same if-else statements
-for the graph being directed and undirected. We can remove half of the if clauses by checking weighted() in a help
-function.
+for the graph being directed and undirected. We can branch by extraction by removing half of the if clauses by checking
+weighted() in a help function.
 
 ## Effort spent
 
@@ -377,7 +377,7 @@ function.
 
 What are your main take-aways from this project? What did you learn?
 
-Viktor: Finding the right functions were the key to this project.
+Viktor: Finding the right functions was the key to this project.
 
 Sara:
 I thought it was very hard to work with these functions since many of them are very nested in terms of new objects and data structures which are poorly documented. Also there were side effects going on and variables which were private so that certain branches could not ever be tested. There were also some dead code. Overall it was interesting but hard and took much effort to work with an open-source project like this.
