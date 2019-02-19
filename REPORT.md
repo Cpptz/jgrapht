@@ -249,23 +249,42 @@ git diff master..refrac_2
 
 ## Effort spent
 
-For each team member, how much time was spent in
-Viktor:
-    1. plenary discussions/meetings; 5h
+<!-- For each team member, how much time was spent in-->
 
-    2. discussions within parts of the group; 5h
 
-    3. reading documentation; 3h
+* Viktor
+    1. plenary discussions/meetings: 5h
 
-    4. configuration; 3h
+    2. discussions within parts of the group: 5h
 
-    5. analyzing code/output; 5h
+    3. reading documentation: 3h
 
-    6. writing documentation; 2h
+    4. configuration: 3h
 
-    7. writing code; 3h
+    5. analyzing code/output: 5h
 
-    8. running code? 0.5h
+    6. writing documentation: 2h
+
+    7. writing code: 3h
+
+    8. running code: 0.5h
+    
+* Cyril 
+    1. plenary discussions/meetings : 5h
+
+    2. discussions within parts of the group: 5h
+    
+    3. reading documentation: 2h
+    
+    4. configuration: 2h
+    
+    5. analyzing code/output: 5h
+    
+    6. writing documentation: 3h
+    
+    7. writing code: 7h
+    
+    8. running code: 1h
 
 ## Overall experience
 
