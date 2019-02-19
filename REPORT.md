@@ -315,6 +315,12 @@ The function uses nesting if-else statements that could be refactored. The funct
 for the graph being directed and undirected. We can remove half of the if clauses by checking weighted() in a help
 function.
 
+### [generateGraph](./jgrapht-core/src/main/java/org/jgrapht/generate/PlantedPartitionGraphGenerator.java)
+This function uses duplicated code for most of directed and undirected graphs. This could be abstracted to another function.
+
+## [generateGraph](./jgrapht-core/src/main/java/org/jgrapht/generate/GnmRandomGraphGenerator.java)
+This function has amongst other things an if-statement which will never be true. This could either be changed to an enabled assertion of just be removed.
+
 ## Effort spent
 
 <!-- For each team member, how much time was spent in-->
