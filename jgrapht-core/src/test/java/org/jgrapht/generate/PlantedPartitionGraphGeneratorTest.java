@@ -210,20 +210,15 @@ public class PlantedPartitionGraphGeneratorTest
     }
 
     @Test
-    public void testZeroPDefaultAllowingSelfLoops()
+    public void testAllowingSelfLoops()
     {
-        int l = 5;
-        int k = 10;
-        double p = 0.0;
-        double q = 0.1;
-        int edges = k * k * l * (l - 1);
         GraphGenerator<Integer, DefaultEdge, Integer> gen =
-                new PlantedPartitionGraphGenerator<>(l, k, p, q, true);
+                new PlantedPartitionGraphGenerator<>(5, 10, 0.0, 0.1, true);
         Graph<Integer, DefaultEdge> g = new DefaultDirectedGraph<>(
                 SupplierUtil.createIntegerSupplier(), SupplierUtil.createDefaultEdgeSupplier(), false);
         gen.generateGraph(g);
-        assertEquals(l * k, g.vertexSet().size());
-        assertTrue(g.edgeSet().size() <= edges);
+        // check that the we're creating a graph that is allowing self loops
+        assertTrue(g.getType().isAllowingSelfLoops());
     }
 
     @Test
