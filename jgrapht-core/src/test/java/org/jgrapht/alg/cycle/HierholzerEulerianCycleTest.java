@@ -35,6 +35,19 @@ import static org.junit.Assert.*;
  */
 public class HierholzerEulerianCycleTest
 {
+
+    @AfterClass
+    public static void tearDownAll() {
+        int count = 0;
+        for (int i = 0; i < HierholzerEulerianCycle.branchCovered.length; i++) {
+            if (HierholzerEulerianCycle.branchCovered[i] == true) {
+                count++;
+            }
+        }
+        System.out.println(count);
+        System.out.println(HierholzerEulerianCycle.branchCovered.length);
+    }
+
     @Test
     public void testNullEulerian()
     {

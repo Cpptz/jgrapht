@@ -31,7 +31,7 @@ import java.util.*;
  * algorithm works with directed and undirected graphs which may contain loops and/or multiple
  * (parallel) edges. The running time is linear, i.e. $O(|E|)$ where $|E|$ is the cardinality of the
  * edge set of the graph.
- * 
+ *
  * <p>
  * See the <a href="https://en.wikipedia.org/wiki/Eulerian_path">Wikipedia article</a> for details
  * and references about Eulerian cycles and a short description of Hierholzer's algorithm for the
@@ -41,12 +41,12 @@ import java.util.*;
  *
  * @param <V> the graph vertex type
  * @param <E> the graph edge type
- * 
+ *
  * @author Dimitrios Michail
  */
 public class HierholzerEulerianCycle<V, E>
-    implements
-    EulerianCycleAlgorithm<V, E>
+        implements
+        EulerianCycleAlgorithm<V, E>
 {
     /*
      * The input graph.
@@ -69,11 +69,13 @@ public class HierholzerEulerianCycle<V, E>
      */
     protected V startVertex;
 
+    static boolean[] branchCovered = new boolean[22];
+
     /**
      * Test whether a graph is Eulerian. An
      * <a href="http://mathworld.wolfram.com/EulerianGraph.html">Eulerian graph</a> is a graph
      * containing an <a href="http://mathworld.wolfram.com/EulerianCycle.html">Eulerian cycle</a>.
-     * 
+     *
      * @param graph the input graph
      * @return true if the graph is Eulerian, false otherwise
      */
@@ -82,52 +84,83 @@ public class HierholzerEulerianCycle<V, E>
         GraphTests.requireDirectedOrUndirected(graph);
 
         if (graph.vertexSet().isEmpty()) {
+            branchCovered[0] = true;
+
             // null-graph return false
             return false;
         } else if (graph.edgeSet().isEmpty()) {
+            branchCovered[1] = true;
+
             // empty-graph with vertices
             return true;
         } else if (graph.getType().isUndirected()) {
+            branchCovered[2] = true;
+
             // check odd degrees
             for (V v : graph.vertexSet()) {
+                branchCovered[3] = true;
                 if (graph.degreeOf(v) % 2 == 1) {
+                    branchCovered[4] = true;
                     return false;
+                }else{
+                    branchCovered[5] = true;
                 }
             }
             // check that at most one connected component contains edges
             boolean foundComponentWithEdges = false;
             for (Set<V> component : new ConnectivityInspector<>(graph).connectedSets()) {
+                branchCovered[6] = true;
                 for (V v : component) {
+                    branchCovered[7] = true;
                     if (graph.degreeOf(v) > 0) {
+                        branchCovered[8] = true;
                         if (foundComponentWithEdges) {
+                            branchCovered[9] = true;
                             return false;
+                        }else{
+                            branchCovered[10] = true;
                         }
                         foundComponentWithEdges = true;
                         break;
+                    }else{
+                        branchCovered[11] = true;
                     }
                 }
             }
             return true;
         } else {
+            branchCovered[12] = true;
             // check same in and out degrees
             for (V v : graph.vertexSet()) {
+                branchCovered[13] = true;
                 if (graph.inDegreeOf(v) != graph.outDegreeOf(v)) {
+                    branchCovered[14] = true;
                     return false;
+                }else{
+                    branchCovered[15] = true;
                 }
             }
             // check that at most one strongly connected component contains
             // edges
             boolean foundComponentWithEdges = false;
             for (Set<V> component : new KosarajuStrongConnectivityInspector<>(graph)
-                .stronglyConnectedSets())
+                    .stronglyConnectedSets())
             {
+                branchCovered[16] = true;
                 for (V v : component) {
+                    branchCovered[17] = true;
                     if (graph.inDegreeOf(v) > 0 || graph.outDegreeOf(v) > 0) {
+                        branchCovered[18] = true;
                         if (foundComponentWithEdges) {
+                            branchCovered[19] = true;
                             return false;
+                        } else{
+                            branchCovered[20] = true;
                         }
                         foundComponentWithEdges = true;
                         break;
+                    }else{
+                        branchCovered[21] = true;
                     }
                 }
             }
@@ -135,9 +168,10 @@ public class HierholzerEulerianCycle<V, E>
         }
     }
 
+
     /**
      * Compute an Eulerian cycle of a graph.
-     * 
+     *
      * @param g the input graph
      * @return an Eulerian cycle
      * @throws IllegalArgumentException in case the graph is not Eulerian
@@ -202,7 +236,7 @@ public class HierholzerEulerianCycle<V, E>
     /**
      * Index the graph and create a double-linked list representation suitable for vertex and edge
      * removals in constant time. Ignore any vertices with zero degrees.
-     * 
+     *
      * @param g the graph to index
      */
     protected void initialize(Graph<V, E> g)
@@ -246,7 +280,7 @@ public class HierholzerEulerianCycle<V, E>
     /**
      * Computes a partial cycle assuming that all vertices have an even degree. The partial cycle
      * always begin from the first graph vertex in the vertex list.
-     * 
+     *
      * @return the partial's cycle head and tail nodes as a pair
      */
     protected Pair<EdgeNode, EdgeNode> computePartialCycle()
@@ -279,12 +313,12 @@ public class HierholzerEulerianCycle<V, E>
      * locations for vertices with non-zero degrees. It is important to move vertices with new
      * insert locations to the front of the vertex list, in order to make sure that we always start
      * partial cycles from already visited vertices.
-     * 
+     *
      * @param partialCycle the partial cycle
      * @param partialCycleSourceVertex the source vertex of the first edge in the partial cycle
      */
     protected void updateGraphAndInsertLocations(
-        Pair<EdgeNode, EdgeNode> partialCycle, VertexNode partialCycleSourceVertex)
+            Pair<EdgeNode, EdgeNode> partialCycle, VertexNode partialCycleSourceVertex)
     {
         EdgeNode e = partialCycle.getFirst();
         assert e != null : "Graph is not Eulerian";
@@ -307,7 +341,7 @@ public class HierholzerEulerianCycle<V, E>
 
     /**
      * Build final walk
-     * 
+     *
      * @return the final walk
      */
     protected GraphWalk<V, E> buildWalk()
@@ -552,8 +586,8 @@ public class HierholzerEulerianCycle<V, E>
          * @param next next edge
          */
         public EdgeNode(
-            VertexNode sourceNode, VertexNode targetNode, EdgeNode prev, E e, EdgeNode reverse,
-            EdgeNode next)
+                VertexNode sourceNode, VertexNode targetNode, EdgeNode prev, E e, EdgeNode reverse,
+                EdgeNode next)
         {
             this.sourceNode = sourceNode;
             this.targetNode = targetNode;
