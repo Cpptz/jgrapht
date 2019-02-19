@@ -88,13 +88,11 @@ public class KleinbergSmallWorldGraphGenerator<V, E>
         this(n, p, q, r, new Random(seed));
     }
 
-    /**
-     * Constructor
-     *
-     * added to be able to test all branches of the generateGraph function
-     *
-     */
 
+    /**
+     * added to be able to test all branches of the generateGraph function
+     * @param n generate set of lattice points in a $n \times n$ square
+     */
      public KleinbergSmallWorldGraphGenerator(int n)
     {
         this.n = n;
