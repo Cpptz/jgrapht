@@ -39,8 +39,20 @@ public class BellmanFordShortestPathTest
     // ~ Methods ----------------------------------------------------------------
 
 
+    @AfterClass
+    public static void tearDownAll() {
+        int count = 0;
+        for (int i = 0; i < BellmanFordShortestPath.branchCovered.length; i++) {
+            if (BellmanFordShortestPath.branchCovered[i] == true) {
+                count++;
+            }
+        }
+        System.out.println(count);
+        System.out.println(BellmanFordShortestPath.branchCovered.length);
+    }
 
-    @Test (expected = Exception.class)
+
+    @Test (expected = IllegalArgumentException.class)
     public void testIllegalSource() {
         Graph<String, DefaultWeightedEdge> g = create();
         new BellmanFordShortestPath<>(g).getPaths("b");
