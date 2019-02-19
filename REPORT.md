@@ -404,4 +404,7 @@ Viktor: Finding the right functions was the key to this project.
 Sara:
 I thought it was very hard to work with these functions since many of them are very nested in terms of new objects and data structures which are poorly documented. Also there were side effects going on and variables which were private so that certain branches could not ever be tested. There were also some dead code. Overall it was interesting but hard and took much effort to work with an open-source project like this.
 
+Fredrik:
+It was an interesting project in many ways. We experienced code that was written in a strange way, difficulties with understanding functions and what things actually does and many other obstacles that we had to deal with. Something important that I learned was that it is crucial to write good documentation on how things work so that other people could easier set themselves into the code and the program. I think this was the hardest part, just to understand what is happening and not. However I think it was really hard to chose project, and I think that maybe for the future, you should help more with choosing the project. It took a long time to get started.
+
 Is there something special you want to mention here?
