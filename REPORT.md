@@ -23,7 +23,7 @@ there is no need to write much here.)-->
 
 As this is a maven project, installing dependencies was easy.
 
-The [documentation for the developpers](https://github.com/jgrapht/jgrapht/wiki#developer-pages) is really well written.
+The [documentation for the developers](https://github.com/jgrapht/jgrapht/wiki#developer-pages) is really well written.
 
 The build and the tests concluded without errors on our systems.
 
@@ -58,7 +58,6 @@ is not easily possible: ten complex functions)?
 | [hasConfigurationType3](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)| 10 if + 9 for + 29 or + 4 and = 52 |
 | [generateGraph](./jgrapht-core/src/main/java/org/jgrapht/generate/PlantedPartitionGraphGenerator.java)|14 if + 7 for + 1 OR - 1 + 2 = 23|
 | [generateGraph](./jgrapht-core/src/main/java/org/jgrapht/generate/KleinbergSmallWorldGraphGenerator.java)|6 if + 11 for + 4 OR + 2 AND -1 + 2 =  24|
-|   |   |
 
 </center>
 
@@ -69,7 +68,7 @@ As this a graph library with many algorithms, the functions can be both long and
 
 ### 3.
 #### [isEulerian()](./jgraph-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java)
-This function return true if the graph contains an eulerian cycle.
+This function returns true if the graph contains an eulerian cycle.
 That is finding if it is possible to construct a cycle, i.e. a path starting and ending on the same vertex, which
 visits each vertex exactly once. It also means, the graph should only have one connected componenent with edges.
 
@@ -89,10 +88,10 @@ The path is described as a list of vertices, a list of edges or both, with optio
 First it checks that either the path or both the list of vertices and the list of edges
 
 Then depending on the way the path is described, it will check that the vertices or edges are contained in the graph,
-that each edges or vertices follow each other...
+that each edge or vertex follow each other...
 
 #### [buildGraph()](./jgrapht-core/src/main/java/org/jgrapht/graph/builder/GraphTypeBuilder.java)
-This function builds a graph dependant on the boolean variables allowingSelfLoops, allowingMultipleEdges, weighted and
+This function builds a graph dependent on the boolean variables allowingSelfLoops, allowingMultipleEdges, weighted and
 
 directed. The function will return one of 16 possible graph structures that matches the correct boolean variables.
 
