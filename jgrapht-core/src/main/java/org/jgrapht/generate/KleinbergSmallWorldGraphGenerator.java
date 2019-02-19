@@ -133,15 +133,6 @@ public class KleinbergSmallWorldGraphGenerator<V, E>
     @Override
     public void generateGraph(Graph<V, E> target, Map<String, V> resultMap)
     {
-        /*
-         * Special cases
-         */
-        if (n == 0) {
-            return;
-        } else if (n == 1) {
-            target.addVertex();
-            return;
-        }
 
         /*
          * Ensure directed or undirected
