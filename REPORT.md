@@ -310,19 +310,19 @@ Patch can be viewed using the following diff command
 ```bash
 git diff master..refrac_2
 ```
-### [buildGraph](./jgrapht-core/src/main/java/org/jgrapht/graph/builder/GraphTypeBuilder.java)
+#### [buildGraph](./jgrapht-core/src/main/java/org/jgrapht/graph/builder/GraphTypeBuilder.java)
 The function uses nesting if-else statements that could be refactored. The function uses the same if-else statements
 for the graph being directed and undirected. We can branch by extraction by removing half of the if clauses by checking
 weighted() in a help function.
 
-### [generateGraph](./jgrapht-core/src/main/java/org/jgrapht/generate/PlantedPartitionGraphGenerator.java)
+#### [generateGraph](./jgrapht-core/src/main/java/org/jgrapht/generate/PlantedPartitionGraphGenerator.java)
 This function uses duplicated code for most of directed and undirected graphs. This could be abstracted to another function.
 
-### [getTour](./jgrapht-core/src/main/java/org/jgrapht/alg/tour/HeldKarpTSP.java)
+#### [getTour](./jgrapht-core/src/main/java/org/jgrapht/alg/tour/HeldKarpTSP.java)
 We can refract this function by extracting the code that is maps each vertex to an integer as well as assigning values
  to a matrix which contains the minimum weight of edges in to a separate function.
 
-## [generateGraph](./jgrapht-core/src/main/java/org/jgrapht/generate/GnmRandomGraphGenerator.java)
+#### [generateGraph](./jgrapht-core/src/main/java/org/jgrapht/generate/GnmRandomGraphGenerator.java)
 This function has amongst other things an if-statement which will never be true. This could either be changed to an enabled assertion of just be removed.
 
 ## Effort spent
