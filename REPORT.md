@@ -110,6 +110,15 @@ It then reconstructs the tour and finds the minimal cost hamiltonian tour by loo
 
 ### 4.
 
+The complexity does not change due to adding exceptions. When calculating complexity, the function evaluates the
+
+exception essentially as a return statement. With regards to the complexity, it does not matter if execution ends on a
+
+return statement or an exception.
+
+When catching an exception using try{} catch{} will increase complexity by one due to the try statement as it holds
+
+similar functionality as an if-statement.
 
 ### 5.
 
@@ -234,25 +243,27 @@ git diff ...
 ## Effort spent
 
 For each team member, how much time was spent in
+Viktor:
+    1. plenary discussions/meetings; 5h
 
-1. plenary discussions/meetings;
+    2. discussions within parts of the group; 5h
 
-2. discussions within parts of the group;
+    3. reading documentation; 3h
 
-3. reading documentation;
+    4. configuration; 3h
 
-4. configuration;
+    5. analyzing code/output; 5h
 
-5. analyzing code/output;
+    6. writing documentation; 2h
 
-6. writing documentation;
+    7. writing code; 3h
 
-7. writing code;
-
-8. running code?
+    8. running code? 0.5h
 
 ## Overall experience
 
 What are your main take-aways from this project? What did you learn?
+
+Viktor: Finding the right functions were the key to this project.
 
 Is there something special you want to mention here?
