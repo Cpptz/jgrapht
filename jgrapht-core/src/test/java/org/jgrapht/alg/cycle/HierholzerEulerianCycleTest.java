@@ -103,6 +103,28 @@ public class HierholzerEulerianCycleTest
     }
 
     @Test
+    public void testDirectedMultipleConnectedCompoment()
+    {
+        Graph<Integer, DefaultEdge> g = new DirectedPseudograph<>(DefaultEdge.class);
+
+        g.addVertex(1);
+        g.addVertex(2);
+        g.addVertex(3);
+        g.addEdge(1, 2);
+        g.addEdge(2, 3);
+        g.addEdge(3, 1);
+        g.addVertex(4);
+        g.addVertex(5);
+        g.addVertex(6);
+        g.addEdge(4, 5);
+        g.addEdge(5, 6);
+        g.addEdge(6, 4);
+        // check that the method return false when there is multiple connected
+        // components with eulerian cycle
+        Assert.assertFalse(new HierholzerEulerianCycle<Integer, DefaultEdge>().isEulerian(g));
+    }
+
+    @Test
     public void testDirectedDisconnectedEulerian()
     {
         Graph<Integer, DefaultEdge> g = new DirectedPseudograph<>(DefaultEdge.class);
