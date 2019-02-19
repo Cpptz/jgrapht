@@ -37,11 +37,15 @@ public class BellmanFordShortestPathTest
         ShortestPathTestCase
 {
     // ~ Methods ----------------------------------------------------------------
-    
 
+
+    // checks if getPaths throws an exception when source does not exist
     @Test (expected = IllegalArgumentException.class)
     public void testIllegalSource() {
+        // create graph
         Graph<String, DefaultWeightedEdge> g = create();
+        /*try to run getPaths on the graph with a source vertex which does not exist,
+        should throw IllegalArgumentException */
         new BellmanFordShortestPath<>(g).getPaths("b");
     }
 
