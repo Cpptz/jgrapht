@@ -72,7 +72,7 @@ public class KleinbergSmallWorldGraphGeneratorTest
         Graph<Integer, DefaultEdge> g = new SimpleGraph<>(
                 SupplierUtil.createIntegerSupplier(), SupplierUtil.DEFAULT_EDGE_SUPPLIER, false);
         gen.generateGraph(g);
-
+        // check that a graph with exactly 0 vertex is made
         assertEquals(0, g.vertexSet().size());
     }
 
@@ -84,7 +84,7 @@ public class KleinbergSmallWorldGraphGeneratorTest
         Graph<Integer, DefaultEdge> g = new SimpleGraph<>(
                 SupplierUtil.createIntegerSupplier(), SupplierUtil.DEFAULT_EDGE_SUPPLIER, false);
         gen.generateGraph(g);
-
+        // check that a graph with exactly 1 vertex is made
         assertEquals(1, g.vertexSet().size());
     }
 
