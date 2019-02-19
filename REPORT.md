@@ -334,6 +334,23 @@ git diff master..refrac_2
     
     8. running code: 1h
 
+* Fredrik
+    1. plenary discussions/meetings : 5h
+
+    2. discussions within parts of the group: 5h
+    
+    3. reading documentation: 2h
+    
+    4. configuration: 1h
+    
+    5. analyzing code/output: 10h
+    
+    6. writing documentation: 1,5h
+    
+    7. writing code: 3h
+    
+    8. running code: 0,5h
+    
 ## Overall experience
 
 What are your main take-aways from this project? What did you learn?
