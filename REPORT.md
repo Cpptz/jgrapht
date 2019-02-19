@@ -325,6 +325,10 @@ We can refract this function by extracting the code that is maps each vertex to 
 #### [generateGraph](./jgrapht-core/src/main/java/org/jgrapht/generate/GnmRandomGraphGenerator.java)
 This function has amongst other things an if-statement which will never be true. This could either be changed to an enabled assertion of just be removed.
 
+## [hasConfigurationType3](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)
+As a start you could make a function that filter out the interesting vertices instead of using 3 nestled for loops.
+Then there's more filtering that could be done by a separate function. This would make the function a lot less complicated.
+
 ## Effort spent
 
 <!-- For each team member, how much time was spent in-->
