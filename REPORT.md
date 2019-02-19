@@ -51,13 +51,13 @@ is not easily possible: ten complex functions)?
 | [isEulerian](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java) | 9 if +6 for + 1 OR -1 return point + 2 = 17|
 | [verify](./jgrapht-core/src/main/java/org/jgrapht/graph/GraphWalk.java)  | 18 if + 2 for + 1 while + 3 AND + 2 OR -1 return point +2 = 27 |
 | [buildGraph](./jgrapht-core/src/main/java/org/jgrapht/graph/builder/GraphTypeBuilder.java) | 16 if + 3 AND -1  +2 =20 |
-| [equals](./jgrapht-core/src/main/java/org/jgrapht/alg/isomorphism/IsomorphicGraphMapping.java)|2 if + 1 OR + 2 AND=|
-| [simpleCycleToGraphPath](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/Cycles.java)|8 if + 1 for + 1 while  =|
+| [containsJewel](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)|9 for + 10 if + 19 OR + 1 && -1 + 2 = 40|
+| [containsCleanShortestOddHole](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)|3 for + 7 if + 8 OR -1 + 2 = 19|
 | [getTour](./jgrapht-core/src/main/java/org/jgrapht/alg/tour/HeldKarpTSP.java) | 6 if + 5 for + 3 AND   -1  +2 =15 |
-|   |   |
-|   |   |
-|   |   |
-|   |   |
+| [hasConfigurationType2](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)| 11 if + 7 for + 13 or = 31  |
+| [hasConfigurationType3](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)| 10 if + 9 for + 29 or + 4 and = 52 |
+| [generateGraph](./jgrapht-core/src/main/java/org/jgrapht/generate/PlantedPartitionGraphGenerator.java)|14 if + 7 for + 1 OR - 1 + 2 = 23|
+| [generateGraph](./jgrapht-core/src/main/java/org/jgrapht/generate/KleinbergSmallWorldGraphGenerator.java)|6 if + 11 for + 4 OR + 2 AND -1 + 2 =  24|
 |   |   |
 
 </center>
@@ -107,11 +107,59 @@ The function starts by mapping all edges to integers and calculating the minimum
 
 It then reconstructs the tour and finds the minimal cost hamiltonian tour by looping through and evaluating all the edges.
 
+### [generateGraph()](./jgrapht-core/src/main/java/org/jgrapht/generate/PlantedPartitionGraphGenerator.java)
+This function generates a planted partition graph from a PlantedPartitionGraphGenerator object.
+The planted partition model is the special case that the values of the probability matrix P are a constant p on the
+diagonal and another constant q off the diagonal.
+
+This method can only be called once and that's why at the start of the function it checks if it has been run before on
+the generator object.
+
+The function then adds vertices from the number of nodes in the generator object.
+
+Then it checks if the graph should have self loops and adds those.
+
+The function then checks if the graph should have directed or undirected edges and adds those edges to the graph.
+
+### [generateGraph()](./jgrapht-core/src/main/java/org/jgrapht/generate/KleinbergSmallWorldGraphGenerator.java)
+A small-world graph is a graph where in which most nodes are not neighbors of one another, but the neighbors of any
+given node are likely to be neighbors of each other and most nodes can be reached from every other node by a
+small number of hops or steps.
+
+The function takes a target graph which is a kleinbergsmallworldgrapgenerator object and calculates a new graph which
+is constrained by the small-world graph constraints.
+
+The function checks if the edges are directed or undirected, creates vertices and adds edges in the near neighbourhood
+
+Then the function adds the long range neighbours edges by using the inverse r power distribution
+
+### [containsCleanShortestOddHole()](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)
+This is a boolean function which takes a graph with two generics as input and returns true if the graph contains a clean shortest odd hole, and returns false if it does not. The time complexity is O(|V(g)|^4).
+
+The input graph is supposed to neither contain a pyramid nor a jewel. The function tests all vertex permutations of 3, by first finding the shortest path between the three vertices, then adding all the vertices from the three shortests paths to a new set, then creating a subgraph and finally making sure a lot of specific conditions are not true. If any of the specific conditions are true or the shortests paths are null the function returns false.
+
+### [containsJewel()](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)
+This is a boolean function which takes a graph with two generics as input and returns true if the function contains a jewel, and false if it does not. The time complexity is O(|V(g)|^6). 
+
+The function tests all vertex permutations of 4 and adds the 4th to a set if it is not connected to any of the first 3 vertices. Then all components of the set are found. After that two new sets are extracted.
 
 ### 4.
 
+The complexity does not change due to adding exceptions. When calculating complexity, the function evaluates the
+
+exception essentially as a return statement. With regards to the complexity, return statements increases complexity
+
+by one, which is why we add +1 when calculating it by hand. The same holds true for exceptions, a function that does
+
+nothing but throw an exception will have complexity 1.
+
+When catching an exception using try{} catch{} will increase complexity by one due to the try statement as it holds
+
+similar functionality as an if-statement.
 
 ### 5.
+
+The code is documented with JavaDoc so we found that each function is pretty clear w.r.t. all the possible outcomes.
 
 ## Coverage
 
@@ -134,7 +182,7 @@ git diff master..code_coverage pom.xml
 But we have noticed that for some classes, the coverage is not reported correctly.
 ### DYI
 
-Show a patch that show the instrumented code in main (or the unit
+<!-- Show a patch that show the instrumented code in main (or the unit
 test setup), and the ten methods where branch coverage is measured.
 
 The patch is probably too long to be copied here, so please add
@@ -143,7 +191,7 @@ the git command that is used to obtain the patch instead:
 git diff ...
 
 What kinds of constructs does your tool support, and how accurate is
-its output?
+its output? -->
 
 
 
@@ -154,12 +202,14 @@ These are the 10 functions we have tested
 |---|---|
 | [isEulerian](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java) | 2  |
 | [verify](./jgrapht-core/src/main/java/org/jgrapht/graph/GraphWalk.java)  | 3  |
-| [equals](./jgrapht-core/src/main/java/org/jgrapht/alg/isomorphism/IsomorphicGraphMapping.java)|11|
+| [getPaths](./jgrapht-core/src/main/java/org/jgrapht/alg/shortestpath/BellmanFordShortestPath.java)|15|
 | [simpleCycleToGraphPath](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/Cycles.java)|13|
 | [buildGraph](./jgrapht-core/src/main/java/org/jgrapht/graph/builder/GraphTypeBuilder.java)|12|
 | [getTour](./jgrapht-core/src/main/java/org/jgrapht/alg/tour/HeldKarpTSP.java)|14|
-|   |   |
-|   |   |
+| [hasConfigurationType2](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)| 4 |
+| [hasConfigurationType3](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)| 5 |
+| [generateGraph](./jgrapht-core/src/main/java/org/jgrapht/generate/PlantedPartitionGraphGenerator.java)| 6 |
+| [generateGraph](./jgrapht-core/src/main/java/org/jgrapht/generate/KleinbergSmallWorldGraphGenerator.java)| 7 |
 |   |   |
 |   |   |
 
@@ -193,13 +243,14 @@ git diff master..cov_2 jgrapht-core/src/main/
 
 ### Evaluation
 
-Report of old coverage: [link]
+<!-- Report of old coverage: [link]
 
 Report of new coverage: [link]
 
 Test cases added:
 
-git diff ...
+git diff ... 
+-->
 
 <center>
 
@@ -210,10 +261,10 @@ git diff ...
 | [verify](./jgrapht-core/src/main/java/org/jgrapht/graph/GraphWalk.java)   | 3 | 20/34 | 9 | 31/34 |
 | [buildGraph](./jgrapht-core/src/main/java/org/jgrapht/graph/builder/GraphTypeBuilder.java) | 12 | 8/27 | 2 | 12/27 |
 | [getTour](./jgrapht-core/src/main/java/org/jgrapht/alg/tour/HeldKarpTSP.java)| 14 | 17/18 | 1 | 18/18 |
-|   |   |
-|   |   |
-|   |   |
-|   |   |
+| [hasConfigurationType2](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)| 4 | 24/29 | 1 | 26/29 |
+| [hasConfigurationType3](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)| 5 | 24/29 | 1 | 26/29 |
+| [generateGraph](./jgrapht-core/src/main/java/org/jgrapht/generate/PlantedPartitionGraphGenerator.java)| 6 | 31/35 | 1 | 34/35 |
+| [generateGraph](./jgrapht-core/src/main/java/org/jgrapht/generate/KleinbergSmallWorldGraphGenerator.java)| 7 | 19/21 | 2 | 21/21 |
 |   |   |
 |   |   |
 <center>
@@ -233,34 +284,98 @@ mvn cobertura:cobertura
 
 ## Refactoring
 
-Plan for refactoring complex code:
+<!-- Plan for refactoring complex code:
 
-Carried out refactoring (optional)
+Carried out refactoring (optional) -->
 
-git diff ...
+#### [isEulerian()](./jgraph-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java)
+The way to check that there is only connected component with edges is redundant between the two main branches.
+So we can put that code in a new private function. This way, the CCN of the function is reduced from 17 to 8.
+Patch can be viewed using the following diff command
+```bash
+git diff master..refrac_2
+```
 
 ## Effort spent
 
-For each team member, how much time was spent in
+<!-- For each team member, how much time was spent in-->
 
-1. plenary discussions/meetings;
 
-2. discussions within parts of the group;
+* Viktor
+    1. plenary discussions/meetings: 5h
 
-3. reading documentation;
+    2. discussions within parts of the group: 5h
 
-4. configuration;
+    3. reading documentation: 3h
 
-5. analyzing code/output;
+    4. configuration: 3h
 
-6. writing documentation;
+    5. analyzing code/output: 5h
 
-7. writing code;
+    6. writing documentation: 2h
 
-8. running code?
+    7. writing code: 3h
+
+    8. running code: 0.5h
+    
+* Cyril 
+    1. plenary discussions/meetings : 5h
+
+    2. discussions within parts of the group: 5h
+    
+    3. reading documentation: 2h
+    
+    4. configuration: 2h
+    
+    5. analyzing code/output: 5h
+    
+    6. writing documentation: 3h
+    
+    7. writing code: 7h
+    
+    8. running code: 1h
+    
+* Robin
+    1. plenary discussions/meetings : 5h
+
+    2. discussions within parts of the group: 5h
+    
+    3. reading documentation: 1h
+    
+    4. configuration: 3h
+    
+    5. analyzing code/output: 5h
+    
+    6. writing documentation: 3h
+    
+    7. writing code: 7h
+    
+    8. running code: 1h
+    
+ * Sara
+    1. plenary discussions/meetings: 5h
+
+    2. discussions within parts of the group: 5h
+
+    3. reading documentation: 3h
+
+    4. configuration: 3h
+
+    5. analyzing code/output: 5h
+
+    6. writing documentation: 2h
+
+    7. writing code: 6h
+
+    8. running code: 1h
 
 ## Overall experience
 
 What are your main take-aways from this project? What did you learn?
+
+Viktor: Finding the right functions were the key to this project.
+
+Sara:
+I thought it was very hard to work with these functions since many of them are very nested in terms of new objects and data structures which are poorly documented. Also there were side effects going on and variables which were private so that certain branches could not ever be tested. There were also some dead code. Overall it was interesting but hard and took much effort to work with an open-source project like this.
 
 Is there something special you want to mention here?
