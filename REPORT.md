@@ -54,7 +54,7 @@ is not easily possible: ten complex functions)?
 | [containsJewel](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)|9 for + 10 if + 19 OR + 1 && -1 + 2 = 40|
 | [containsCleanShortestOddHole](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)|3 for + 7 if + 8 OR -1 + 2 = 19|
 | [getTour](./jgrapht-core/src/main/java/org/jgrapht/alg/tour/HeldKarpTSP.java) | 6 if + 5 for + 3 AND   -1  +2 =15 |
-| [hasConfigurationType2](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)| 11 if + 7 for + 13 or = 33 -1 + 2 = 34 |
+| [hasConfigurationType2](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)| 11 if + 7 for + 13 or + 2 AND = 33 -1 + 2 = 34 |
 | [hasConfigurationType3](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)| 10 if + 9 for + 29 or + 4 and -1 +2  = 53 |
 | [generateGraph](./jgrapht-core/src/main/java/org/jgrapht/generate/PlantedPartitionGraphGenerator.java)|14 if + 7 for + 1 OR - 1 + 2 = 23|
 | [generateGraph](./jgrapht-core/src/main/java/org/jgrapht/generate/KleinbergSmallWorldGraphGenerator.java)|6 if + 11 for + 4 OR + 2 AND -1 + 2 =  24|
