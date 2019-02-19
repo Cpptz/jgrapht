@@ -95,19 +95,7 @@ public class HierholzerEulerianCycle<V, E>
                 }
             }
             // check that at most one connected component contains edges
-            boolean foundComponentWithEdges = false;
-            for (Set<V> component : new ConnectivityInspector<>(graph).connectedSets()) {
-                for (V v : component) {
-                    if (graph.degreeOf(v) > 0) {
-                        if (foundComponentWithEdges) {
-                            return false;
-                        }
-                        foundComponentWithEdges = true;
-                        break;
-                    }
-                }
-            }
-            return true;
+            return isOnlyOneComponentWithEdges(new ConnectivityInspector<>(graph).connectedSets());
         } else {
             // check same in and out degrees
             for (V v : graph.vertexSet()) {
@@ -117,22 +105,22 @@ public class HierholzerEulerianCycle<V, E>
             }
             // check that at most one strongly connected component contains
             // edges
-            boolean foundComponentWithEdges = false;
-            for (Set<V> component : new KosarajuStrongConnectivityInspector<>(graph)
-                .stronglyConnectedSets())
-            {
-                for (V v : component) {
-                    if (graph.inDegreeOf(v) > 0 || graph.outDegreeOf(v) > 0) {
-                        if (foundComponentWithEdges) {
-                            return false;
-                        }
-                        foundComponentWithEdges = true;
-                        break;
-                    }
-                }
-            }
-            return true;
+            return isOnlyOneComponentWithEdges(new KosarajuStrongConnectivityInspector<>(graph)
+                    .stronglyConnectedSets());
         }
+    }
+
+    private boolean isOnlyOneComponentWithEdges(List<Set<V>> components){
+        boolean foundComponentWithEdges = false;
+        for (Set<V> component: components) {
+            if (component.size() > 1) {
+                if (foundComponentWithEdges) {
+                    return false;
+                }
+                foundComponentWithEdges = true;
+            }
+        }
+        return true;
     }
 
     /**
