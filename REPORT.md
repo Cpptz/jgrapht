@@ -225,8 +225,6 @@ These are the 10 functions we have tested
 | [hasConfigurationType3](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)| 5 |
 | [generateGraph](./jgrapht-core/src/main/java/org/jgrapht/generate/PlantedPartitionGraphGenerator.java)| 6 |
 | [generateGraph](./jgrapht-core/src/main/java/org/jgrapht/generate/KleinbergSmallWorldGraphGenerator.java)| 7 |
-|   |   |
-|   |   |
 
 </center>
 
