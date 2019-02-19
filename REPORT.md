@@ -51,8 +51,8 @@ is not easily possible: ten complex functions)?
 | [isEulerian](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java) | 9 if +6 for + 1 OR -1 return point + 2 = 17|
 | [verify](./jgrapht-core/src/main/java/org/jgrapht/graph/GraphWalk.java)  | 18 if + 2 for + 1 while + 3 AND + 2 OR -1 return point +2 = 27 |
 | [buildGraph](./jgrapht-core/src/main/java/org/jgrapht/graph/builder/GraphTypeBuilder.java) | 16 if + 3 AND -1  +2 =20 |
-| [equals](./jgrapht-core/src/main/java/org/jgrapht/alg/isomorphism/IsomorphicGraphMapping.java)|2 if + 1 OR + 2 AND=|
-| [simpleCycleToGraphPath](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/Cycles.java)|8 if + 1 for + 1 while  =|
+| [containsJewel](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)|9 for + 10 if + 19 OR + 1 && -1 + 2 = 40|
+| [containsCleanShortestOddHole](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)|3 for + 7 if + 8 OR -1 + 2 = 19|
 | [getTour](./jgrapht-core/src/main/java/org/jgrapht/alg/tour/HeldKarpTSP.java) | 6 if + 5 for + 3 AND   -1  +2 =15 |
 | [hasConfigurationType2](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)| 11 if + 7 for + 13 or = 31  |
 | [hasConfigurationType3](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)| 10 if + 9 for + 29 or + 4 and = 52 |
@@ -84,7 +84,7 @@ and that there is only connected component with edges.
 ### [verify()](./jgraph-core/src/main/java/org/jgrapht/graph/GraphWalk.java)
 This function checks that the path of the ``GraphWalk`` is feasible w.r.t. the graph of the ``GraphWalk``.
 
-The path is described as a list of vertices, a list of edges or both.
+The path is described as a list of vertices, a list of edges or both, with optionnaly a start and an end vertex.
 
 First it checks that either the path or both the list of vertices and the list of edges
 
@@ -132,6 +132,16 @@ is constrained by the small-world graph constraints.
 The function checks if the edges are directed or undirected, creates vertices and adds edges in the near neighbourhood
 
 Then the function adds the long range neighbours edges by using the inverse r power distribution
+
+### [containsCleanShortestOddHole()](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)
+This is a boolean function which takes a graph with two generics as input and returns true if the graph contains a clean shortest odd hole, and returns false if it does not. The time complexity is O(|V(g)|^4).
+
+The input graph is supposed to neither contain a pyramid nor a jewel. The function tests all vertex permutations of 3, by first finding the shortest path between the three vertices, then adding all the vertices from the three shortests paths to a new set, then creating a subgraph and finally making sure a lot of specific conditions are not true. If any of the specific conditions are true or the shortests paths are null the function returns false.
+
+### [containsJewel()](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)
+This is a boolean function which takes a graph with two generics as input and returns true if the function contains a jewel, and false if it does not. The time complexity is O(|V(g)|^6). 
+
+The function tests all vertex permutations of 4 and adds the 4th to a set if it is not connected to any of the first 3 vertices. Then all components of the set are found. After that two new sets are extracted.
 
 ### 4.
 
@@ -192,7 +202,7 @@ These are the 10 functions we have tested
 |---|---|
 | [isEulerian](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java) | 2  |
 | [verify](./jgrapht-core/src/main/java/org/jgrapht/graph/GraphWalk.java)  | 3  |
-| [equals](./jgrapht-core/src/main/java/org/jgrapht/alg/isomorphism/IsomorphicGraphMapping.java)|11|
+| [getPaths](./jgrapht-core/src/main/java/org/jgrapht/alg/shortestpath/BellmanFordShortestPath.java)|15|
 | [simpleCycleToGraphPath](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/Cycles.java)|13|
 | [buildGraph](./jgrapht-core/src/main/java/org/jgrapht/graph/builder/GraphTypeBuilder.java)|12|
 | [getTour](./jgrapht-core/src/main/java/org/jgrapht/alg/tour/HeldKarpTSP.java)|14|
@@ -264,6 +274,14 @@ To find the new test added, one can run the following diff command
 ```bash
 git diff master..iss_<Branch number> jgrapht-core/src/test/
 ```
+
+To see the difference between before and after, one could look at the differences in the the cobertura report
+on branch ``code_coverage`` (BEFORE) and branch ``all_new_test``.
+One can run cobertura with :
+```bash
+mvn cobertura:cobertura
+```
+
 ## Refactoring
 
 <!-- Plan for refactoring complex code:
@@ -337,11 +355,31 @@ function.
     7. writing code: 7h
     
     8. running code: 1h
+    
+ * Sara
+    1. plenary discussions/meetings: 5h
+
+    2. discussions within parts of the group: 5h
+
+    3. reading documentation: 3h
+
+    4. configuration: 3h
+
+    5. analyzing code/output: 5h
+
+    6. writing documentation: 2h
+
+    7. writing code: 6h
+
+    8. running code: 1h
 
 ## Overall experience
 
 What are your main take-aways from this project? What did you learn?
 
 Viktor: Finding the right functions were the key to this project.
+
+Sara:
+I thought it was very hard to work with these functions since many of them are very nested in terms of new objects and data structures which are poorly documented. Also there were side effects going on and variables which were private so that certain branches could not ever be tested. There were also some dead code. Overall it was interesting but hard and took much effort to work with an open-source project like this.
 
 Is there something special you want to mention here?
