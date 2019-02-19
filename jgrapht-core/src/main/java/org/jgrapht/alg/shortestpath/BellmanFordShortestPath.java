@@ -52,6 +52,7 @@ public class BellmanFordShortestPath<V, E>
 {
     protected final Comparator<Double> comparator;
     protected final int maxHops;
+    static boolean[] branchCovered = new boolean[15];
 
     /**
      * Construct a new instance.
@@ -117,8 +118,10 @@ public class BellmanFordShortestPath<V, E>
     public SingleSourcePaths<V, E> getPaths(V source)
     {
         if (!graph.containsVertex(source)) {
+            branchCovered[0] = true;
             throw new IllegalArgumentException(GRAPH_MUST_CONTAIN_THE_SOURCE_VERTEX);
         }
+        else {branchCovered[1] = true;}
 
         /*
          * Initialize distance and predecessor.
@@ -153,10 +156,12 @@ public class BellmanFordShortestPath<V, E>
                     V u = Graphs.getOppositeVertex(graph, e, v);
                     double newDist = distance.get(v) + graph.getEdgeWeight(e);
                     if (comparator.compare(newDist, distance.get(u)) < 0) {
+                        branchCovered[2] = true;
                         distance.put(u, newDist);
                         pred.put(u, e);
                         nextVertexSet.add(u);
                     }
+                    else {branchCovered[3] = true;}
                 }
             }
 
@@ -166,8 +171,10 @@ public class BellmanFordShortestPath<V, E>
 
             // stop if no relaxation
             if (nextVertexSet.isEmpty()) {
+                branchCovered[4] = true;
                 break;
             }
+            else {branchCovered[5] = true;}
         }
 
         /*
@@ -175,19 +182,23 @@ public class BellmanFordShortestPath<V, E>
          * smaller than the number of vertices.
          */
         if (maxHops >= n) {
+            branchCovered[6] = true;
             for (V v : updated[curUpdated]) {
                 for (E e : graph.outgoingEdgesOf(v)) {
                     V u = Graphs.getOppositeVertex(graph, e, v);
                     double newDist = distance.get(v) + graph.getEdgeWeight(e);
                     if (comparator.compare(newDist, distance.get(u)) < 0) {
+                        branchCovered[7] = true;
                         // record update for negative cycle computation
                         pred.put(u, e);
                         throw new NegativeCycleDetectedException(
                             GRAPH_CONTAINS_A_NEGATIVE_WEIGHT_CYCLE, computeNegativeCycle(e, pred));
                     }
+                    else {branchCovered[8] = true;}
                 }
             }
         }
+        else {branchCovered[9] = true;}
 
         /*
          * Transform result
