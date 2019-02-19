@@ -208,7 +208,8 @@ Report of new coverage: [link]
 
 Test cases added:
 
-git diff ... -->
+git diff ... 
+-->
 
 <center>
 
@@ -244,6 +245,7 @@ So we can put that code in a new private function. This way, the CCN of the func
 Patch can be viewed using the following diff command
 ```bash
 git diff master..refrac_2
+```
 
 ## Effort spent
 
