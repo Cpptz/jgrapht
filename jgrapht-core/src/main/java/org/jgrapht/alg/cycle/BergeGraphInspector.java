@@ -845,6 +845,10 @@ public class BergeGraphInspector<V, E>
         return false;
     }
 
+    public void setCertify(boolean x) {
+        certify = x;
+    }
+
     /**
      * Reports whether v has at least one neighbour in set
      * 
