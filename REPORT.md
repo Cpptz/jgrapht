@@ -149,7 +149,7 @@ similar functionality as an if-statement.
 
 ### 5.
 
-
+The code is documented with JavaDoc so we found that each function is pretty clear w.r.t. all the possible outcomes.
 
 ## Coverage
 
