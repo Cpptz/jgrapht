@@ -85,10 +85,10 @@ This function checks that the path of the ``GraphWalk`` is feasible w.r.t. the g
 
 The path is described as a list of vertices, a list of edges or both, with optionnaly a start and an end vertex.
 
-First it checks that either the path or both the list of vertices and the list of edges
+First it checks that the path is either described by a list of vertices or edges or both.
 
 Then depending on the way the path is described, it will check that the vertices or edges are contained in the graph,
-that each edge or vertex follow each other...
+that each edge or vertex follows each other.
 
 #### [buildGraph()](./jgrapht-core/src/main/java/org/jgrapht/graph/builder/GraphTypeBuilder.java)
 This function builds a graph dependent on the boolean variables allowingSelfLoops, allowingMultipleEdges, weighted and
