@@ -134,7 +134,7 @@ git diff master..code_coverage pom.xml
 But we have noticed that for some classes, the coverage is not reported correctly.
 ### DYI
 
-Show a patch that show the instrumented code in main (or the unit
+<!-- Show a patch that show the instrumented code in main (or the unit
 test setup), and the ten methods where branch coverage is measured.
 
 The patch is probably too long to be copied here, so please add
@@ -143,7 +143,7 @@ the git command that is used to obtain the patch instead:
 git diff ...
 
 What kinds of constructs does your tool support, and how accurate is
-its output?
+its output? -->
 
 
 
@@ -193,13 +193,13 @@ git diff master..cov_2 jgrapht-core/src/main/
 
 ### Evaluation
 
-Report of old coverage: [link]
+<!-- Report of old coverage: [link]
 
 Report of new coverage: [link]
 
 Test cases added:
 
-git diff ...
+git diff ... -->
 
 <center>
 
@@ -225,11 +225,16 @@ git diff master..iss_<Branch number> jgrapht-core/src/test/
 ```
 ## Refactoring
 
-Plan for refactoring complex code:
+<!-- Plan for refactoring complex code:
 
-Carried out refactoring (optional)
+Carried out refactoring (optional) -->
 
-git diff ...
+#### [isEulerian()](./jgraph-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java)
+The way to check that there is only connected component with edges is redundant between the two main branches.
+So we can put that code in a new private function. This way, the CCN of the function is reduced from 17 to 8.
+Patch can be viewed using the following diff command
+```bash
+git diff master..refrac_2
 
 ## Effort spent
 
