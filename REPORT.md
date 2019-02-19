@@ -303,6 +303,10 @@ The function uses nesting if-else statements that could be refactored. The funct
 for the graph being directed and undirected. We can remove half of the if clauses by checking weighted() in a help
 function.
 
+### [verify](./jgrapht-core/src/main/java/org/jgrapht/graph/GraphWalk.java)
+Part of the code is used to check if edge (or vertex) follow one another so we could write that in private functions 
+which throw exception if this is not the case. This way the complexity will be reduced.
+
 ## Effort spent
 
 <!-- For each team member, how much time was spent in-->
