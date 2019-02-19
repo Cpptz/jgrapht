@@ -143,6 +143,18 @@ This is a boolean function which takes a graph with two generics as input and re
 
 The function tests all vertex permutations of 4 and adds the 4th to a set if it is not connected to any of the first 3 vertices. Then all components of the set are found. After that two new sets are extracted.
 
+### [hasConfigurationType2()](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)
+The function returns true if the graph g is of configuration type T2 which is a sequense v1,...,v4 (vertices) with some conditions.
+
+First it enters for loops which iterates over the vertices in the graph. in each loop, there is a if condition that needs to be fullfilled, or the loop will go to the next iteration.
+
+If the if conditions in the for loops are fulfilled. It will check the paths (edges) between the vertices to see if the configuration of the graph is of given specifications. If it is the method will return true, if not it will return false.
+
+### [hasConfigurationType3()](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)|
+The function returns true if the graph g is of configuration type T3 which is a sequense v1,...,v6 (vertices) with some conditions.
+
+It works similarlyto the hasConfigurationType2 so that there are for loops which iterates over the vertices and in those forloops there are if condtiions that needs to be fullfilled or the loop will go to the next iteration. If all conditions are fulfilled, it will enter the last for loop, check the last condition and then start checking if the configuration is of type T3 which you can see conditions for in the documentation. If the configuration of the graph matches the specifications for T3, the method will return true and if the configuration does not match T3 it will return false.
+
 ### 4.
 
 The complexity does not change due to adding exceptions. When calculating complexity, the function evaluates the
@@ -302,10 +314,6 @@ git diff master..refrac_2
 The function uses nesting if-else statements that could be refactored. The function uses the same if-else statements
 for the graph being directed and undirected. We can remove half of the if clauses by checking weighted() in a help
 function.
-
-### [verify](./jgrapht-core/src/main/java/org/jgrapht/graph/GraphWalk.java)
-Part of the code is used to check if edge (or vertex) follow one another so we could write that in private functions 
-which throw exception if this is not the case. This way the complexity will be reduced.
 
 ## Effort spent
 
