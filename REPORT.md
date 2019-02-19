@@ -136,7 +136,7 @@ Then the function adds the long range neighbours edges by using the inverse r po
 ### [containsCleanShortestOddHole()](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)
 This is a boolean function which takes a graph with two generics as input and returns true if the graph contains a clean shortest odd hole, and returns false if it does not. The time complexity is O(|V(g)|^4).
 
-The input graph is supposed to neither contain a pyramid nor a jewel. The function tests all vertex permutations of 3, by first finding the shortest path between the three vertices, then adding all the vertices from the three shortests paths to a new set, then creating a subgraph and finally making sure a lot of specific conditions are not true. If any of the specific conditions are true or the shortests paths are null the function returns false.
+The input graph is supposed to neither contain a pyramid nor a jewel. The function tests all vertex permutations of 3, by first finding the shortest path between the three vertices, then adding all the vertices from the three shortests paths to a new set, then creating a subgraph and finally making sure a lot of specific conditions are not true. The conditions are mainly about the sizes of the graph vertex and edge sets. If any of the specific conditions are true or the shortests paths are null the function returns false.
 
 ### [containsJewel()](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)
 This is a boolean function which takes a graph with two generics as input and returns true if the function contains a jewel, and false if it does not. The time complexity is O(|V(g)|^6). 
