@@ -51,8 +51,8 @@ is not easily possible: ten complex functions)?
 | [isEulerian](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java) | 9 if +6 for + 1 OR -1 return point + 2 = 17|
 | [verify](./jgrapht-core/src/main/java/org/jgrapht/graph/GraphWalk.java)  | 18 if + 2 for + 1 while + 3 AND + 2 OR -1 return point +2 = 27 |
 | [buildGraph](./jgrapht-core/src/main/java/org/jgrapht/graph/builder/GraphTypeBuilder.java) | 16 if + 3 AND -1  +2 =20 |
-| [equals](./jgrapht-core/src/main/java/org/jgrapht/alg/isomorphism/IsomorphicGraphMapping.java)|2 if + 1 OR + 2 AND=|  
-| [simpleCycleToGraphPath](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/Cycles.java)|8 if + 1 for + 1 while  =|
+| [equals](./jgrapht-core/src/main/java/org/jgrapht/alg/isomorphism/IsomorphicGraphMapping.java)|2 if + 1 OR + 3 AND -1 +2 =| 
+| [simpleCycleToGraphPath](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/Cycles.java)|9 if + 1 for + 1 while -1 +2=12|
 |   |   |
 |   |   |
 |   |   |
@@ -212,10 +212,12 @@ Carried out refactoring (optional) -->
 
 #### [isEulerian()](./jgraph-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java)
 The way to check that there is only connected component with edges is redundant between the two main branches.
-So we can put that code in a new private function.
+So we can put that code in a new private function. This way, the CCN of the function is reduced from 17 to 8.
+Patch can be viewed using the following diff command
+```bash
+git diff master..refrac_2
 
-
-git diff ...
+```
 
 ## Effort spent
 
