@@ -223,6 +223,14 @@ To find the new test added, one can run the following diff command
 ```bash
 git diff master..iss_<Branch number> jgrapht-core/src/test/
 ```
+
+To see the difference between before and after, one could look at the differences in the the cobertura report
+on branch ``code_coverage`` (BEFORE) and branch ``all_new_test``.
+One can run cobertura with :
+```bash
+mvn cobertura:cobertura
+```
+
 ## Refactoring
 
 Plan for refactoring complex code:
