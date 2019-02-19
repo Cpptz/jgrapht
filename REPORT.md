@@ -280,8 +280,8 @@ git diff ...
 | [hasConfigurationType3](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)| 5 | 24/29 | 1 | 26/29 |
 | [generateGraph](./jgrapht-core/src/main/java/org/jgrapht/generate/PlantedPartitionGraphGenerator.java)| 6 | 31/35 | 1 | 34/35 |
 | [generateGraph](./jgrapht-core/src/main/java/org/jgrapht/generate/KleinbergSmallWorldGraphGenerator.java)| 7 | 19/21 | 2 | 21/21 |
-|   |   |
-|   |   |
+|[getPaths](./jgrapht-core/src/main/java/org/jgrapht/alg/shortestpath/BellmanFordShortestPath.java)| 15 | 9/10 | 1 | 10/10 |
+|[simpleCycleToGraphPath](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/Cycles.java)| 13 | 12/17 | 1 | 13/17 |
 <center>
 
 
