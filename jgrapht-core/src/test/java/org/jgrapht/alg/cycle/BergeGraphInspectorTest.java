@@ -256,22 +256,23 @@ public class BergeGraphInspectorTest
         stimulus.addVertex(6);// x
         stimulus.addVertex(7);// p2=P*
         stimulus.addVertex(8);// p3
-
         stimulus.addEdge(1, 2);
         stimulus.addEdge(2, 3);
         stimulus.addEdge(3, 4);
-
         stimulus.addEdge(1, 6);
         stimulus.addEdge(2, 6);
         stimulus.addEdge(4, 6);
-
         stimulus.addEdge(1, 5);
         stimulus.addEdge(5, 7);
         stimulus.addEdge(7, 8);
         stimulus.addEdge(4, 8);
 
+        // Change the attribute certify to true to allow the test to
+        // enter new branches which requires certify to be true.
         dut.setCertify(true);
         assertTrue(dut.hasConfigurationType2(stimulus));
+        // Change certify back to false to not mess up any other states.
+        dut.setCertify(false);
 
     }
 
