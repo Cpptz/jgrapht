@@ -54,8 +54,8 @@ is not easily possible: ten complex functions)?
 | [equals](./jgrapht-core/src/main/java/org/jgrapht/alg/isomorphism/IsomorphicGraphMapping.java)|2 if + 1 OR + 2 AND=|
 | [simpleCycleToGraphPath](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/Cycles.java)|8 if + 1 for + 1 while  =|
 | [getTour](./jgrapht-core/src/main/java/org/jgrapht/alg/tour/HeldKarpTSP.java) | 6 if + 5 for + 3 AND   -1  +2 =15 |
-|   |   |
-|   |   |
+| [hasConfigurationType2](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)| 11 if + 7 for + 13 or = 31  |
+| [hasConfigurationType3](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)| 10 if + 9 for + 29 or + 4 and = 52 |
 |   |   |
 |   |   |
 |   |   |
