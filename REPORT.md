@@ -81,7 +81,7 @@ and that there is only connected component with edges.
 Otherwise if it is a directed graph, it checks for all vertices that their in degree is equal to their out degree
 and that there is only connected component with edges.
 
-### [verify()](./jgraph-core/src/main/java/org/jgrapht/graph/GraphWalk.java)
+#### [verify()](./jgraph-core/src/main/java/org/jgrapht/graph/GraphWalk.java)
 This function checks that the path of the ``GraphWalk`` is feasible w.r.t. the graph of the ``GraphWalk``.
 
 The path is described as a list of vertices, a list of edges or both, with optionnaly a start and an end vertex.
@@ -91,14 +91,14 @@ First it checks that either the path or both the list of vertices and the list o
 Then depending on the way the path is described, it will check that the vertices or edges are contained in the graph,
 that each edges or vertices follow each other...
 
-### [buildGraph](./jgrapht-core/src/main/java/org/jgrapht/graph/builder/GraphTypeBuilder.java)
+#### [buildGraph()](./jgrapht-core/src/main/java/org/jgrapht/graph/builder/GraphTypeBuilder.java)
 This function builds a graph dependant on the boolean variables allowingSelfLoops, allowingMultipleEdges, weighted and
 
 directed. The function will return one of 16 possible graph structures that matches the correct boolean variables.
 
 The function handles this by nesting if statements.
 
-### [getTour](./jgrapht-core/src/main/java/org/jgrapht/alg/tour/HeldKarpTSP.java)
+#### [getTour()](./jgrapht-core/src/main/java/org/jgrapht/alg/tour/HeldKarpTSP.java)
 This function computes a minimal-cost Hamiltonian tour, that is, the shortest way to visit every vertex exactly once.
 
 The function will return a minimal cost tour if it can be found, it will return null otherwise.
@@ -107,7 +107,7 @@ The function starts by mapping all edges to integers and calculating the minimum
 
 It then reconstructs the tour and finds the minimal cost hamiltonian tour by looping through and evaluating all the edges.
 
-### [generateGraph()](./jgrapht-core/src/main/java/org/jgrapht/generate/PlantedPartitionGraphGenerator.java)
+#### [generateGraph()](./jgrapht-core/src/main/java/org/jgrapht/generate/PlantedPartitionGraphGenerator.java)
 This function generates a planted partition graph from a PlantedPartitionGraphGenerator object.
 The planted partition model is the special case that the values of the probability matrix P are a constant p on the
 diagonal and another constant q off the diagonal.
@@ -121,7 +121,7 @@ Then it checks if the graph should have self loops and adds those.
 
 The function then checks if the graph should have directed or undirected edges and adds those edges to the graph.
 
-### [generateGraph()](./jgrapht-core/src/main/java/org/jgrapht/generate/KleinbergSmallWorldGraphGenerator.java)
+#### [generateGraph()](./jgrapht-core/src/main/java/org/jgrapht/generate/KleinbergSmallWorldGraphGenerator.java)
 A small-world graph is a graph where in which most nodes are not neighbors of one another, but the neighbors of any
 given node are likely to be neighbors of each other and most nodes can be reached from every other node by a
 small number of hops or steps.
@@ -133,24 +133,24 @@ The function checks if the edges are directed or undirected, creates vertices an
 
 Then the function adds the long range neighbours edges by using the inverse r power distribution
 
-### [containsCleanShortestOddHole()](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)
+#### [containsCleanShortestOddHole()](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)
 This is a boolean function which takes a graph with two generics as input and returns true if the graph contains a clean shortest odd hole, and returns false if it does not. The time complexity is O(|V(g)|^4).
 
 The input graph is supposed to neither contain a pyramid nor a jewel. The function tests all vertex permutations of 3, by first finding the shortest path between the three vertices, then adding all the vertices from the three shortests paths to a new set, then creating a subgraph and finally making sure a lot of specific conditions are not true. The conditions are mainly about the sizes of the graph vertex and edge sets. If any of the specific conditions are true or the shortests paths are null the function returns false.
 
-### [containsJewel()](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)
+#### [containsJewel()](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)
 This is a boolean function which takes a graph with two generics as input and returns true if the function contains a jewel, and false if it does not. The time complexity is O(|V(g)|^6). 
 
 The function tests all vertex permutations of 4 and adds the fourth to a set if it is not connected to any of the first 3 vertices. Then all components of the set are found. After that two new sets are extracted depending on different conditions; such as which share an edge and which do not. Finally each vertex from the first set is compared which each vertex from the second set and in turn compared with each from the components set. If the two first vertices share neighbour the components set the graph contains a jewel.
 
-### [hasConfigurationType2()](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)
+#### [hasConfigurationType2()](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)
 The function returns true if the graph g is of configuration type T2 which is a sequense v1,...,v4 (vertices) with some conditions.
 
 First it enters for loops which iterates over the vertices in the graph. in each loop, there is a if condition that needs to be fullfilled, or the loop will go to the next iteration.
 
 If the if conditions in the for loops are fulfilled. It will check the paths (edges) between the vertices to see if the configuration of the graph is of given specifications. If it is the method will return true, if not it will return false.
 
-### [hasConfigurationType3()](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)|
+#### [hasConfigurationType3()](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)|
 The function returns true if the graph g is of configuration type T3 which is a sequense v1,...,v6 (vertices) with some conditions.
 
 It works similarly to the hasConfigurationType2 so that there are for loops which iterates over the vertices and in those forloops there are if condtiions that needs to be fullfilled or the loop will go to the next iteration. If all conditions are fulfilled, it will enter the last for loop, check the last condition and then start checking if the configuration is of type T3 which you can see conditions for in the documentation. If the configuration of the graph matches the specifications for T3, the method will return true and if the configuration does not match T3 it will return false.
@@ -324,10 +324,6 @@ We can refract this function by extracting the code that is maps each vertex to 
 
 #### [generateGraph](./jgrapht-core/src/main/java/org/jgrapht/generate/GnmRandomGraphGenerator.java)
 This function has amongst other things an if-statement which will never be true. This could either be changed to an enabled assertion of just be removed.
-
-## [hasConfigurationType3](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)
-As a start you could make a function that filter out the interesting vertices instead of using 3 nestled for loops.
-Then there's more filtering that could be done by a separate function. This would make the function a lot less complicated.
 
 ## Effort spent
 
