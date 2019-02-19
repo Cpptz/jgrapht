@@ -33,20 +33,6 @@ import static org.jgrapht.alg.isomorphism.IsomorphismTestUtil.*;
 public class IsomorphicGraphMappingTest
 {
 
-
-    @AfterClass
-    public static void tearDownAll() {
-        int count = 0;
-        for (int i = 0; i < IsomorphicGraphMapping.branchCovered.length; i++) {
-            System.out.println(i + ": " + IsomorphicGraphMapping.branchCovered[i]);
-            if (IsomorphicGraphMapping.branchCovered[i] == true) {
-                count++;
-            }
-        }
-        System.out.println(count);
-        System.out.println(IsomorphicGraphMapping.branchCovered.length);
-    }
-
     // checks if equals works
     @Test
     public void checkEquals(){
