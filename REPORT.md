@@ -56,8 +56,8 @@ is not easily possible: ten complex functions)?
 | [getTour](./jgrapht-core/src/main/java/org/jgrapht/alg/tour/HeldKarpTSP.java) | 6 if + 5 for + 3 AND   -1  +2 =15 |
 | [hasConfigurationType2](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)| 11 if + 7 for + 13 or = 31  |
 | [hasConfigurationType3](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)| 10 if + 9 for + 29 or + 4 and = 52 |
-|   |   |
-|   |   |
+| [generateGraph](./jgrapht-core/src/main/java/org/jgrapht/generate/PlantedPartitionGraphGenerator.java)|14 if + 7 for + 1 OR - 1 + 2 = 23|
+| [generateGraph](./jgrapht-core/src/main/java/org/jgrapht/generate/KleinbergSmallWorldGraphGenerator.java)|6 if + 11 for + 4 OR + 2 AND -1 + 2 =  24|
 |   |   |
 
 </center>
@@ -107,6 +107,31 @@ The function starts by mapping all edges to integers and calculating the minimum
 
 It then reconstructs the tour and finds the minimal cost hamiltonian tour by looping through and evaluating all the edges.
 
+### [generateGraph()](./jgrapht-core/src/main/java/org/jgrapht/generate/PlantedPartitionGraphGenerator.java)
+This function generates a planted partition graph from a PlantedPartitionGraphGenerator object.
+The planted partition model is the special case that the values of the probability matrix P are a constant p on the
+diagonal and another constant q off the diagonal.
+
+This method can only be called once and that's why at the start of the function it checks if it has been run before on
+the generator object.
+
+The function then adds vertices from the number of nodes in the generator object.
+
+Then it checks if the graph should have self loops and adds those.
+
+The function then checks if the graph should have directed or undirected edges and adds those edges to the graph.
+
+### [generateGraph()](./jgrapht-core/src/main/java/org/jgrapht/generate/KleinbergSmallWorldGraphGenerator.java)
+A small-world graph is a graph where in which most nodes are not neighbors of one another, but the neighbors of any
+given node are likely to be neighbors of each other and most nodes can be reached from every other node by a
+small number of hops or steps.
+
+The function takes a target graph which is a kleinbergsmallworldgrapgenerator object and calculates a new graph which
+is constrained by the small-world graph constraints.
+
+The function checks if the edges are directed or undirected, creates vertices and adds edges in the near neighbourhood
+
+Then the function adds the long range neighbours edges by using the inverse r power distribution
 
 ### 4.
 
@@ -173,6 +198,8 @@ These are the 10 functions we have tested
 | [getTour](./jgrapht-core/src/main/java/org/jgrapht/alg/tour/HeldKarpTSP.java)|14|
 | [hasConfigurationType2](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)| 4 |
 | [hasConfigurationType3](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)| 5 |
+| [generateGraph](./jgrapht-core/src/main/java/org/jgrapht/generate/PlantedPartitionGraphGenerator.java)| 6 |
+| [generateGraph](./jgrapht-core/src/main/java/org/jgrapht/generate/KleinbergSmallWorldGraphGenerator.java)| 7 |
 |   |   |
 |   |   |
 
@@ -224,10 +251,10 @@ git diff ...
 | [verify](./jgrapht-core/src/main/java/org/jgrapht/graph/GraphWalk.java)   | 3 | 20/34 | 9 | 31/34 |
 | [buildGraph](./jgrapht-core/src/main/java/org/jgrapht/graph/builder/GraphTypeBuilder.java) | 12 | 8/27 | 2 | 12/27 |
 | [getTour](./jgrapht-core/src/main/java/org/jgrapht/alg/tour/HeldKarpTSP.java)| 14 | 17/18 | 1 | 18/18 |
-|   |   |
-|   |   |
-|   |   |
-|   |   |
+| [hasConfigurationType2](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)| 4 | 24/29 | 1 | 26/29 |
+| [hasConfigurationType3](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)| 5 | 24/29 | 1 | 26/29 |
+| [generateGraph](./jgrapht-core/src/main/java/org/jgrapht/generate/PlantedPartitionGraphGenerator.java)| 6 | 31/35 | 1 | 34/35 |
+| [generateGraph](./jgrapht-core/src/main/java/org/jgrapht/generate/KleinbergSmallWorldGraphGenerator.java)| 7 | 19/21 | 2 | 21/21 |
 |   |   |
 |   |   |
 <center>
