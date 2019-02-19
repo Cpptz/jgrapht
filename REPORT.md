@@ -112,9 +112,11 @@ It then reconstructs the tour and finds the minimal cost hamiltonian tour by loo
 
 The complexity does not change due to adding exceptions. When calculating complexity, the function evaluates the
 
-exception essentially as a return statement. With regards to the complexity, it does not matter if execution ends on a
+exception essentially as a return statement. With regards to the complexity, return statements increases complexity
 
-return statement or an exception.
+by one, which is why we add +1 when calculating it by hand. The same holds true for exceptions, a function that only
+
+throws an exception will have complexity 1.
 
 When catching an exception using try{} catch{} will increase complexity by one due to the try statement as it holds
 
