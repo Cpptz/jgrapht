@@ -206,9 +206,14 @@ git diff master..iss_<Branch number> jgrapht-core/src/test/
 ```
 ## Refactoring
 
-Plan for refactoring complex code:
+<!-- Plan for refactoring complex code:
 
-Carried out refactoring (optional)
+Carried out refactoring (optional) -->
+
+#### [isEulerian()](./jgraph-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java)
+The way to check that there is only connected component with edges is redundant between the two main branches.
+So we can put that code in a new private function.
+
 
 git diff ...
 
