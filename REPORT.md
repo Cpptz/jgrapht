@@ -51,8 +51,8 @@ is not easily possible: ten complex functions)?
 | [isEulerian](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java) | 9 if +6 for + 1 OR -1 return point + 2 = 17|
 | [verify](./jgrapht-core/src/main/java/org/jgrapht/graph/GraphWalk.java)  | 18 if + 2 for + 1 while + 3 AND + 2 OR -1 return point +2 = 27 |
 | [buildGraph](./jgrapht-core/src/main/java/org/jgrapht/graph/builder/GraphTypeBuilder.java) | 16 if + 3 AND -1  +2 =20 |
-| [equals](./jgrapht-core/src/main/java/org/jgrapht/alg/isomorphism/IsomorphicGraphMapping.java)|2 if + 1 OR + 2 AND=|
-| [simpleCycleToGraphPath](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/Cycles.java)|8 if + 1 for + 1 while  =|
+| [containsJewel](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)|9 for + 10 if + 19 OR + 1 && -1 + 2 = |
+| [containsCleanShortestOddHole](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java|3 for + 7 if + 8 OR -1 + 2 = 19|
 | [getTour](./jgrapht-core/src/main/java/org/jgrapht/alg/tour/HeldKarpTSP.java) | 6 if + 5 for + 3 AND   -1  +2 =15 |
 | [hasConfigurationType2](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)| 11 if + 7 for + 13 or = 31  |
 | [hasConfigurationType3](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)| 10 if + 9 for + 29 or + 4 and = 52 |
@@ -192,7 +192,7 @@ These are the 10 functions we have tested
 |---|---|
 | [isEulerian](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java) | 2  |
 | [verify](./jgrapht-core/src/main/java/org/jgrapht/graph/GraphWalk.java)  | 3  |
-| [equals](./jgrapht-core/src/main/java/org/jgrapht/alg/isomorphism/IsomorphicGraphMapping.java)|11|
+| [getPaths](./jgrapht-core/src/main/java/org/jgrapht/alg/shortestpath/BellmanFordShortestPath.java)|15|
 | [simpleCycleToGraphPath](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/Cycles.java)|13|
 | [buildGraph](./jgrapht-core/src/main/java/org/jgrapht/graph/builder/GraphTypeBuilder.java)|12|
 | [getTour](./jgrapht-core/src/main/java/org/jgrapht/alg/tour/HeldKarpTSP.java)|14|
@@ -334,23 +334,6 @@ git diff master..refrac_2
     
     8. running code: 1h
 
-* Fredrik
-    1. plenary discussions/meetings : 5h
-
-    2. discussions within parts of the group: 5h
-    
-    3. reading documentation: 2h
-    
-    4. configuration: 1h
-    
-    5. analyzing code/output: 10h
-    
-    6. writing documentation: 1,5h
-    
-    7. writing code: 3h
-    
-    8. running code: 0,5h
-    
 ## Overall experience
 
 What are your main take-aways from this project? What did you learn?
