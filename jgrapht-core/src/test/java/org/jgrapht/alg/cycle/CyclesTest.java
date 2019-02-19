@@ -34,19 +34,6 @@ import static org.junit.Assert.assertTrue;
 public class CyclesTest
 {
 
-    @AfterClass
-    public static void tearDownAll() {
-        int count = 0;
-        for (int i = 0; i < Cycles.branchCovered.length; i++) {
-            System.out.println(i + ": " + Cycles.branchCovered[i]);
-            if (Cycles.branchCovered[i] == true) {
-                count++;
-            }
-        }
-        System.out.println(count);
-        System.out.println(Cycles.branchCovered.length);
-    }
-
     // checks if an empty cycle makes simpleCycleToGraphPath return null
     @Test
     public void checkNullCycle() {
