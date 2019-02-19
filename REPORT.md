@@ -53,7 +53,7 @@ is not easily possible: ten complex functions)?
 | [buildGraph](./jgrapht-core/src/main/java/org/jgrapht/graph/builder/GraphTypeBuilder.java) | 16 if + 3 AND -1  +2 =20 |
 | [equals](./jgrapht-core/src/main/java/org/jgrapht/alg/isomorphism/IsomorphicGraphMapping.java)|2 if + 1 OR + 2 AND=|
 | [simpleCycleToGraphPath](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/Cycles.java)|8 if + 1 for + 1 while  =|
-|   |   |
+| [getTour](./jgrapht-core/src/main/java/org/jgrapht/alg/tour/HeldKarpTSP.java) | 6 if + 5 for + 3 AND   -1  +2 =15 |
 |   |   |
 |   |   |
 |   |   |
@@ -90,7 +90,26 @@ First it checks that either the path or both the list of vertices and the list o
 
 Then depending on the way the path is described, it will check that the vertices or edges are contained in the graph,
 that each edges or vertices follow each other...
+
+### [buildGraph](./jgrapht-core/src/main/java/org/jgrapht/graph/builder/GraphTypeBuilder.java)
+This function builds a graph dependant on the boolean variables allowingSelfLoops, allowingMultipleEdges, weighted and
+
+directed. The function will return one of 16 possible graph structures that matches the correct boolean variables.
+
+The function handles this by nesting if statements.
+
+### [getTour](./jgrapht-core/src/main/java/org/jgrapht/alg/tour/HeldKarpTSP.java)
+This function computes a minimal-cost Hamiltonian tour, that is, the shortest way to visit every vertex exactly once.
+
+The function will return a minimal cost tour if it can be found, it will return null otherwise.
+
+The function starts by mapping all edges to integers and calculating the minimum weight between all vertices.
+
+It then reconstructs the tour and finds the minimal cost hamiltonian tour by looping through and evaluating all the edges.
+
+
 ### 4.
+
 
 ### 5.
 
@@ -137,8 +156,8 @@ These are the 10 functions we have tested
 | [verify](./jgrapht-core/src/main/java/org/jgrapht/graph/GraphWalk.java)  | 3  |
 | [equals](./jgrapht-core/src/main/java/org/jgrapht/alg/isomorphism/IsomorphicGraphMapping.java)|11|
 | [simpleCycleToGraphPath](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/Cycles.java)|13|
-|   |   |
-|   |   |
+| [buildGraph](./jgrapht-core/src/main/java/org/jgrapht/graph/builder/GraphTypeBuilder.java)|12|
+| [getTour](./jgrapht-core/src/main/java/org/jgrapht/alg/tour/HeldKarpTSP.java)|14|
 |   |   |
 |   |   |
 |   |   |
