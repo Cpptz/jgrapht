@@ -298,6 +298,10 @@ Patch can be viewed using the following diff command
 ```bash
 git diff master..refrac_2
 ```
+### [buildGraph](./jgrapht-core/src/main/java/org/jgrapht/graph/builder/GraphTypeBuilder.java)
+The function uses nesting if-else statements that could be refactored. The function uses the same if-else statements
+for the graph being directed and undirected. We can remove half of the if clauses by checking weighted() in a help
+function.
 
 ## Effort spent
 
