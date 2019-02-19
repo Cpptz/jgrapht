@@ -33,7 +33,7 @@ import java.util.function.*;
  *
  * <p>
  * See <a href="http://mathworld.wolfram.com/Walk.html">http://mathworld.wolfram.com/Walk.html</a>
- * 
+ *
  * <p>
  * GraphWalk is the default implementation of {@link GraphPath}.
  *
@@ -59,12 +59,12 @@ import java.util.function.*;
  * @param <E> the graph edge type
  *
  * @author Joris Kinable
- * 
+ *
  */
 public class GraphWalk<V, E>
-    implements
-    GraphPath<V, E>,
-    Serializable
+        implements
+        GraphPath<V, E>,
+        Serializable
 {
     private static final long serialVersionUID = 7663410644865380676L;
     protected Graph<V, E> graph;
@@ -77,6 +77,8 @@ public class GraphWalk<V, E>
     protected V endVertex;
 
     protected double weight;
+
+    static boolean[] branchCovered = new boolean[34];
 
     /**
      * Creates a walk defined by a sequence of edges. A walk defined by its edges can be specified
@@ -98,7 +100,7 @@ public class GraphWalk<V, E>
      * Creates a walk defined by a sequence of vertices. Note that the input graph must be simple,
      * otherwise the vertex sequence does not necessarily define a unique path. Furthermore, all
      * vertices must be pairwise adjacent.
-     * 
+     *
      * @param graph the graph
      * @param vertexList the list of vertices of the path
      * @param weight the total weight of the path
@@ -106,9 +108,9 @@ public class GraphWalk<V, E>
     public GraphWalk(Graph<V, E> graph, List<V> vertexList, double weight)
     {
         this(
-            graph, (vertexList.isEmpty() ? null : vertexList.get(0)),
-            (vertexList.isEmpty() ? null : vertexList.get(vertexList.size() - 1)), vertexList, null,
-            weight);
+                graph, (vertexList.isEmpty() ? null : vertexList.get(0)),
+                (vertexList.isEmpty() ? null : vertexList.get(vertexList.size() - 1)), vertexList, null,
+                weight);
     }
 
     /**
@@ -126,19 +128,19 @@ public class GraphWalk<V, E>
      * @param weight the total weight of the path
      */
     public GraphWalk(
-        Graph<V, E> graph, V startVertex, V endVertex, List<V> vertexList, List<E> edgeList,
-        double weight)
+            Graph<V, E> graph, V startVertex, V endVertex, List<V> vertexList, List<E> edgeList,
+            double weight)
     {
         // Some necessary but not sufficient conditions for valid paths
         if (vertexList == null && edgeList == null)
             throw new IllegalArgumentException("Vertex list and edge list cannot both be null!");
         if (startVertex != null && vertexList != null && edgeList != null
-            && edgeList.size() + 1 != vertexList.size())
+                && edgeList.size() + 1 != vertexList.size())
             throw new IllegalArgumentException(
-                "VertexList and edgeList do not correspond to the same path (cardinality of vertexList +1 must equal the cardinality of the edgeList)");
+                    "VertexList and edgeList do not correspond to the same path (cardinality of vertexList +1 must equal the cardinality of the edgeList)");
         if (startVertex == null ^ endVertex == null)
             throw new IllegalArgumentException(
-                "Either the start and end vertices must both be null, or they must both be not null (one of them is null)");
+                    "Either the start and end vertices must both be null, or they must both be not null (one of them is null)");
 
         this.graph = Objects.requireNonNull(graph);
         this.startVertex = startVertex;
@@ -186,7 +188,7 @@ public class GraphWalk<V, E>
 
     /**
      * Updates the weight of this walk
-     * 
+     *
      * @param weight weight of the walk
      */
     public void setWeight(double weight)
@@ -225,7 +227,7 @@ public class GraphWalk<V, E>
         if (this.isEmpty() && other.isEmpty())
             return true;
         if (!this.startVertex.equals(other.getStartVertex())
-            || !this.endVertex.equals(other.getEndVertex()))
+                || !this.endVertex.equals(other.getEndVertex()))
             return false;
         // If this path is expressed as a vertex list, we may get away by comparing the other path's
         // vertex list
@@ -257,7 +259,7 @@ public class GraphWalk<V, E>
      * be reversed. An exception is thrown if reversing an arc $(u,v)$ is impossible because arc
      * $(v,u)$ is not present in the graph. The weight of the resulting walk equals the sum of edge
      * weights in the walk.
-     * 
+     *
      * @throws InvalidGraphWalkException if the path is invalid
      * @return a reversed GraphWalk
      */
@@ -270,7 +272,7 @@ public class GraphWalk<V, E>
      * Reverses the direction of the walk. In case of directed/mixed graphs, the arc directions will
      * be reversed. An exception is thrown if reversing an arc $(u,v)$ is impossible because arc
      * $(v,u)$ is not present in the graph.
-     * 
+     *
      * @param walkWeightCalculator Function used to calculate the weight of the reversed GraphWalk
      * @throws InvalidGraphWalkException if the path is invalid
      * @return a reversed GraphWalk
@@ -298,8 +300,8 @@ public class GraphWalk<V, E>
                     E edge = graph.getEdge(u, v);
                     if (edge == null)
                         throw new InvalidGraphWalkException(
-                            "this walk cannot be reversed. The graph does not contain a reverse arc for arc "
-                                + graph.getEdge(v, u));
+                                "this walk cannot be reversed. The graph does not contain a reverse arc for arc "
+                                        + graph.getEdge(v, u));
                     else
                         revWeight += graph.getEdgeWeight(edge);
                 }
@@ -322,8 +324,8 @@ public class GraphWalk<V, E>
                     E revEdge = graph.getEdge(v, u);
                     if (revEdge == null)
                         throw new InvalidGraphWalkException(
-                            "this walk cannot be reversed. The graph does not contain a reverse arc for arc "
-                                + e);
+                                "this walk cannot be reversed. The graph does not contain a reverse arc for arc "
+                                        + e);
                     revEdgeList.add(revEdge);
                     revWeight += graph.getEdgeWeight(revEdge);
                 }
@@ -331,7 +333,7 @@ public class GraphWalk<V, E>
         }
         // Update weight of reversed walk
         GraphWalk<V, E> gw = new GraphWalk<>(
-            this.graph, this.endVertex, this.startVertex, revVertexList, revEdgeList, 0);
+                this.graph, this.endVertex, this.startVertex, revVertexList, revEdgeList, 0);
         if (walkWeightCalculator == null)
             gw.weight = revWeight;
         else
@@ -343,7 +345,7 @@ public class GraphWalk<V, E>
      * Concatenates the specified GraphWalk to the end of this GraphWalk. This action can only be
      * performed if the end vertex of this GraphWalk is the same as the start vertex of the
      * extending GraphWalk
-     * 
+     *
      * @param extension GraphPath used for the concatenation.
      * @param walkWeightCalculator Function used to calculate the weight of the GraphWalk obtained
      *        after the concatenation.
@@ -351,13 +353,13 @@ public class GraphWalk<V, E>
      *         walk specified in the extension argument.
      */
     public GraphWalk<V, E> concat(
-        GraphWalk<V, E> extension, Function<GraphWalk<V, E>, Double> walkWeightCalculator)
+            GraphWalk<V, E> extension, Function<GraphWalk<V, E>, Double> walkWeightCalculator)
     {
         if (this.isEmpty())
             throw new IllegalArgumentException("An empty path cannot be extended");
         if (!this.endVertex.equals(extension.getStartVertex()))
             throw new IllegalArgumentException(
-                "This path can only be extended by another path if the end vertex of the orginal path and the start vertex of the extension are equal.");
+                    "This path can only be extended by another path if the end vertex of the orginal path and the start vertex of the extension are equal.");
 
         List<V> concatVertexList = null;
         List<E> concatEdgeList = null;
@@ -374,7 +376,7 @@ public class GraphWalk<V, E>
         }
 
         GraphWalk<V, E> gw = new GraphWalk<>(
-            this.graph, startVertex, extension.getEndVertex(), concatVertexList, concatEdgeList, 0);
+                this.graph, startVertex, extension.getEndVertex(), concatVertexList, concatEdgeList, 0);
         gw.setWeight(walkWeightCalculator.apply(gw));
         return gw;
     }
@@ -382,7 +384,7 @@ public class GraphWalk<V, E>
     /**
      * Returns true if the path is an empty path, that is, a path with startVertex=endVertex=null
      * and with an empty vertex and edge list.
-     * 
+     *
      * @return Returns true if the path is an empty path.
      */
     public boolean isEmpty()
@@ -393,94 +395,157 @@ public class GraphWalk<V, E>
     /**
      * Convenience method which verifies whether the given path is feasible wrt the input graph and
      * forms an actual path.
-     * 
+     *
      * @throws InvalidGraphWalkException if the path is invalid
      */
     public void verify()
     {
 
-        if (isEmpty()) // Empty path
+        if (isEmpty()) { // Empty path
+            branchCovered[0] = true;
             return;
+        } else {branchCovered[1] = true;}
 
         if (vertexList != null && !vertexList.isEmpty()) {
-            if (!startVertex.equals(vertexList.get(0)))
+            branchCovered[2] = true;
+            if (!startVertex.equals(vertexList.get(0))) {
+                branchCovered[3] = true;
                 throw new InvalidGraphWalkException(
-                    "The start vertex must be the first vertex in the vertex list");
-            if (!endVertex.equals(vertexList.get(vertexList.size() - 1)))
+                        "The start vertex must be the first vertex in the vertex list");
+            }
+            else{
+                branchCovered[4]=true;
+            }
+            if (!endVertex.equals(vertexList.get(vertexList.size() - 1))) {
+                branchCovered[5] = true;
                 throw new InvalidGraphWalkException(
-                    "The end vertex must be the last vertex in the vertex list");
+                        "The end vertex must be the last vertex in the vertex list");
+            }else{
+                branchCovered[6]=true;
+            }
             // All vertices and edges in the path must be contained in the graph
-            if (!graph.vertexSet().containsAll(vertexList))
+            if (!graph.vertexSet().containsAll(vertexList)) {
+                branchCovered[7] = true;
                 throw new InvalidGraphWalkException(
-                    "Not all vertices in the path are contained in the graph");
+                        "Not all vertices in the path are contained in the graph");
+            } else{
+                branchCovered[8]=true;
+            }
 
             if (edgeList == null) {
+                branchCovered[9] = true;
                 // Verify sequence
                 Iterator<V> it = vertexList.iterator();
                 V u = it.next();
                 while (it.hasNext()) {
+                    branchCovered[10] = true;
                     V v = it.next();
-                    if (graph.getEdge(u, v) == null)
+                    if (graph.getEdge(u, v) == null) {
+                        branchCovered[11] = true;
                         throw new InvalidGraphWalkException(
-                            "The vertexList does not constitute to a feasible path. Edge (" + u
-                                + "," + v + " does not exist in the graph.");
+                                "The vertexList does not constitute to a feasible path. Edge (" + u
+                                        + "," + v + " does not exist in the graph.");
+                    }else{
+                        branchCovered[12]=true;
+                    }
                     u = v;
                 }
+            }else{
+                branchCovered[13]=true;
             }
+        }else{
+            branchCovered[14]=true;
         }
 
         if (edgeList != null && !edgeList.isEmpty()) {
-            if (!Graphs.testIncidence(graph, edgeList.get(0), startVertex))
+            branchCovered[15] = true;
+            if (!Graphs.testIncidence(graph, edgeList.get(0), startVertex)) {
+                branchCovered[16] = true;
                 throw new InvalidGraphWalkException(
-                    "The first edge in the edge list must leave the start vertex");
-            if (!graph.edgeSet().containsAll(edgeList))
+                        "The first edge in the edge list must leave the start vertex");
+            }else{
+                branchCovered[17]=true;
+            }
+            if (!graph.edgeSet().containsAll(edgeList)) {
+                branchCovered[18] = true;
                 throw new InvalidGraphWalkException(
-                    "Not all edges in the path are contained in the graph");
+                        "Not all edges in the path are contained in the graph");
+            } else{
+                branchCovered[19]=true;
+            }
 
             if (vertexList == null) {
+                branchCovered[20] = true;
                 V u = startVertex;
                 for (E edge : edgeList) {
-                    if (!Graphs.testIncidence(graph, edge, u))
+                    branchCovered[12] = true;
+                    if (!Graphs.testIncidence(graph, edge, u)) {
+                        branchCovered[13] = true;
                         throw new InvalidGraphWalkException(
-                            "The edgeList does not constitute to a feasible path. Conflicting edge: "
-                                + edge);
+                                "The edgeList does not constitute to a feasible path. Conflicting edge: "
+                                        + edge);
+                    }
                     u = Graphs.getOppositeVertex(graph, edge, u);
                 }
-                if (!u.equals(endVertex))
+                if (!u.equals(endVertex)) {
+                    branchCovered[14] = true;
                     throw new InvalidGraphWalkException(
-                        "The path defined by the edgeList does not end in the endVertex.");
+                            "The path defined by the edgeList does not end in the endVertex.");
+                }
+            }else{
+                branchCovered[21]=true;
             }
+        }else{
+            branchCovered[22]=true;
         }
 
         if (vertexList != null && edgeList != null) {
+            branchCovered[23] = true;
             // Verify that the path is an actual path in the graph
-            if (edgeList.size() + 1 != vertexList.size())
+            if (edgeList.size() + 1 != vertexList.size()) {
+                branchCovered[24] = true;
                 throw new InvalidGraphWalkException(
-                    "VertexList and edgeList do not correspond to the same path (cardinality of vertexList +1 must equal the cardinality of the edgeList)");
+                        "VertexList and edgeList do not correspond to the same path (cardinality of vertexList +1 must equal the cardinality of the edgeList)");
+            }else{
+                branchCovered[25]=true;
+            }
 
             for (int i = 0; i < vertexList.size() - 1; i++) {
+                branchCovered[26] = true;
                 V u = vertexList.get(i);
                 V v = vertexList.get(i + 1);
                 E edge = getEdgeList().get(i);
 
                 if (graph.getType().isDirected()) { // Directed graph
+                    branchCovered[27] = true;
                     if (!graph.getEdgeSource(edge).equals(u)
-                        || !graph.getEdgeTarget(edge).equals(v))
+                            || !graph.getEdgeTarget(edge).equals(v)) {
+                        branchCovered[28] = true;
                         throw new InvalidGraphWalkException(
-                            "VertexList and edgeList do not form a feasible path");
+                                "VertexList and edgeList do not form a feasible path");
+                    }else{
+                        branchCovered[29]=true;
+                    }
                 } else { // Undirected or mixed
+                    branchCovered[30] = true;
                     if (!Graphs.testIncidence(graph, edge, u)
-                        || !Graphs.getOppositeVertex(graph, edge, u).equals(v))
+                            || !Graphs.getOppositeVertex(graph, edge, u).equals(v)) {
+                        branchCovered[31] = true;
                         throw new InvalidGraphWalkException(
-                            "VertexList and edgeList do not form a feasible path");
+                                "VertexList and edgeList do not form a feasible path");
+                    }else{
+                        branchCovered[32]=true;
+                    }
                 }
             }
+        }else{
+            branchCovered[33]=true;
         }
     }
 
     /**
      * Convenience method which creates an empty walk.
-     * 
+     *
      * @param graph input graph
      * @param <V> vertex type
      * @param <E> edge type
@@ -489,12 +554,12 @@ public class GraphWalk<V, E>
     public static <V, E> GraphWalk<V, E> emptyWalk(Graph<V, E> graph)
     {
         return new GraphWalk<>(
-            graph, null, null, Collections.emptyList(), Collections.emptyList(), 0.0);
+                graph, null, null, Collections.emptyList(), Collections.emptyList(), 0.0);
     }
 
     /**
      * Convenience method which creates a walk consisting of a single vertex with weight 0.0.
-     * 
+     *
      * @param graph input graph
      * @param v single vertex
      * @param <V> vertex type
@@ -508,7 +573,7 @@ public class GraphWalk<V, E>
 
     /**
      * Convenience method which creates a walk consisting of a single vertex.
-     * 
+     *
      * @param graph input graph
      * @param v single vertex
      * @param weight weight of the path
@@ -519,7 +584,7 @@ public class GraphWalk<V, E>
     public static <V, E> GraphWalk<V, E> singletonWalk(Graph<V, E> graph, V v, double weight)
     {
         return new GraphWalk<>(
-            graph, v, v, Collections.singletonList(v), Collections.emptyList(), weight);
+                graph, v, v, Collections.singletonList(v), Collections.emptyList(), weight);
     }
 
 }
@@ -528,8 +593,8 @@ public class GraphWalk<V, E>
  * Exception thrown in the event that the path is invalid.
  */
 class InvalidGraphWalkException
-    extends
-    RuntimeException
+        extends
+        RuntimeException
 {
     private static final long serialVersionUID = 3811666107707436479L;
 
@@ -539,3 +604,6 @@ class InvalidGraphWalkException
     }
 
 }
+
+
+

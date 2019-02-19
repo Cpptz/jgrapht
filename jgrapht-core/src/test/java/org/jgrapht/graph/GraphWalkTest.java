@@ -31,6 +31,22 @@ import java.util.*;
 public class GraphWalkTest
 {
 
+    @AfterClass
+    public static void tearDownAll() {
+        int count = 0;
+        for (int i = 0; i < GraphWalk.branchCovered.length; i++) {
+            if (GraphWalk.branchCovered[i] == true) {
+                count++;
+            }
+        }
+        System.out.println(count);
+        System.out.println(GraphWalk.branchCovered.length);
+
+        for (int i = 0; i < GraphWalk.branchCovered.length; i++) {
+            System.out.println(i +" : "+GraphWalk.branchCovered[i]);
+        }
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void testInvalidPath1()
     {
