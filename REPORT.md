@@ -53,7 +53,7 @@ is not easily possible: ten complex functions)?
 | [buildGraph](./jgrapht-core/src/main/java/org/jgrapht/graph/builder/GraphTypeBuilder.java) | 16 if + 3 AND -1  +2 =20 |
 | [equals](./jgrapht-core/src/main/java/org/jgrapht/alg/isomorphism/IsomorphicGraphMapping.java)|2 if + 1 OR + 2 AND=|  
 | [simpleCycleToGraphPath](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/Cycles.java)|8 if + 1 for + 1 while  =|
-|   |   |
+| [getTour](./jgrapht-core/src/main/java/org/jgrapht/alg/tour/HeldKarpTSP.java) | 9 if + 8 for + 6 AND -1  +2 =24 |
 |   |   |
 |   |   |
 |   |   |
@@ -90,6 +90,14 @@ First it checks that either the path or both the list of vertices and the list o
 
 Then depending on the way the path is described, it will check that the vertices or edges are contained in the graph,
 that each edges or vertices follow each other...
+
+### [buildGraph](./jgrapht-core/src/main/java/org/jgrapht/graph/builder/GraphTypeBuilder.java)
+
+
+
+
+
+
 ### 4. 
 
 ### 5. 
