@@ -65,6 +65,30 @@ public class KleinbergSmallWorldGraphGeneratorTest
     }
 
     @Test
+    public void testgenerateGraphnEqualsToZero()
+    {
+        GraphGenerator<Integer, DefaultEdge, Integer> gen =
+                new KleinbergSmallWorldGraphGenerator<>(0);
+        Graph<Integer, DefaultEdge> g = new SimpleGraph<>(
+                SupplierUtil.createIntegerSupplier(), SupplierUtil.DEFAULT_EDGE_SUPPLIER, false);
+        gen.generateGraph(g);
+
+        assertEquals(0, g.vertexSet().size());
+    }
+
+    @Test
+    public void testgenerateGraphnEqualsToOne()
+    {
+        GraphGenerator<Integer, DefaultEdge, Integer> gen =
+                new KleinbergSmallWorldGraphGenerator<>(1);
+        Graph<Integer, DefaultEdge> g = new SimpleGraph<>(
+                SupplierUtil.createIntegerSupplier(), SupplierUtil.DEFAULT_EDGE_SUPPLIER, false);
+        gen.generateGraph(g);
+
+        assertEquals(1, g.vertexSet().size());
+    }
+
+    @Test
     public void testUndirected()
     {
         final long seed = 5;
