@@ -403,11 +403,18 @@ public class BergeGraphInspectorTest
          * stimulus.addEdge(5,9); stimulus.addEdge(6,9);
          *
          */
+        // Change the attribute certify to true to allow the test to
+        // enter new branches which requires certify to be true.
         dut.setCertify(true);
         assertTrue(dut.hasConfigurationType3(stimulus));
 
         stimulus.addEdge(4, 7);
         assertFalse(dut.hasConfigurationType3(stimulus));
+
+        // Change certify back to false to not mess up any other states.
+        dut.setCertify(false);
+
+
 
     }
 

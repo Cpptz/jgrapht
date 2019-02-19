@@ -1012,6 +1012,12 @@ public class BergeGraphInspector<V, E>
         }
         return false;
     }
+
+    /**
+     * Used to change the attribute certify to be able to test
+     * branches which require certify to be true.
+     * @param x the value to set
+     */
     public void setCertify(boolean x) {
         certify = x;
     }
