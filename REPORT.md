@@ -163,6 +163,9 @@ The code is documented with JavaDoc so we found that each function is pretty cle
 
 ## Coverage
 
+We did our coverage experiments in ``cov_<Branch number>`` branches and the new tests in ``iss_<Branch number>`` and
+finally we merged every ``iss_<Branch number>`` in the ``all_new_test`` branch.
+
 ### Tools
 
 <!--Document your experience in using a "new"/different coverage tool.
