@@ -318,6 +318,10 @@ weighted() in a help function.
 ### [generateGraph](./jgrapht-core/src/main/java/org/jgrapht/generate/PlantedPartitionGraphGenerator.java)
 This function uses duplicated code for most of directed and undirected graphs. This could be abstracted to another function.
 
+### [getTour](./jgrapht-core/src/main/java/org/jgrapht/alg/tour/HeldKarpTSP.java)
+We can refract this function by extracting the code that is maps each vertex to an integer as well as assigning values
+ to a matrix which contains the minimum weight of edges in to a separate function.
+
 ## Effort spent
 
 <!-- For each team member, how much time was spent in-->
