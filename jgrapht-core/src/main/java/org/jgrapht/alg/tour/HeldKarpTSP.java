@@ -54,7 +54,7 @@ public class HeldKarpTSP<V, E>
     implements
     HamiltonianCycleAlgorithm<V, E>
 {
-    static boolean[] branchCovered = new boolean[20];
+    static boolean[] branchCovered = new boolean[18];
 
 
     /**
