@@ -333,6 +333,23 @@ git diff master..refrac_2
     7. writing code: 7h
     
     8. running code: 1h
+    
+ * Sara
+    1. plenary discussions/meetings: 5h
+
+    2. discussions within parts of the group: 5h
+
+    3. reading documentation: 3h
+
+    4. configuration: 3h
+
+    5. analyzing code/output: 5h
+
+    6. writing documentation: 2h
+
+    7. writing code: 6h
+
+    8. running code: 1h
 
 ## Overall experience
 
