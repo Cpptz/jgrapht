@@ -52,7 +52,7 @@ public class BellmanFordShortestPath<V, E>
 {
     protected final Comparator<Double> comparator;
     protected final int maxHops;
-    static boolean[] branchCovered = new boolean[15];
+    static boolean[] branchCovered = new boolean[10];
 
     /**
      * Construct a new instance.
