@@ -54,8 +54,8 @@ is not easily possible: ten complex functions)?
 | [equals](./jgrapht-core/src/main/java/org/jgrapht/alg/isomorphism/IsomorphicGraphMapping.java)|2 if + 1 OR + 2 AND=|
 | [simpleCycleToGraphPath](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/Cycles.java)|8 if + 1 for + 1 while  =|
 | [getTour](./jgrapht-core/src/main/java/org/jgrapht/alg/tour/HeldKarpTSP.java) | 6 if + 5 for + 3 AND   -1  +2 =15 |
-|   |   |
-|   |   |
+| [hasConfigurationType2](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)| 11 if + 7 for + 13 or = 31  |
+| [hasConfigurationType3](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)| 10 if + 9 for + 29 or + 4 and = 52 |
 |   |   |
 |   |   |
 |   |   |
@@ -169,8 +169,8 @@ These are the 10 functions we have tested
 | [simpleCycleToGraphPath](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/Cycles.java)|13|
 | [buildGraph](./jgrapht-core/src/main/java/org/jgrapht/graph/builder/GraphTypeBuilder.java)|12|
 | [getTour](./jgrapht-core/src/main/java/org/jgrapht/alg/tour/HeldKarpTSP.java)|14|
-|   |   |
-|   |   |
+| [hasConfigurationType2](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)| 4 |
+| [hasConfigurationType3](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)| 5 |
 |   |   |
 |   |   |
 
@@ -210,7 +210,8 @@ Report of new coverage: [link]
 
 Test cases added:
 
-git diff ... -->
+git diff ... 
+-->
 
 <center>
 
@@ -246,26 +247,46 @@ So we can put that code in a new private function. This way, the CCN of the func
 Patch can be viewed using the following diff command
 ```bash
 git diff master..refrac_2
+```
 
 ## Effort spent
 
-For each team member, how much time was spent in
-Viktor:
-    1. plenary discussions/meetings; 5h
+<!-- For each team member, how much time was spent in-->
 
-    2. discussions within parts of the group; 5h
 
-    3. reading documentation; 3h
+* Viktor
+    1. plenary discussions/meetings: 5h
 
-    4. configuration; 3h
+    2. discussions within parts of the group: 5h
 
-    5. analyzing code/output; 5h
+    3. reading documentation: 3h
 
-    6. writing documentation; 2h
+    4. configuration: 3h
 
-    7. writing code; 3h
+    5. analyzing code/output: 5h
 
-    8. running code? 0.5h
+    6. writing documentation: 2h
+
+    7. writing code: 3h
+
+    8. running code: 0.5h
+    
+* Cyril 
+    1. plenary discussions/meetings : 5h
+
+    2. discussions within parts of the group: 5h
+    
+    3. reading documentation: 2h
+    
+    4. configuration: 2h
+    
+    5. analyzing code/output: 5h
+    
+    6. writing documentation: 3h
+    
+    7. writing code: 7h
+    
+    8. running code: 1h
 
 ## Overall experience
 
