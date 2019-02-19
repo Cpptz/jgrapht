@@ -143,6 +143,12 @@ This is a boolean function which takes a graph with two generics as input and re
 
 The function tests all vertex permutations of 4 and adds the 4th to a set if it is not connected to any of the first 3 vertices. Then all components of the set are found. After that two new sets are extracted.
 
+### [hasConfigurationType2()](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)|
+The function returns true if the graph g is of configuration type T2 which is a sequense v1,...,v4 (vertices) with some conditions.
+First it enters for loops which iterates over the vertices in the graph. in each loop, there is a if condition that needs to be fullfilled, or the loop will go to the next iteration.
+If the if conditions in the for loops are fulfilled. It will check the paths (edges) between the vertices to see if the configuration of the graph is of given specifications. If it is the method will return true, if not it will return false.
+
+
 ### 4.
 
 The complexity does not change due to adding exceptions. When calculating complexity, the function evaluates the
