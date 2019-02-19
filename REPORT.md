@@ -51,9 +51,9 @@ is not easily possible: ten complex functions)?
 | [isEulerian](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java) | 9 if +6 for + 1 OR -1 return point + 2 = 17|
 | [verify](./jgrapht-core/src/main/java/org/jgrapht/graph/GraphWalk.java)  | 18 if + 2 for + 1 while + 3 AND + 2 OR -1 return point +2 = 27 |
 | [buildGraph](./jgrapht-core/src/main/java/org/jgrapht/graph/builder/GraphTypeBuilder.java) | 16 if + 3 AND -1  +2 =20 |
-| [equals](./jgrapht-core/src/main/java/org/jgrapht/alg/isomorphism/IsomorphicGraphMapping.java)|2 if + 1 OR + 3 AND -1 +2 =| 
-| [simpleCycleToGraphPath](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/Cycles.java)|9 if + 1 for + 1 while -1 +2=12|
-|   |   |
+| [equals](./jgrapht-core/src/main/java/org/jgrapht/alg/isomorphism/IsomorphicGraphMapping.java)|2 if + 1 OR + 2 AND=|
+| [simpleCycleToGraphPath](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/Cycles.java)|8 if + 1 for + 1 while  =|
+| [getTour](./jgrapht-core/src/main/java/org/jgrapht/alg/tour/HeldKarpTSP.java) | 6 if + 5 for + 3 AND   -1  +2 =15 |
 |   |   |
 |   |   |
 |   |   |
@@ -69,13 +69,13 @@ As this a graph library with many algorithms, the functions can be both long and
 
 ### 3.
 #### [isEulerian()](./jgraph-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java)
-This function return true if the graph contains an eulerian cycle. 
-That is finding if it is possible to construct a cycle, i.e. a path starting and ending on the same vertex, which 
+This function return true if the graph contains an eulerian cycle.
+That is finding if it is possible to construct a cycle, i.e. a path starting and ending on the same vertex, which
 visits each vertex exactly once. It also means, the graph should only have one connected componenent with edges.
 
 First, it checked that the graph contained vertices and node.
 
-Then if it is a undirected graph, it checks that all vertices have an even degree 
+Then if it is a undirected graph, it checks that all vertices have an even degree
 and that there is only connected component with edges.
 
 Otherwise if it is a directed graph, it checks for all vertices that their in degree is equal to their out degree
@@ -90,9 +90,28 @@ First it checks that either the path or both the list of vertices and the list o
 
 Then depending on the way the path is described, it will check that the vertices or edges are contained in the graph,
 that each edges or vertices follow each other...
-### 4. 
 
-### 5. 
+### [buildGraph](./jgrapht-core/src/main/java/org/jgrapht/graph/builder/GraphTypeBuilder.java)
+This function builds a graph dependant on the boolean variables allowingSelfLoops, allowingMultipleEdges, weighted and
+
+directed. The function will return one of 16 possible graph structures that matches the correct boolean variables.
+
+The function handles this by nesting if statements.
+
+### [getTour](./jgrapht-core/src/main/java/org/jgrapht/alg/tour/HeldKarpTSP.java)
+This function computes a minimal-cost Hamiltonian tour, that is, the shortest way to visit every vertex exactly once.
+
+The function will return a minimal cost tour if it can be found, it will return null otherwise.
+
+The function starts by mapping all edges to integers and calculating the minimum weight between all vertices.
+
+It then reconstructs the tour and finds the minimal cost hamiltonian tour by looping through and evaluating all the edges.
+
+
+### 4.
+
+
+### 5.
 
 ## Coverage
 
@@ -131,14 +150,14 @@ its output?
 These are the 10 functions we have tested
 <center>
 
-|  Method | Branch number | 
+|  Method | Branch number |
 |---|---|
-| [isEulerian](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java) | 2  | 
-| [verify](./jgrapht-core/src/main/java/org/jgrapht/graph/GraphWalk.java)  | 3  | 
+| [isEulerian](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java) | 2  |
+| [verify](./jgrapht-core/src/main/java/org/jgrapht/graph/GraphWalk.java)  | 3  |
 | [equals](./jgrapht-core/src/main/java/org/jgrapht/alg/isomorphism/IsomorphicGraphMapping.java)|11|
 | [simpleCycleToGraphPath](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/Cycles.java)|13|
-|   |   |
-|   |   |
+| [buildGraph](./jgrapht-core/src/main/java/org/jgrapht/graph/builder/GraphTypeBuilder.java)|12|
+| [getTour](./jgrapht-core/src/main/java/org/jgrapht/alg/tour/HeldKarpTSP.java)|14|
 |   |   |
 |   |   |
 |   |   |
@@ -146,7 +165,7 @@ These are the 10 functions we have tested
 
 </center>
 
-To test the branch coverage we put a boolean array as a static attribute in the class under test and add this code in 
+To test the branch coverage we put a boolean array as a static attribute in the class under test and add this code in
 the JUnit test file corresponding to the class under test.
 ```java
 @AfterClass
@@ -185,12 +204,12 @@ git diff ...
 <center>
 
 
-|  Method | Branch number | Old coverage   |Number of new test cases | New coverage | 
+|  Method | Branch number | Old coverage   |Number of new test cases | New coverage |
 |---|---|---|---|---|
 | [isEulerian](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java) | 2 | 21/22  | 1 | 22/22 |
 | [verify](./jgrapht-core/src/main/java/org/jgrapht/graph/GraphWalk.java)   | 3 | 20/34 | 9 | 31/34 |
-|   |   |
-|   |   |
+| [buildGraph](./jgrapht-core/src/main/java/org/jgrapht/graph/builder/GraphTypeBuilder.java) | 12 | 8/27 | 2 | 12/27 |
+| [getTour](./jgrapht-core/src/main/java/org/jgrapht/alg/tour/HeldKarpTSP.java)| 14 | 17/18 | 1 | 18/18 |
 |   |   |
 |   |   |
 |   |   |
@@ -200,24 +219,17 @@ git diff ...
 <center>
 
 
-To find the new test added, one can run the following diff command 
+To find the new test added, one can run the following diff command
 ```bash
 git diff master..iss_<Branch number> jgrapht-core/src/test/
 ```
 ## Refactoring
 
-<!-- Plan for refactoring complex code:
+Plan for refactoring complex code:
 
-Carried out refactoring (optional) -->
+Carried out refactoring (optional)
 
-#### [isEulerian()](./jgraph-core/src/main/java/org/jgrapht/alg/cycle/HierholzerEulerianCycle.java)
-The way to check that there is only connected component with edges is redundant between the two main branches.
-So we can put that code in a new private function. This way, the CCN of the function is reduced from 17 to 8.
-Patch can be viewed using the following diff command
-```bash
-git diff master..refrac_2
-
-```
+git diff ...
 
 ## Effort spent
 
