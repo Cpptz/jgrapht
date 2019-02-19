@@ -114,15 +114,17 @@ The complexity does not change due to adding exceptions. When calculating comple
 
 exception essentially as a return statement. With regards to the complexity, return statements increases complexity
 
-by one, which is why we add +1 when calculating it by hand. The same holds true for exceptions, a function that only
+by one, which is why we add +1 when calculating it by hand. The same holds true for exceptions, a function that does
 
-throws an exception will have complexity 1.
+nothing but throw an exception will have complexity 1.
 
 When catching an exception using try{} catch{} will increase complexity by one due to the try statement as it holds
 
 similar functionality as an if-statement.
 
 ### 5.
+
+
 
 ## Coverage
 
