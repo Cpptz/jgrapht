@@ -153,7 +153,7 @@ If the if conditions in the for loops are fulfilled. It will check the paths (ed
 ### [hasConfigurationType3()](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)|
 The function returns true if the graph g is of configuration type T3 which is a sequense v1,...,v6 (vertices) with some conditions.
 
-It works similarlyto the hasConfigurationType2 so that there are for loops which iterates over the vertices and in those forloops there are if condtiions that needs to be fullfilled or the loop will go to the next iteration. If all conditions are fulfilled, it will enter the last for loop, check the last condition and then start checking if the configuration is of type T3 which you can see conditions for in the documentation. If the configuration of the graph matches the specifications for T3, the method will return true and if the configuration does not match T3 it will return false.
+It works similarly to the hasConfigurationType2 so that there are for loops which iterates over the vertices and in those forloops there are if condtiions that needs to be fullfilled or the loop will go to the next iteration. If all conditions are fulfilled, it will enter the last for loop, check the last condition and then start checking if the configuration is of type T3 which you can see conditions for in the documentation. If the configuration of the graph matches the specifications for T3, the method will return true and if the configuration does not match T3 it will return false.
 
 ### 4.
 
