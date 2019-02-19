@@ -141,7 +141,7 @@ The input graph is supposed to neither contain a pyramid nor a jewel. The functi
 ### [containsJewel()](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)
 This is a boolean function which takes a graph with two generics as input and returns true if the function contains a jewel, and false if it does not. The time complexity is O(|V(g)|^6). 
 
-The function tests all vertex permutations of 4 and adds the 4th to a set if it is not connected to any of the first 3 vertices. Then all components of the set are found. After that two new sets are extracted.
+The function tests all vertex permutations of 4 and adds the fourth to a set if it is not connected to any of the first 3 vertices. Then all components of the set are found. After that two new sets are extracted depending on different conditions; such as which share an edge and which do not. Finally each vertex from the first set is compared which each vertex from the second set and in turn compared with each from the components set. If the two first vertices share neighbour the components set the graph contains a jewel.
 
 ### [hasConfigurationType2()](./jgrapht-core/src/main/java/org/jgrapht/alg/cycle/BergeGraphInspector.java)
 The function returns true if the graph g is of configuration type T2 which is a sequense v1,...,v4 (vertices) with some conditions.
